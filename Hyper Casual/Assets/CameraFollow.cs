@@ -7,45 +7,54 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 0.125f; // Velocidade de suavização
     public float zOffset = -10f; // Deslocamento no eixo Z
 
+    public Vector3 initialVelocity; // Velocidade inicial da câmera
+    public Vector3 velocityIncrement; // Incremento de velocidade
+    public float timeBetweenSpeedIncrement = 5f; // Intervalo entre aumentos de velocidade
 
-    public Vector3 initialVelocity;
-    // public float currentVelocity;
-    public Vector3 velocityIncrement; // Velocidade de suavização
-    public float timeBetweenSpeedIncrement = 5; // Velocidade de suavização
+    public float playerCatchUpSpeedMultiplier = 2f; // Multiplicador de velocidade para alcançar o jogador
 
-    public Vector3 currentVelocity;
+    private Vector3 currentVelocity; // Velocidade atual da câmera
 
-    private void Start() {
+    private void Start()
+    {
         currentVelocity = initialVelocity;
         StartCoroutine(IncrementalSpeed());
     }
 
-    void LateUpdate()
+    private void Update()
     {
+        MoveForward();
         if (player != null)
         {
-            // // Calcula a nova posição da câmera
-            // Vector3 targetPosition = transform.position;
-            // targetPosition.z = player.position.z + zOffset;
-            // // Suaviza a movimentação no eixo Z
-            // transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothSpeed);
+            // Verifica se o jogador está à frente da câmera
+            if (player.position.z > transform.position.z - zOffset)
+            {
+                // Calcula a posição alvo da câmera para alcançar o jogador
+                Vector3 targetPosition = transform.position;
+                targetPosition.z = player.position.z + zOffset;
+
+                // Acelera a câmera para alcançar o jogador
+                transform.position = Vector3.Lerp(
+                    transform.position,
+                    targetPosition,
+                    smoothSpeed * playerCatchUpSpeedMultiplier * Time.deltaTime
+                );
+            }
         }
     }
 
-    private void FixedUpdate() {
-        MoveFront();
+    public void MoveForward()
+    {
+        // Move a câmera para frente com a velocidade atual
+        transform.position += currentVelocity * Time.deltaTime;
     }
 
-    public void MoveFront(){
-        transform.position += currentVelocity;
-    }
-
-    IEnumerator IncrementalSpeed(){
-        while(true){
-            yield return new WaitForSeconds(5);
+    private IEnumerator IncrementalSpeed()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(timeBetweenSpeedIncrement);
             currentVelocity += velocityIncrement;
-        };
+        }
     }
-    
-    
 }

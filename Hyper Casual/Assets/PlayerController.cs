@@ -27,26 +27,26 @@ public class PlayerController : MonoBehaviour
 
     public void MoveFront()
     {
+        if(isMoving == true) {
+            moveDuration = 0.1f;
+            return;
+        }
         Vector3 newPosition = targetPosition + Vector3.forward * gridSize;
         StartCoroutine(MoveToPosition(newPosition));
     }
 
     public void MoveDiagonalWithSwipe(Vector2 swipeDirection)
-            {
-                Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;
-                Vector3 vertical = Vector3.forward;
+    {
+        if(isMoving == true) {
+            moveDuration = 0.1f;
+            return;
+        }
+        Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;
+        Vector3 vertical = Vector3.forward;
+        Vector3 newPosition = targetPosition + (horizontal + vertical) * gridSize;
+        StartCoroutine(MoveToPosition(newPosition));
 
-                Vector3 newPosition = targetPosition + (horizontal + vertical) * gridSize;
-                    StartCoroutine(MoveToPosition(newPosition));
-
-                if (IsValidPosition(newPosition))
-                {
-                }
-                else
-                {
-                    Debug.Log("Invalid diagonal position: " + newPosition);
-                }
-            }
+    }
     bool IsValidPosition(Vector3 position)
     {
         // Adjust logic to check grid-based movement validity
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         targetPosition = destination;
         float elapsedTime = 0;
 
-        yield return new WaitForSeconds(0.10f);
+        // yield return new WaitForSeconds(0.10f);
         while (elapsedTime < moveDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -78,13 +78,14 @@ public class PlayerController : MonoBehaviour
 
         transform.position = destination;
         isMoving = false;
+        moveDuration = 0.3f;
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Lava"))
         {
-            Debug.Break();
+            // ebug.Break(); pause game on editor
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
