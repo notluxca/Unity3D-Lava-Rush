@@ -1,0 +1,12 @@
+# ninja log v5
+54	3733	7560203099147450	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	5ab3a0be1e22dd68
+37	3785	7560203098957405	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	f4f73fc3a181467f
+7	3802	7560203099807710	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	4e7f0c8124cc216f
+27	3859	7560203100342891	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	fe879a58330d0804
+43	3860	7560203100612946	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	60fa2b4bdd46410d
+1	4099	7560203103396783	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	bd94155b3df6542d
+21	4182	7560203104263723	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	94835011667d7cc5
+13	4220	7560203104653854	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	14c932869a29dff9
+3761	4711	7560203109665616	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	2664c9aa9368f8d5
+4220	4797	7560203110126975	C:/Users/Lucas Fernandes/Documents/GitHub/Mobile-Jumper/Hyper Casual/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/h5e2x3l3/obj/arm64-v8a/libgame.so	970c7546651c76ec
+4711	4997	7560203112412119	C:/Users/Lucas Fernandes/Documents/GitHub/Mobile-Jumper/Hyper Casual/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/h5e2x3l3/obj/arm64-v8a/libswappywrapper.so	83be06bc118e18f7

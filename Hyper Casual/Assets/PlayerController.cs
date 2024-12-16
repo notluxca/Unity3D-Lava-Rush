@@ -24,108 +24,29 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+
+    public void MoveFront()
     {
-        if (!isMoving)
-        {
-            // Keyboard controls
-            if (Input.GetKeyDown(KeyCode.W)) Move(Vector3.forward); // Forward
-            if (Input.GetKeyDown(KeyCode.A)) MoveDiagonal(Vector3.left, Vector3.forward); // Diagonal left-up
-            if (Input.GetKeyDown(KeyCode.D)) MoveDiagonal(Vector3.right, Vector3.forward); // Diagonal right-up
-
-            // Detect swipes
-            Swipe();
-        }
-    }
-
-    //inside class
-
-
-public void Swipe()
-{
-     if(Input.touches.Length > 0)
-     {
-	     Touch t = Input.GetTouch(0);
-	     if(t.phase == TouchPhase.Began)
-	     {
-	          //save began touch 2d point
-		     firstPressPos = new Vector2(t.position.x,t.position.y);
-	     }
-	     if(t.phase == TouchPhase.Ended)
-	     {
-              //save ended touch 2d point
-		     secondPressPos = new Vector2(t.position.x,t.position.y);
-		     				
-              //create vector from the two points
-		     currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
-				
-		     //normalize the 2d vector
-		     currentSwipe.Normalize();
-
-		     //swipe upwards
-		     if(currentSwipe.y > 0  currentSwipe.x > -0.5f  currentSwipe.x < 0.5f)
-		     {
-			     Debug.Log("up swipe");
-		     }
-		     //swipe down
-		     if(currentSwipe.y < 0  currentSwipe.x > -0.5f  currentSwipe.x < 0.5f)
-		     {
-			     Debug.Log("down swipe");
-		     }
-		     //swipe left
-		     if(currentSwipe.x < 0  currentSwipe.y > -0.5f  currentSwipe.y < 0.5f)
-		     {
-			     Debug.Log("left swipe");
-		     }
-		     //swipe right
-		     if(currentSwipe.x > 0  currentSwipe.y > -0.5f  currentSwipe.y < 0.5f)
-		     {
-			     Debug.Log("right swipe");
-		     }
-	     }
-     }
-}
-
-    void HandleTouchOrSwipe()
-    {
-        Vector2 swipe = endTouchPosition - startTouchPosition;
-
-        if (!swipeDetected && swipe.magnitude < minSwipeDistance)
-        {
-            // Treat as a simple tap
-            Move(Vector3.forward);
-        }
-        else if (swipeDetected)
-        {
-            // Normalize swipe direction
-            swipe.Normalize();
-
-            if (Mathf.Abs(swipe.x) > Mathf.Abs(swipe.y))
-            {
-                if (swipe.x > 0) MoveDiagonal(Vector3.right, Vector3.forward); // Swipe right-up
-                else MoveDiagonal(Vector3.left, Vector3.forward); // Swipe left-up
-            }
-            else if (swipe.y > 0) // Swipe up
-            {
-                Move(Vector3.forward);
-            }
-        }
-    }
-
-    void Move(Vector3 direction)
-    {
-        Vector3 newPosition = targetPosition + direction * gridSize;
-        animator.SetTrigger("Jump");
+        Vector3 newPosition = targetPosition + Vector3.forward * gridSize;
         StartCoroutine(MoveToPosition(newPosition));
     }
 
-    void MoveDiagonal(Vector3 horizontal, Vector3 vertical)
-    {
-        Vector3 newPosition = targetPosition + (horizontal + vertical) * gridSize;
-        animator.SetTrigger("Jump");
-        StartCoroutine(MoveToPosition(newPosition));
-    }
+    public void MoveDiagonalWithSwipe(Vector2 swipeDirection)
+            {
+                Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;
+                Vector3 vertical = Vector3.forward;
 
+                Vector3 newPosition = targetPosition + (horizontal + vertical) * gridSize;
+                    StartCoroutine(MoveToPosition(newPosition));
+
+                if (IsValidPosition(newPosition))
+                {
+                }
+                else
+                {
+                    Debug.Log("Invalid diagonal position: " + newPosition);
+                }
+            }
     bool IsValidPosition(Vector3 position)
     {
         // Adjust logic to check grid-based movement validity
