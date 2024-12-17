@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlataformGenerator : MonoBehaviour
 {
     [SerializeField] GameObject plataform;
+    [SerializeField] GameObject FakePlataform;
     [SerializeField] private int laneSizeY;
     [SerializeField] private float gridSize;
 
@@ -58,7 +59,12 @@ public class PlataformGenerator : MonoBehaviour
             }
 
             // Instantiate the platform at the calculated position
-            Instantiate(plataform, new Vector3(xLane, transform.position.y, zPosition), Quaternion.identity);
+            int plataformChosen = Random.Range(0,2);
+            if(plataformChosen == 0){
+                Instantiate(plataform, new Vector3(xLane, transform.position.y, zPosition), Quaternion.identity);
+            } else {
+                Instantiate(FakePlataform, new Vector3(xLane, transform.position.y, zPosition), Quaternion.identity);
+            }
 
             // Update the last spawned X position
             lastSpawnX = xLane;

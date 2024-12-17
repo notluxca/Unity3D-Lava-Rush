@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1830747638520804842}
   - component: {fileID: 7119952732278977481}
   - component: {fileID: 2901664550482722255}
-  - component: {fileID: 433004493989555231}
+  - component: {fileID: 779098882973581148}
+  - component: {fileID: 9192860584235751348}
   m_Layer: 0
-  m_Name: Plataform
+  m_Name: FakePlataform
   m_TagString: Plataform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7fb86aaf6b1d0474f9922ca7ed6a8613, type: 2}
+  - {fileID: 2100000, guid: 12f078610efad994ba2c357ef3716b4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +110,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &433004493989555231
+--- !u!114 &779098882973581148
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,4 +123,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
-  distanceToFall: 5
+  distanceToFall: 0
+--- !u!114 &9192860584235751348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7621617621168759273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f706bcc6d3f9f5f4baf0e11931c17540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
