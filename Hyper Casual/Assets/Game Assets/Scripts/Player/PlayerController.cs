@@ -3,19 +3,26 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float minSwipeDistance = 200f; // Minimum swipe distance in pixels
-    public float moveDuration = 0.2f; // Time for one move
-    public float jumpHeight = 1.0f;  // Maximum jump height
-    public float gridSize = 1.0f;    // Distance between grid positions
+
+    [Header("Main Player Settings")]
+    [SerializeField] float moveDuration = 0.2f; // Time for one move
+    [SerializeField] float jumpHeight = 1.0f;  // Maximum jump height
+    [SerializeField] bool canMove = true;
+    
+    [Header("Mov Grid Settings")]
+    [SerializeField] float gridSize = 1.0f;    // Distance between grid positions
+    
+    //* Private Data
     private Vector3 targetPosition;
-    private bool isMoving = false;
-
-    Vector2 firstPressPos;
-    Vector2 secondPressPos;
-    Vector2 currentSwipe;
-
-    private bool swipeDetected = false;
     private Animator animator;
+
+
+    //! outside responsability
+    int currentScore = 0;
+    private bool isMoving = false;
+    
+
+    
 
     void Start()
     {
@@ -27,16 +34,19 @@ public class PlayerController : MonoBehaviour
 
     public void MoveFront()
     {
+        if(!canMove) return;
         if(isMoving == true) {
             moveDuration = 0.1f;
             return;
         }
         Vector3 newPosition = targetPosition + Vector3.forward * gridSize;
+        CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));
     }
 
     public void MoveDiagonalWithSwipe(Vector2 swipeDirection)
     {
+        if(!canMove) return;
         if(isMoving == true) {
             moveDuration = 0.1f;
             return;
@@ -44,17 +54,29 @@ public class PlayerController : MonoBehaviour
         Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;
         Vector3 vertical = Vector3.forward;
         Vector3 newPosition = targetPosition + (horizontal + vertical) * gridSize;
+        CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));
 
     }
-    bool IsValidPosition(Vector3 position)
+    void CheckJumpPosition(Vector3 position)
     {
         // Adjust logic to check grid-based movement validity
-        return Mathf.Approximately(position.y, 0.0f);
+        // Raycast new position
+        // check plataform or lava -- cancel r liberate next movment
+        RaycastHit hit;
+        if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        { 
+            Debug.DrawRay(position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow, 2); 
+            if(!hit.collider.gameObject.CompareTag("Plataform")){
+                canMove = false;
+            }
+        }
+        
     }
 
     System.Collections.IEnumerator MoveToPosition(Vector3 destination)
     {
+        
         isMoving = true;
         Vector3 startPosition = transform.position;
         targetPosition = destination;
@@ -87,6 +109,11 @@ public class PlayerController : MonoBehaviour
         {
             // ebug.Break(); pause game on editor
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (other.gameObject.CompareTag("Plataform"))
+        {
+            currentScore += 1;
+            UIManager.Instance.UpdateScoreUI(currentScore);
         }
     }
 }

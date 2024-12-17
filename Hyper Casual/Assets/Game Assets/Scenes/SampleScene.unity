@@ -207,13 +207,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3104136, y: -0.102577694, z: 0.033714112, w: 0.94444937}
-  m_LocalPosition: {x: 10.1, y: 34.6, z: -15.4}
+  m_LocalRotation: {x: 0.31142136, y: -0.06870644, z: 0.022581592, w: 0.9475159}
+  m_LocalPosition: {x: 5.3, y: 34.6, z: -15.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 36.388, y: -12.397, z: 0}
+  m_LocalEulerAnglesHint: {x: 36.388, y: -8.295, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,8 +295,8 @@ MonoBehaviour:
   player: {fileID: 1074305473}
   smoothSpeed: 0.125
   zOffset: -25
-  initialVelocity: {x: 0, y: 0, z: 0.2}
-  velocityIncrement: {x: 0, y: 0, z: 0.03}
+  initialVelocity: {x: 0, y: 0, z: 5}
+  velocityIncrement: {x: 0, y: 0, z: 2}
   timeBetweenSpeedIncrement: 7.5
   playerCatchUpSpeedMultiplier: 4
 --- !u!1 &410087039
@@ -463,7 +463,7 @@ GameObject:
   - component: {fileID: 663364073}
   - component: {fileID: 663364072}
   m_Layer: 5
-  m_Name: Points
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -977,6 +977,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014468678}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1035217457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1035217459}
+  - component: {fileID: 1035217458}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1035217458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035217457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c82336c0ddd96449c44f66d06d325a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 663364072}
+--- !u!4 &1035217459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035217457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.697164, y: 131.86375, z: -138.18617}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1066038778
 GameObject:
   m_ObjectHideFlags: 8
@@ -1132,9 +1177,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSwipeDistance: 100
+  currentScore: 0
   moveDuration: 0.3
   jumpHeight: 6
   gridSize: 10
+  canMove: 1
 --- !u!54 &1074305475
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1725,3 +1772,4 @@ SceneRoots:
   - {fileID: 1074305473}
   - {fileID: 582050825}
   - {fileID: 2141077647}
+  - {fileID: 1035217459}

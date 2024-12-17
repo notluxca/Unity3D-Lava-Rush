@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Lava
+  - Plataform
   layers:
   - Default
   - TransparentFX
