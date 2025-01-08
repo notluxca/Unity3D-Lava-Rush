@@ -48,6 +48,7 @@ public class BackgroundRepeater : MonoBehaviour
 
         // Atualiza a posição para o próximo chunk considerando o tamanho real do chunk no eixo Z
         nextSpawnPosition += spawnAxis * GetChunkSizeZ(newChunk);
+        newChunk.transform.Rotate(new Vector3(90,0,0));
     }
 
     void RemoveFarChunks()
