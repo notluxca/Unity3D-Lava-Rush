@@ -14,16 +14,21 @@ public class CameraFollow : MonoBehaviour
     public float playerCatchUpSpeedMultiplier = 2f; // Multiplicador de velocidade para alcançar o jogador
 
     private Vector3 currentVelocity; // Velocidade atual da câmera
+    private bool gameStarted = false;
 
     private void Start()
     {
         currentVelocity = initialVelocity;
         StartCoroutine(IncrementalSpeed());
+        PlayerController.OnPlayerMove += OnPlayerFirstMove;
     }
 
     private void Update()
     {
-        MoveForward();
+        if(gameStarted == false) return; // idle the camera on game start
+        
+        
+        MoveForward(); // move the camera forward
         if (player != null)
         {
             // Verifica se o jogador está à frente da câmera
@@ -56,5 +61,10 @@ public class CameraFollow : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenSpeedIncrement);
             currentVelocity += velocityIncrement;
         }
+    }
+
+    private void OnPlayerFirstMove(){
+        if(!gameStarted) gameStarted = true;
+        PlayerController.OnPlayerMove -= OnPlayerFirstMove;
     }
 }

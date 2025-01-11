@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+    UIManager uIManager; // will know uiController
+
     void Start()
     {
         
@@ -12,5 +14,14 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnGameStart(){
+        
+        // start camera movement
+        // turn off initial UI
+        // enable player movement
+
+
     }
 }
