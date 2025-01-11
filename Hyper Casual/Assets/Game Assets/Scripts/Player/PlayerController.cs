@@ -9,9 +9,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveDuration = 0.2f; // Time for one move
     [SerializeField] float jumpHeight = 1.0f;  // Maximum jump height
     [SerializeField] bool canMove = true;
+    //* public static event of player jump
 
-    [Header("Mov Grid Settings")]
-    [SerializeField] float gridSize = 1.0f;    // Distance between grid positions
+    public static event System.Action OnPlayerMove; // notify everyone of new PlayerMov
+
+
+    
+    
+    float verticalGridSize;    // Distance between grid positions
+    float horizontalGridSize;    // Distance between grid positions
+
 
     //* Private Data
     private Vector3 targetPosition;
@@ -27,6 +34,9 @@ public class PlayerController : MonoBehaviour
         Application.targetFrameRate = 60; 
         targetPosition = transform.position;
         animator = GetComponentInChildren<Animator>();
+        
+        horizontalGridSize = GameInfo.Instance.horizontalGridSize;
+        verticalGridSize = GameInfo.Instance.verticalGridSize;
     }
 
     void Update()
@@ -62,7 +72,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Vector3 newPosition = targetPosition + Vector3.forward * gridSize;
+        Vector3 newPosition = targetPosition + Vector3.forward * verticalGridSize;
         CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));
     }
@@ -77,9 +87,10 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;
-        Vector3 vertical = Vector3.forward;
-        Vector3 newPosition = targetPosition + (horizontal + vertical) * gridSize;
+        var horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;
+        var vertical = Vector3.forward * verticalGridSize;
+        var newPosition = targetPosition + horizontal * horizontalGridSize + vertical;
+
         CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));
     }
@@ -99,6 +110,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Move to a given position in a smooth animation
+    /// </summary>
+    /// <param name="destination">The position to move to</param>
+    /// <returns>An IEnumerator to be used in a coroutine</returns>
     public IEnumerator MoveToPosition(Vector3 destination)
     {
         isMoving = true;
