@@ -98,15 +98,21 @@ public class PlayerController : MonoBehaviour
     void CheckJumpPosition(Vector3 position)
     {
         RaycastHit hit;
-        if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, 5f))
         { 
-            Debug.DrawRay(position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow, 2); 
+            Debug.DrawRay(position, transform.TransformDirection(Vector3.down) * hit.distance, Color.green, 10); 
             if (!hit.collider.gameObject.CompareTag("Plataform"))
             {
                 canMove = false;
                 Debug.Log("Movimento ilegal");
                 StartCoroutine(FastLost());
             }
+        }
+        else
+        {
+            Debug.Log("Pulou no vazio");
+            canMove = false;
+            StartCoroutine(FastLost());
         }
     }
 
