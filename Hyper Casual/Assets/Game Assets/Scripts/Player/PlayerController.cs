@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
     void CheckJumpPosition(Vector3 position)
     {
         RaycastHit hit;
-        if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, 5f))
+        if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, 20f))
         { 
             Debug.DrawRay(position, transform.TransformDirection(Vector3.down) * hit.distance, Color.green, 10); 
             if (!hit.collider.gameObject.CompareTag("Plataform"))
