@@ -1,0 +1,1 @@
+C:\Users\Lucas Fernandes\Documents\GitHub\Mobile-Jumper\Hyper Casual\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\1q4016o4\obj\arm64-v8a

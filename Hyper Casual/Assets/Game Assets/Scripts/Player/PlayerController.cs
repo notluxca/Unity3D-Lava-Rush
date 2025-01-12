@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [Header("Main Player Settings")]
-    [SerializeField] private float moveDuration = 0.2f;
+    [SerializeField] public float moveDuration = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private bool canMove = true;
 
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Queue<System.Action> moveQueue = new Queue<System.Action>();
     private bool isMoving = false;
-    private int currentScore = 0;
+    
 
     private void Start()
     {
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.collider.CompareTag("Plataform"))
         {
-            currentScore++;
+            Debug.Log($"Collision Detected , other: {other.gameObject.name}");
             FindFirstObjectByType<ScoreManager>().AddScore(1);
         }
     }
@@ -145,6 +145,11 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void MakeFaster(float multiplier)
+    {
+        moveDuration -= multiplier;
     }
 }
 

@@ -16,10 +16,13 @@ public class CameraFollow : MonoBehaviour
     private Vector3 currentVelocity; // Velocidade atual da câmera
     private bool gameStarted = false;
 
+    PlayerController playerController;
+
     private void Start()
     {
         currentVelocity = initialVelocity;
         PlayerController.OnPlayerMove += OnPlayerFirstMove;
+        playerController = player.GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -59,6 +62,19 @@ public class CameraFollow : MonoBehaviour
         {
             yield return new WaitForSeconds(timeBetweenSpeedIncrement);
             currentVelocity += velocityIncrement;
+            if(currentVelocity.magnitude > 11){
+                playerController.MakeFaster(0.05f); // 0.35
+            }
+            if(currentVelocity.magnitude > 20){
+                playerController.MakeFaster(0.05f); // 0.30
+            }
+
+            if(currentVelocity.magnitude > 27){
+                playerController.MakeFaster(0.7f); // 0.23
+            }
+            if(currentVelocity.magnitude > 32){
+                playerController.MakeFaster(0.7f); // 0.23
+            }
         }
     }
 
@@ -66,5 +82,13 @@ public class CameraFollow : MonoBehaviour
         if(!gameStarted) gameStarted = true;
         StartCoroutine(IncrementalSpeed()); // Start camera incremental speed
         PlayerController.OnPlayerMove -= OnPlayerFirstMove;
+    }
+
+    
+    private void OnGUI()
+    {
+        GUIStyle style = new GUIStyle(GUI.skin.label) { fontSize = 50 };
+        GUI.Label(new Rect(40, 40, 500, 500), "Camera speed: " + currentVelocity.magnitude.ToString("F2"), style);
+        GUI.Label(new Rect(40, 120, 500, 500), "Player speed: " + playerController.moveDuration, style);
     }
 }
