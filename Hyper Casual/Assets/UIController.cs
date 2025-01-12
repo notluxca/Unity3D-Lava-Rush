@@ -1,16 +1,42 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    public List<UIGroup> uiGroups;
+
+    private void Start() {
+        uiGroups = new List<UIGroup>();
+        FindAllUIGroups();
+        GameManager.PlayerFirstMove += StartGameplayUi;
+        for(int i = 0; i < uiGroups.Count; i++){
+            if(!uiGroups[i].IsOpen) uiGroups[i].Close();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    private void FindAllUIGroups() {
         
+
+        foreach (UIGroup uiGroup in GetComponentsInChildren<UIGroup>())
+        {
+            uiGroups.Add(uiGroup);
+        }
+    }
+
+
+    public void Switch_UI_group_On(int groupIndex){
+        for(int i = 0; i < uiGroups.Count; i++){
+            if(i == groupIndex){
+                uiGroups[i].Open();
+            }else{
+                uiGroups[i].Close();
+            }
+        }
+    }
+
+    public void StartGameplayUi(){
+        Switch_UI_group_On(1);
+        GameManager.PlayerFirstMove -= StartGameplayUi;
     }
 }
+

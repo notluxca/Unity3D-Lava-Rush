@@ -19,7 +19,6 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         currentVelocity = initialVelocity;
-        StartCoroutine(IncrementalSpeed());
         PlayerController.OnPlayerMove += OnPlayerFirstMove;
     }
 
@@ -65,6 +64,7 @@ public class CameraFollow : MonoBehaviour
 
     private void OnPlayerFirstMove(){
         if(!gameStarted) gameStarted = true;
+        StartCoroutine(IncrementalSpeed()); // Start camera incremental speed
         PlayerController.OnPlayerMove -= OnPlayerFirstMove;
     }
 }

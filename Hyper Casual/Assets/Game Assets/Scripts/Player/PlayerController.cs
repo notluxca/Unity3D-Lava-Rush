@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
         if (other.collider.CompareTag("Plataform"))
         {
             currentScore++;
-            UIManager.Instance.UpdateScoreUI(currentScore);
+            // UIManager.Instance.UpdateScoreUI(currentScore);
         }
     }
 
