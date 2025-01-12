@@ -25,6 +25,7 @@ public class UIController : MonoBehaviour
 
 
     public void Switch_UI_group_On(int groupIndex){
+        Debug.Log("Switch called");
         for(int i = 0; i < uiGroups.Count; i++){
             if(i == groupIndex){
                 uiGroups[i].Open();

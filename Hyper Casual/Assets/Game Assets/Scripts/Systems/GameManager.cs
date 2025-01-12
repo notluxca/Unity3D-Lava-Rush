@@ -7,18 +7,19 @@ public class GameManager : MonoBehaviour
     UIManager uIManager; // will know uiController
     public static System.Action PlayerFirstMove;
 
-    void Start()
-    {
-        
-    }
+    [SerializeField] int highScore;
+    [SerializeField] 
 
-  
-    void OnEnable()
-    {
+    
+    private void OnEnable() {
         PlayerController.OnPlayerMove += OnPlayerFirstMove;
     }
 
-    
+    void Awake()
+    {
+        
+        highScore = PlayerPrefs.GetInt("highscore", 0);
+    }
 
     // Update is called once per frame
     void Update()
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnPlayerFirstMove(){
+        Debug.Log("invocando player first move");
         PlayerFirstMove?.Invoke();
         PlayerController.OnPlayerMove -= OnPlayerFirstMove;
 

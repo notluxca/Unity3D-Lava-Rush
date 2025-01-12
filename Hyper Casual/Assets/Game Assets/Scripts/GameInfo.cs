@@ -7,6 +7,8 @@ public class GameInfo : MonoBehaviour
     [Header("Grid Settings")]
     [SerializeField] public float horizontalGridSize = 10f;
     [SerializeField] public float verticalGridSize = 10f;
+
+    public int currentHighScore; // safe int
     
 
     private void Awake()
