@@ -7,13 +7,14 @@ public class ScoreManager : MonoBehaviour
     // Referências para UI (opcional)
     public TMP_Text scoreText;
     public TMP_Text highScoreText;
+    public TMP_Text MenuhighScoreText;
 
     private int currentScore = 0;  // Pontuação atual
     private int highScore = 0;    // Melhor pontuação salva
 
     private const string HIGH_SCORE_KEY = "HighScore"; // Chave para o PlayerPrefs
 
-    private void Start()
+    private void OnEnable()
     {
         // Carrega o highscore salvo
         LoadHighScore();
@@ -61,6 +62,11 @@ public class ScoreManager : MonoBehaviour
         if (highScoreText != null)
         {
             highScoreText.text = $"HIGH SCORE: {highScore}";
+        }
+
+        if (MenuhighScoreText != null)
+        {
+            MenuhighScoreText.text = $"HIGH SCORE:\n{highScore}";
         }
     }
 

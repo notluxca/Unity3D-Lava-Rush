@@ -527,7 +527,7 @@ MonoBehaviour:
   initialVelocity: {x: 0, y: 0, z: 5}
   velocityIncrement: {x: 0, y: 0, z: 2}
   timeBetweenSpeedIncrement: 5
-  playerCatchUpSpeedMultiplier: 7
+  playerCatchUpSpeedMultiplier: 1
 --- !u!114 &330585550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1636,7 +1636,7 @@ MonoBehaviour:
   platform: {fileID: 6719964522958032605, guid: 55e713997908d9148b9e6be7c1979705, type: 3}
   fakePlatform: {fileID: 5366343508586901707, guid: df447e2fcec74fc4db3c749172190c1a, type: 3}
   player: {fileID: 887710929}
-  generationThreshold: 100
+  generationThreshold: 150
   cleanupDistance: 100
 --- !u!1 &765514935
 GameObject:
@@ -1649,7 +1649,6 @@ GameObject:
   - component: {fileID: 765514937}
   - component: {fileID: 765514936}
   - component: {fileID: 765514938}
-  - component: {fileID: 765514939}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1700,20 +1699,6 @@ MonoBehaviour:
   horizontalGridSize: 12
   verticalGridSize: 15
   currentHighScore: 0
---- !u!114 &765514939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 765514935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c87bb9dbccc13ae4face5bcf97f9a6b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 1835483320}
-  highScoreText: {fileID: 663364072}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,6 +2003,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsOpen: 1
+--- !u!1 &1015833749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1015833751}
+  - component: {fileID: 1015833750}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1015833750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015833749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87bb9dbccc13ae4face5bcf97f9a6b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 1835483320}
+  highScoreText: {fileID: 663364072}
+  MenuhighScoreText: {fileID: 1633221500}
+--- !u!4 &1015833751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015833749}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 540, y: 1858.9583, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1035217457
 GameObject:
   m_ObjectHideFlags: 0
@@ -4454,7 +4486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6549404468036638095, guid: b3abaef8b77ba464db15412470110070, type: 3}
       propertyPath: moveDuration
-      value: 0.42
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7583630042659428437, guid: b3abaef8b77ba464db15412470110070, type: 3}
       propertyPath: m_Name
@@ -5036,6 +5068,7 @@ SceneRoots:
   - {fileID: 849205430}
   - {fileID: 330585546}
   - {fileID: 765514937}
+  - {fileID: 1015833751}
   - {fileID: 1121093657}
   - {fileID: 758329953}
   - {fileID: 1035217459}
