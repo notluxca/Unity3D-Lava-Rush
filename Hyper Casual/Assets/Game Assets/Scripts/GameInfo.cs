@@ -8,6 +8,9 @@ public class GameInfo : MonoBehaviour
     [SerializeField] public float horizontalGridSize = 10f;
     [SerializeField] public float verticalGridSize = 10f;
 
+    [SerializeField] public int currentGems;
+    
+
     public int currentHighScore; // safe int
     
 

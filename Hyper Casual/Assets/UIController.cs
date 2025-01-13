@@ -15,8 +15,6 @@ public class UIController : MonoBehaviour
     }
 
     private void FindAllUIGroups() {
-        
-
         foreach (UIGroup uiGroup in GetComponentsInChildren<UIGroup>())
         {
             uiGroups.Add(uiGroup);
@@ -38,6 +36,10 @@ public class UIController : MonoBehaviour
     public void StartGameplayUi(){
         Switch_UI_group_On(1);
         GameManager.PlayerFirstMove -= StartGameplayUi;
+    }
+
+    public void OpenUrl(string url){
+        Application.OpenURL(url);
     }
 }
 

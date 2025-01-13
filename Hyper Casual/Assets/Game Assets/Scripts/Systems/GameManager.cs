@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,12 @@ public class GameManager : MonoBehaviour
     
     private void OnEnable() {
         PlayerController.OnPlayerMove += OnPlayerFirstMove;
+        GemCollectable.gemCollected += OnGemCollected;
+    }
+
+    private void OnGemCollected()
+    {
+        Debug.Log("gem collected");
     }
 
     void Awake()

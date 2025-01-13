@@ -4,9 +4,11 @@ public class PlatformGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject platform;
     [SerializeField] private GameObject fakePlatform;
+    [SerializeField] private GameObject coin;
     [SerializeField] private Transform player;
     [SerializeField] private float generationThreshold = 20f;
     [SerializeField] private float cleanupDistance = 30f;
+    [SerializeField] private float coinSpawnChance = 0.1f;
 
     private float lastSpawnZ;
     private float lastSpawnX;
@@ -81,9 +83,14 @@ public class PlatformGenerator : MonoBehaviour
             int platformChosen = Random.Range(0, 2);
             GameObject platformToSpawn = platformChosen == 0 ? platform : fakePlatform;
 
-            Instantiate(platformToSpawn, new Vector3(xLane, transform.position.y, lastSpawnZ), Quaternion.identity, platformsParent);
+            GameObject instantiatedPlatform = Instantiate(platformToSpawn, new Vector3(xLane, transform.position.y, lastSpawnZ), Quaternion.Euler(0, Random.Range(0f, 360f), 0), platformsParent);
 
             lastSpawnX = xLane;
+
+            if (Random.value < coinSpawnChance)
+            {
+                Instantiate(coin, new Vector3(xLane, transform.position.y + 8, lastSpawnZ), Quaternion.identity, platformsParent);
+            }
         }
     }
 
@@ -98,4 +105,5 @@ public class PlatformGenerator : MonoBehaviour
         }
     }
 }
+
 

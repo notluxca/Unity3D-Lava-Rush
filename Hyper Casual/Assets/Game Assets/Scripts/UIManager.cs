@@ -11,9 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text currentScore;
 
 
-    private void Start() {
-
-    }
+    
 
     public void StartHighScore(int score){
         highScoreTextMenu.text = "High Score: " + score;
