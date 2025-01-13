@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,8 +9,12 @@ public class GameManager : MonoBehaviour
     UIManager uIManager; // will know uiController
     public static System.Action PlayerFirstMove;
 
-    [SerializeField] int highScore;
-    [SerializeField] 
+    [SerializeField] TMP_Text gemsText; //! outside responsability
+    int currentGems;
+
+    private void Update() {
+        
+    }
 
     
     private void OnEnable() {
@@ -19,19 +24,8 @@ public class GameManager : MonoBehaviour
 
     private void OnGemCollected()
     {
-        Debug.Log("gem collected");
-    }
-
-    void Awake()
-    {
-        
-        highScore = PlayerPrefs.GetInt("highscore", 0);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        currentGems += 1;
+        gemsText.text = currentGems.ToString();
     }
 
     void OnGameStart(){
