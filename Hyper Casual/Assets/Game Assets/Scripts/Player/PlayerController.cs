@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private Queue<System.Action> moveQueue = new Queue<System.Action>();
     private bool isMoving = false;
     
+    [SerializeField] private float speedUpRate = 0.0001f;
+    
 
     private void Start()
     {
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        MakeFaster();
         HandleKeyboardInput();
     }
 
@@ -147,9 +150,12 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void MakeFaster(float multiplier)
+    
+    private void MakeFaster()
     {
-        moveDuration -= multiplier;
+        if (moveDuration > 0.25f)
+            moveDuration -= speedUpRate * Time.deltaTime;
+        moveDuration = Mathf.Clamp(moveDuration, 0.25f, float.MaxValue);
     }
 }
 

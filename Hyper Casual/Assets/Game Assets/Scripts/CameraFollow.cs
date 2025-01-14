@@ -62,19 +62,6 @@ public class CameraFollow : MonoBehaviour
         {
             yield return new WaitForSeconds(timeBetweenSpeedIncrement);
             currentVelocity += velocityIncrement;
-            if(currentVelocity.magnitude > 11){
-                playerController.MakeFaster(0.05f); // 0.35
-            }
-            if(currentVelocity.magnitude > 20){
-                playerController.MakeFaster(0.05f); // 0.30
-            }
-
-            if(currentVelocity.magnitude > 27){
-                playerController.MakeFaster(0.7f); // 0.23
-            }
-            if(currentVelocity.magnitude > 32){
-                playerController.MakeFaster(0.7f); // 0.23
-            }
         }
     }
 
