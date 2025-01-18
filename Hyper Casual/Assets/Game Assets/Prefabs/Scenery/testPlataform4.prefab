@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: -7635826562936255635, guid: 1f32868f9c3d6a54ba5da21f9f8d3102, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3b554bcb3f342244d814dcda5c767061, type: 2}
+      objectReference: {fileID: 2100000, guid: cc9777b2e1abccf4393f427e2e21d954, type: 2}
     - target: {fileID: 919132149155446097, guid: 1f32868f9c3d6a54ba5da21f9f8d3102, type: 3}
       propertyPath: m_Name
       value: testPlataform4

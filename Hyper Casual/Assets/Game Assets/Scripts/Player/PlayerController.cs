@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
         float tiltAngle = direction.x > 0.5f ? 15f : direction.x < -0.5f ? -15f : 0f;
 
         Quaternion targetRotation = Quaternion.Euler(0, tiltAngle * 3, tiltAngle * 2);
-        animator.Play("Jump", 0, 0);
+        //animator.Play("Jump", 0, 0);
 
         while (elapsedTime < moveDuration)
         {
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
             Vector3 position = Vector3.Lerp(startPosition, destination, t);
             position.y = Mathf.Sin(t * Mathf.PI) * jumpHeight + Mathf.Min(startPosition.y, destination.y);
             transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
-            animator.Play("Jump", 0, t);
+            animator.Play("Jump 0", 0, t);
 
             transform.position = position;
             yield return null;
