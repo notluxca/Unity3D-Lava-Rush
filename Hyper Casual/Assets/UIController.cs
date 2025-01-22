@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     private void Start() {
         uiGroups = new List<UIGroup>();
         FindAllUIGroups();
-        GameManager.PlayerFirstMove += StartGameplayUi;
+        MovementHandler.OnPlayerFirstMove += StartGameplayUi;
         for(int i = 0; i < uiGroups.Count; i++){
             if(!uiGroups[i].IsOpen) uiGroups[i].Close();
         }
@@ -35,7 +35,7 @@ public class UIController : MonoBehaviour
 
     public void StartGameplayUi(){
         Switch_UI_group_On(1);
-        GameManager.PlayerFirstMove -= StartGameplayUi;
+        MovementHandler.OnPlayerFirstMove -= StartGameplayUi;
     }
 
     public void OpenUrl(string url){
