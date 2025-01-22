@@ -4397,17 +4397,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876868583}
   m_CullTransparentMesh: 1
---- !u!114 &887710928 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6549404468036638095, guid: b3abaef8b77ba464db15412470110070, type: 3}
-  m_PrefabInstance: {fileID: 1959369100}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2dc5101442e894b825141a3c7dbdb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &887710929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1754869995741955624, guid: b3abaef8b77ba464db15412470110070, type: 3}
@@ -5602,8 +5591,8 @@ MonoBehaviour:
   onDelta:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 887710928}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1959369102}
+        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
         m_MethodName: MoveDiagonalWithSwipe
         m_Mode: 0
         m_Arguments:
@@ -5660,8 +5649,8 @@ MonoBehaviour:
   onFinger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 887710928}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1959369102}
+        m_TargetAssemblyTypeName: MovementHandler, Assembly-CSharp
         m_MethodName: MoveFront
         m_Mode: 1
         m_Arguments:
@@ -6957,33 +6946,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uvAnimationRate: {x: 1, y: 0}
   textureName: _MainTex
---- !u!1 &1360885921 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3913219394134093036, guid: b3abaef8b77ba464db15412470110070, type: 3}
-  m_PrefabInstance: {fileID: 1959369100}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1360885925
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1360885921}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 16afd41d13f5526469d77fff3957417f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1412906523
 GameObject:
   m_ObjectHideFlags: 0
@@ -10154,18 +10116,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1754869995741955624, guid: b3abaef8b77ba464db15412470110070, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1754869995741955624, guid: b3abaef8b77ba464db15412470110070, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1754869995741955624, guid: b3abaef8b77ba464db15412470110070, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1754869995741955624, guid: b3abaef8b77ba464db15412470110070, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -10205,26 +10155,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3974350613556305322, guid: b3abaef8b77ba464db15412470110070, type: 3}
+      propertyPath: moveDuration
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7583630042659428437, guid: b3abaef8b77ba464db15412470110070, type: 3}
       propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7583630042659428437, guid: b3abaef8b77ba464db15412470110070, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7583630042659428437, guid: b3abaef8b77ba464db15412470110070, type: 3}
-      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3913219394134093036, guid: b3abaef8b77ba464db15412470110070, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1360885925}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3abaef8b77ba464db15412470110070, type: 3}
+--- !u!114 &1959369102 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3974350613556305322, guid: b3abaef8b77ba464db15412470110070, type: 3}
+  m_PrefabInstance: {fileID: 1959369100}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43066d6abd923a4981a1cee37512f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1966988170
 GameObject:
   m_ObjectHideFlags: 0

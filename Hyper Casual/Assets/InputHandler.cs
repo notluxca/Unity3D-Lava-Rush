@@ -31,6 +31,6 @@ public class InputHandler : MonoBehaviour
 
 
     public void HandleTouchInput(){
-        
+        // Managing externally using LeanTouch
     }
 }

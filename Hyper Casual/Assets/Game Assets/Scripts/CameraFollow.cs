@@ -21,8 +21,9 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         currentVelocity = initialVelocity;
-        PlayerController.OnPlayerMove += OnPlayerFirstMove;
+        // PlayerController.OnPlayerMove += OnPlayerFirstMove;
         playerController = player.GetComponent<PlayerController>();
+        MovementHandler.OnPlayerFirstMove += OnPlayerFirstMove;
     }
 
     private void Update()
@@ -68,14 +69,9 @@ public class CameraFollow : MonoBehaviour
     private void OnPlayerFirstMove(){
         if(!gameStarted) gameStarted = true;
         StartCoroutine(IncrementalSpeed()); // Start camera incremental speed
-        PlayerController.OnPlayerMove -= OnPlayerFirstMove;
+        MovementHandler.OnPlayerMove -= OnPlayerFirstMove;
     }
 
     
-    private void OnGUI()
-    {
-        GUIStyle style = new GUIStyle(GUI.skin.label) { fontSize = 50 };
-        GUI.Label(new Rect(40, 40, 500, 500), "Camera speed: " + currentVelocity.magnitude.ToString("F2"), style);
-        GUI.Label(new Rect(40, 120, 500, 500), "Player speed: " + playerController.moveDuration, style);
-    }
+
 }

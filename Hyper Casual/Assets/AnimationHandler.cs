@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class AnimationHandler : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    private Animator animator;
+
+    private void Start() {
+        animator = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Play(string animationName){
+        animator.Play(animationName,0);
+    }
+
+    public void PlayRandomJump(string stateName, [UnityEngine.Internal.DefaultValue("-1")] int layer, [UnityEngine.Internal.DefaultValue("float.NegativeInfinity")] float normalizedTime){
+        animator.Play(stateName, layer, normalizedTime);
+    }
+    public void PlayDeathJump(){
+        animator.SetTrigger("Jump");
     }
 }

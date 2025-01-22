@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovementHandler : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MovementHandler : MonoBehaviour
     [SerializeField] private float moveDuration = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private Animator animator;
+    AnimationHandler animationHandler;
     
     public static event System.Action OnPlayerMove;
     public static event System.Action OnPlayerFirstMove;
@@ -19,29 +21,44 @@ public class MovementHandler : MonoBehaviour
     private bool isMoving = false;
     private float speedUpRate;
 
+    private float horizontalGridSize;
+    private float verticalGridSize;
+    
+
     public void Initialize()
     {
+        horizontalGridSize = GameInfo.Instance.horizontalGridSize;
+        verticalGridSize = GameInfo.Instance.verticalGridSize;
         targetPosition = transform.position;
+        animationHandler = GetComponent<AnimationHandler>();
     }
 
     public void MoveFront()
     {
-        if (isMoving) return;
-        Vector3 newPosition = targetPosition + Vector3.forward;
+        if (!canMove || isMoving) 
+        {
+            if (isMoving) moveQueue.Enqueue(MoveFront);
+            return;
+        }
+
+        Vector3 newPosition = targetPosition + Vector3.forward * verticalGridSize;
+        CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));
     }
 
     public void MoveDiagonal(Vector2 swipeDirection)
     {
-        if (isMoving) return;
-        Vector3 direction = new Vector3(swipeDirection.x, 0, 1);
-        Vector3 newPosition = targetPosition + direction;
-        StartCoroutine(MoveToPosition(newPosition));
+        if (!isMoving)
+        {
+            Vector3 direction = new Vector3(swipeDirection.x, 0, 1);
+            Vector3 newPosition = targetPosition + direction;
+            StartCoroutine(MoveToPosition(newPosition));
+        }
     }
 
     public void MoveDiagonalWithSwipe(Vector2 swipeDirection)
     {
-        if (!canMove || isMoving) 
+        if (!canMove || isMoving)
         {
             if (isMoving) moveQueue.Enqueue(() => MoveDiagonalWithSwipe(swipeDirection));
             return;
@@ -54,8 +71,41 @@ public class MovementHandler : MonoBehaviour
         StartCoroutine(MoveToPosition(newPosition));
     }
 
+    private void CheckJumpPosition(Vector3 position)
+    {
+        if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, 20f))
+        {
+            Debug.DrawRay(position, Vector3.down * hit.distance, Color.green, 10);
+            if (!hit.collider.CompareTag("Plataform"))
+                Debug.Log("Movimento ilegal");
+                // canMove = false;
+                // StartCoroutine(FastLost());
+                
+        }
+        else
+        {
+            Debug.Log("Pulou no vazio");
+            canMove = false;
+            StartCoroutine(FastLost());
+        }
+    }
+
+        /// <summary>
+        /// Move the player to the given position.
+        /// </summary>
+        /// <param name="destination">The destination position.</param>
+        /// <remarks>
+        /// This function will move the player to the given position over a set duration.
+        /// It will also play a jump animation and tilt the player object slightly.
+        /// </remarks>
     private IEnumerator MoveToPosition(Vector3 destination)
     {
+        if (OnPlayerFirstMove != null)
+        {
+            OnPlayerFirstMove.Invoke();
+            OnPlayerFirstMove = null;
+        }
+
         OnPlayerMove?.Invoke();
         isMoving = true;
         Vector3 startPosition = transform.position;
@@ -78,14 +128,14 @@ public class MovementHandler : MonoBehaviour
             Vector3 position = Vector3.Lerp(startPosition, destination, t);
             position.y = Mathf.Sin(t * Mathf.PI) * jumpHeight + Mathf.Min(startPosition.y, destination.y);
             transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
-            animator.Play("Jump 0", 0, t);
+            animationHandler.PlayRandomJump("Jump 0", 0, t);
 
             transform.position = position;
             yield return null;
         }
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        animator.Play("Idle", 0);
+        animationHandler.Play("Idle");
         transform.position = destination;
         isMoving = false;
 
@@ -93,17 +143,19 @@ public class MovementHandler : MonoBehaviour
             moveQueue.Dequeue().Invoke();
     }
 
+    private IEnumerator FastLost()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Fast lost called");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
-
-        /// <summary>
-        /// Decrease the move duration by speedUpRate * Time.deltaTime,
-        /// but only if move duration is greater than 0.25f.
-        /// </summary>
-        private void MakeFaster()
-        {
-            if (moveDuration > 0.25f)
-                moveDuration -= speedUpRate * Time.deltaTime;
-            moveDuration = Mathf.Clamp(moveDuration, 0.25f, float.MaxValue);
-        }
+    private void MakeFaster()
+    {
+        if (moveDuration > 0.25f)
+            moveDuration -= speedUpRate * Time.deltaTime;
+        moveDuration = Mathf.Clamp(moveDuration, 0.25f, float.MaxValue);
+    }
 
 }
+
