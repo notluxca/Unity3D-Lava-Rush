@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     
     private void OnEnable() {
+        Application.targetFrameRate = 60;
         PlayerController.OnPlayerMove += OnPlayerFirstMove;
         GemCollectable.gemCollected += OnGemCollected;
     }
