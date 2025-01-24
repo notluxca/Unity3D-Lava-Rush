@@ -21,12 +21,34 @@ public class ScoreManager : MonoBehaviour
 
         // Atualiza o texto da UI (se houver)
         UpdateUI();
+
+        Plataform.OnPlataformJump += AddScoreNoArgument;
+        
+    }
+
+    private void OnDisable() {
+        Plataform.OnPlataformJump -= AddScoreNoArgument;
     }
 
   
     public void AddScore(int points)
     {
         currentScore += points;
+
+        // Verifica se a pontuação atual supera o highscore
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            SaveHighScore();
+        }
+
+        // Atualiza o texto da UI (se houver)
+        UpdateUI();
+    }
+
+    public void AddScoreNoArgument()
+    {
+        currentScore += 1;
 
         // Verifica se a pontuação atual supera o highscore
         if (currentScore > highScore)

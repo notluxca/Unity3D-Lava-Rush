@@ -5,6 +5,9 @@ public class Plataform : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] float distanceToFall;
     [SerializeField] Rigidbody rb;
+    
+
+    public static event System.Action OnPlataformJump;
     void Start()
     {
         mainCamera = Camera.main;
@@ -27,6 +30,7 @@ public class Plataform : MonoBehaviour
         if(other.gameObject.CompareTag("Player")){
             Debug.Log($"Player hit the platform {gameObject.name}");
             GetComponent<Animator>().SetTrigger("Fall");
+            OnPlataformJump?.Invoke();
         }
     }
 
