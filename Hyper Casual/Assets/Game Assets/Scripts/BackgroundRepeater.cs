@@ -1,52 +1,52 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BackgroundRepeater : MonoBehaviour
 {
-    // public Transform player;
-    public float threshold = 10f;
-    public GameObject middleTile;
-    public Transform player;
-
-    public List<GameObject> children = new List<GameObject>();
-    int currentIndex = 0;
-    int currentTilePosition = 3;
+    public float threshold = 10f; // Pode ser ajustado, mas parece que não está sendo usado
+    public Transform player;     // Transform do jogador
+    public List<GameObject> children = new List<GameObject>(); // Lista das tiles
+    private GameObject middleTile; // Referência para a tile do meio
+    private int currentIndex = 0; // Index da tile que será teleportada
+    private int currentTilePosition = 3;
+    private float tileWidth;      // Largura de uma tile no eixo X
 
     private void Start()
     {
         player = GameObject.Find("Player").transform;
+
+        // Adiciona todas as tiles (childs do parent)
         foreach (Transform child in transform)
         {
-            // children.Add(child.gameObject); // adiciona as 3 childs
+            children.Add(child.gameObject);
         }
+
+        // Calcula a largura da tile com base no tamanho do collider ou na escala
+        if (children.Count > 0)
+        {
+            tileWidth = children[0].GetComponent<Renderer>().bounds.size.x;
+        }
+
+        // Determina a tile do meio
         middleTile = GetMiddleTilePosition(children[0], children[1], children[2]);
-        
     }
 
     private void Update()
     {
-        PlayerPositionDetection();
+        DetectPlayerPosition();
     }
 
-    
-
-    public GameObject GetMiddleTilePosition(GameObject first, GameObject second, GameObject third)
+    private void DetectPlayerPosition()
     {
-        var list = new List<GameObject> { first, second, third };
-        list.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
-        return list[1];
-    }
-
-    public void PlayerPositionDetection(){
-        Debug.Log($"{transform.position.x}");
-        if(player.position.z > middleTile.transform.position.x - middleTile.transform.parent.position.x){
-            TeleportChild(); 
+        // Checa se o jogador passou do centro da tile do meio no eixo Z
+        if (player.position.z > middleTile.transform.position.z)
+        {
+            TeleportChild();
         }
     }
-    
-    
-    public void TeleportChild(){
+
+    private void TeleportChild()
+    {
         children[currentIndex].transform.localPosition = new Vector3(currentTilePosition, 0, 0);
             currentIndex++;
             currentTilePosition++;
@@ -56,11 +56,10 @@ public class BackgroundRepeater : MonoBehaviour
             middleTile = GetMiddleTilePosition(children[0], children[1], children[2]);
     }
 
-    // detect who is the midle plataform
-    // once player is geting close to the midle plataform, teleport the first plataform to the last plataform
-
-    //observar posição x de cada um
-    // através da posição x determinar ordem retornar tile do meio 
-    // 
-    
+    public GameObject GetMiddleTilePosition(GameObject first, GameObject second, GameObject third)
+    {
+        var list = new List<GameObject> { first, second, third };
+        list.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
+        return list[1];
+    }
 }
