@@ -13,7 +13,7 @@ public class BackgroundRepeater : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("Player").transform;
+        // player = GameObject.Find("Player").transform;
 
         // Adiciona todas as tiles (childs do parent)
         foreach (Transform child in transform)

@@ -5,14 +5,10 @@ public class InputHandler : MonoBehaviour
 {
     private MovementHandler playerMovement;
 
-    private bool handleKeyboardInput = false;
+    [SerializeField] private bool handleKeyboardInput = true;
 
     private void Awake() {
         playerMovement = GetComponent<MovementHandler>();
-    }
-
-    private void Update() {
-        HandleInput();
     }
 
     public void HandleInput()
@@ -24,9 +20,9 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
             playerMovement.MoveFront();
         else if (Input.GetKeyDown(KeyCode.RightArrow))
-            playerMovement.MoveDiagonal(Vector2.one);
+            playerMovement.MoveDiagonalWithSwipe(Vector2.one);
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            playerMovement.MoveDiagonal(new Vector2(-1, 1));
+            playerMovement.MoveDiagonalWithSwipe(new Vector2(-1, 1));
     }
 
 

@@ -1443,7 +1443,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: 10
-  middleTile: {fileID: 0}
   player: {fileID: 0}
   children: []
 --- !u!1 &363752646
@@ -7575,12 +7574,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: 0
-  middleTile: {fileID: 0}
   player: {fileID: 0}
-  children:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  children: []
 --- !u!1 &1742073896
 GameObject:
   m_ObjectHideFlags: 0

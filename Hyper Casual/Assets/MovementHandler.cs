@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MovementHandler : MonoBehaviour
 {
     [SerializeField] private bool canMove = true;
-    [SerializeField] private float moveDuration = 0.2f;
+    [SerializeField] public float moveDuration = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private Animator animator;
     AnimationHandler animationHandler;
@@ -66,7 +66,6 @@ public class MovementHandler : MonoBehaviour
 
         Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;
         Vector3 newPosition = targetPosition + horizontal * horizontalGridSize + Vector3.forward * verticalGridSize;
-
         CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));
     }
@@ -128,7 +127,7 @@ public class MovementHandler : MonoBehaviour
             Vector3 position = Vector3.Lerp(startPosition, destination, t);
             position.y = Mathf.Sin(t * Mathf.PI) * jumpHeight + Mathf.Min(startPosition.y, destination.y);
             transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
-            animationHandler.PlayRandomJump("Jump 0", 0, t);
+            animationHandler.PlayRandomJump("Jump2", 0, t);
 
             transform.position = position;
             yield return null;

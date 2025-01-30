@@ -8,12 +8,11 @@ public class CameraFollow : MonoBehaviour
     public float zOffset = -10f; // Deslocamento no eixo Z
 
     public Vector3 initialVelocity; // Velocidade inicial da câmera
-    public Vector3 velocityIncrement; // Incremento de velocidade
-    public float timeBetweenSpeedIncrement = 5f; // Intervalo entre aumentos de velocidade
+    
 
     public float playerCatchUpSpeedMultiplier = 2f; // Multiplicador de velocidade para alcançar o jogador
 
-    private Vector3 currentVelocity; // Velocidade atual da câmera
+    public Vector3 currentVelocity; // Velocidade atual da câmera
     private bool gameStarted = false;
 
     PlayerController playerController;
@@ -23,7 +22,6 @@ public class CameraFollow : MonoBehaviour
         currentVelocity = initialVelocity;
         // PlayerController.OnPlayerMove += OnPlayerFirstMove;
         playerController = player.GetComponent<PlayerController>();
-        MovementHandler.OnPlayerFirstMove += OnPlayerFirstMove;
     }
 
     private void Update()
@@ -57,20 +55,9 @@ public class CameraFollow : MonoBehaviour
         transform.position += currentVelocity * Time.deltaTime;
     }
 
-    private IEnumerator IncrementalSpeed()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(timeBetweenSpeedIncrement);
-            currentVelocity += velocityIncrement;
-        }
-    }
+   
 
-    private void OnPlayerFirstMove(){
-        if(!gameStarted) gameStarted = true;
-        StartCoroutine(IncrementalSpeed()); // Start camera incremental speed
-        MovementHandler.OnPlayerMove -= OnPlayerFirstMove;
-    }
+
 
     
 
