@@ -1258,7 +1258,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 330585546}
-  - component: {fileID: 330585550}
   - component: {fileID: 330585549}
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
@@ -1426,25 +1425,9 @@ MonoBehaviour:
   player: {fileID: 887710929}
   smoothSpeed: 1
   zOffset: -20.9
-  initialVelocity: {x: 0, y: 0, z: 5}
-  velocityIncrement: {x: 0, y: 0, z: 2}
-  timeBetweenSpeedIncrement: 5
-  playerCatchUpSpeedMultiplier: 20
---- !u!114 &330585550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 562c7e03bf0018c48bba7a6759f95b7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  threshold: 10
-  player: {fileID: 0}
-  children: []
+  initialVelocity: {x: 0, y: 0, z: 8}
+  playerCatchUpSpeedMultiplier: 3
+  currentVelocity: {x: 0, y: 0, z: 0}
 --- !u!1 &363752646
 GameObject:
   m_ObjectHideFlags: 0
@@ -3652,6 +3635,7 @@ GameObject:
   - component: {fileID: 765514937}
   - component: {fileID: 765514936}
   - component: {fileID: 765514938}
+  - component: {fileID: 765514939}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3703,6 +3687,24 @@ MonoBehaviour:
   verticalGridSize: 15
   currentGems: 0
   currentHighScore: 0
+--- !u!114 &765514939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765514935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4125043ed082d0b43bf29e5f945ea42a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementHandler: {fileID: 1959369102}
+  cameraFollow: {fileID: 330585549}
+  speedUpRate: 1.1
+  maxPlayerSpeed: 0.2
+  maxCameraSpeed: 15
+  timeBetweenSpeedIncrement: 5
 --- !u!1001 &773050810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7574,7 +7576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: 0
-  player: {fileID: 0}
+  player: {fileID: 330585546}
   children: []
 --- !u!1 &1742073896
 GameObject:
@@ -9308,11 +9310,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3974350613556305322, guid: b3abaef8b77ba464db15412470110070, type: 3}
       propertyPath: jumpHeight
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3974350613556305322, guid: b3abaef8b77ba464db15412470110070, type: 3}
       propertyPath: moveDuration
-      value: 0.29
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7583630042659428437, guid: b3abaef8b77ba464db15412470110070, type: 3}
       propertyPath: m_Name
