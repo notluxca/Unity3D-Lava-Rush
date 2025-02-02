@@ -17,7 +17,7 @@ public class GameSpeedManager : MonoBehaviour
 
     private void Start()
     {
-        MovementHandler.OnPlayerFirstMove += OnPlayerFirstMove;
+        // MovementHandler.OnPlayerFirstMove += OnPlayerFirstMove;
         playerInitialSpeed = playerMovementHandler.moveDuration;
         cameraInitialSpeed = cameraFollow.currentVelocity.z;
         StartCoroutine(IncrementalSpeed());
@@ -27,7 +27,7 @@ public class GameSpeedManager : MonoBehaviour
         Debug.Log("asd");
         if(!gameStarted) gameStarted = true;
         StartCoroutine(IncrementalSpeed()); // Start camera incremental speed
-        MovementHandler.OnPlayerMove -= OnPlayerFirstMove;
+        // MovementHandler.OnPlayerMove -= OnPlayerFirstMove;
     }
 
     private IEnumerator IncrementalSpeed()

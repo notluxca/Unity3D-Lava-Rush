@@ -13,7 +13,7 @@ public class AnimationHandler : MonoBehaviour
     }
 
     public void PlayRandomJump(string stateName, [UnityEngine.Internal.DefaultValue("-1")] int layer, [UnityEngine.Internal.DefaultValue("float.NegativeInfinity")] float normalizedTime){
-        Debug.Log(normalizedTime);
+        // Debug.Log(normalizedTime);
         animator.Play(stateName, layer, normalizedTime);
     }
     public void PlayDeathJump(){

@@ -1,0 +1,43 @@
+using System;
+using UnityEngine;
+
+public static class PlayerEvents
+{
+    public static event Action<Vector3> OnPlayerMove;
+    public static event Action<Vector3> OnPlayerFirstMove;
+    public static event Action OnPlayerSwipeLeft;
+    public static event Action OnPlayerSwipeRight;
+    public static event Action OnPlayerTap;
+
+    public static void PlayerFirstMove(Vector3 newPosition)
+    {
+        OnPlayerMove?.Invoke(newPosition);
+    }
+
+    public static void PlayerMoved(Vector3 newPosition)
+    {
+        OnPlayerMove?.Invoke(newPosition);
+    }
+
+    public static void PlayerSwipe(Vector2 swipeDirection)
+    {
+        Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;   
+        if(horizontal == Vector3.right){
+            Debug.Log("Swipe Right");
+            OnPlayerSwipeRight?.Invoke();
+        }
+        else {
+            Debug.Log("Swipe Left");
+            OnPlayerSwipeLeft?.Invoke();
+        }
+    }
+
+    
+    
+    public static void PlayerTap()
+    {
+        OnPlayerTap?.Invoke();
+    }
+
+
+}

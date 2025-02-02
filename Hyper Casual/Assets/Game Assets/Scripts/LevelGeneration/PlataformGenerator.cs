@@ -22,8 +22,8 @@ public class PlatformGenerator : MonoBehaviour
         lastSpawnX = transform.position.x;
         lastSpawnZ = transform.position.z;
 
-        horizontalGridSize = GameInfo.Instance.horizontalGridSize;
-        verticalGridSize = GameInfo.Instance.verticalGridSize;
+        horizontalGridSize = GameInfo.horizontalGridSize;
+        verticalGridSize = GameInfo.verticalGridSize;
 
         platformsParent = new GameObject("PlatformsParent").transform;
 
