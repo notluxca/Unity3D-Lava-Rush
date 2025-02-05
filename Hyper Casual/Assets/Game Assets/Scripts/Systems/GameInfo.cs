@@ -1,17 +1,12 @@
-using System;
 using UnityEngine;
 
-public class GameInfo 
+// [ExtensionOfNativeClass]
+public class GameInfo : MonoBehaviour
 {
     public static GameInfo Instance { get; private set; }
 
-    [Header("Grid Settings")]
-    [SerializeField] public static float horizontalGridSize = 10f;
-    [SerializeField] public static float verticalGridSize = 10f;
-
-    
-
-    [SerializeField] public int currentHighScore; // safe int
-    [SerializeField] public int currentGems;
-    
+    public static float horizontalGridSize = 11.5f;
+    public static float verticalGridSize = 13f;
+    public int currentHighScore;
+    public int currentGems;
 }

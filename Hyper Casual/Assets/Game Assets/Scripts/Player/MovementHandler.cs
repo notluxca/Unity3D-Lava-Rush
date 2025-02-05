@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,7 +30,6 @@ public class MovementHandler : MonoBehaviour
     
     
     //! Responsabilidades externas
-    private float speedUpRate; //! deveria ser responsabilidade de um script que gerencia a dificuldade do jogo dinamicamente
     AnimationHandler animationHandler; // ! Deveria ser removido
     private bool moved = false;
     
@@ -118,14 +118,22 @@ public class MovementHandler : MonoBehaviour
 
     // Responsavel por dar comando de movimentação ao character enquanto o input é resolvido externamente
     private void MoveLeft(){
-        VerifyQueueMove(MoveLeft);
+        if (!canMove || isMoving) 
+        {
+            if (isMoving) moveQueue.Enqueue(MoveRight);
+            return;
+        }
         Vector3 newPosition = currentPosition + Vector3.left * horizontalGridSize + Vector3.forward * verticalGridSize;
         CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));
     }
 
     private void MoveRight(){
-        VerifyQueueMove(MoveRight);
+        if (!canMove || isMoving) 
+        {
+            if (isMoving) moveQueue.Enqueue(MoveRight);
+            return;
+        }
         Vector3 newPosition = currentPosition + Vector3.right * horizontalGridSize + Vector3.forward * verticalGridSize;
         CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));
@@ -133,7 +141,11 @@ public class MovementHandler : MonoBehaviour
 
         public void MoveFront()
     {
-        VerifyQueueMove(MoveFront);
+        if (!canMove || isMoving) 
+        {
+            if (isMoving) moveQueue.Enqueue(MoveFront);
+            return;
+        }
         Vector3 newPosition = currentPosition + Vector3.forward * verticalGridSize;
         CheckJumpPosition(newPosition);
         StartCoroutine(MoveToPosition(newPosition));

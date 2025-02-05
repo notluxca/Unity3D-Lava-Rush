@@ -8,7 +8,7 @@ public class CoinManager : MonoBehaviour
     [SerializeField] TMP_Text gemsText;
 
     private void Start() {
-        CurrentGems = PlayerPrefs.GetInt("Gems", 0);
+        CurrentGems = PlayerPrefs.GetInt("Gemstest", 0);
         UpdateUi();
     }
 
@@ -27,6 +27,6 @@ public class CoinManager : MonoBehaviour
     }
 
     void UpdateUi(){
-        gemsText.text = CurrentGems.ToString();
+        // gemsText.text = CurrentGems.ToString(); //! update this 
     }
 }

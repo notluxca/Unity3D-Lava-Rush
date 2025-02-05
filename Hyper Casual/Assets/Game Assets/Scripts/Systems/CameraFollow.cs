@@ -13,15 +13,13 @@ public class CameraFollow : MonoBehaviour
     public float playerCatchUpSpeedMultiplier = 2f; // Multiplicador de velocidade para alcançar o jogador
 
     public Vector3 currentVelocity; // Velocidade atual da câmera
-    private bool gameStarted = false;
-
-    PlayerController playerController;
+    public bool gameStarted = false;
 
     private void Start()
     {
         currentVelocity = initialVelocity;
         // PlayerController.OnPlayerMove += OnPlayerFirstMove;
-        playerController = player.GetComponent<PlayerController>();
+        
     }
 
     private void Update()
@@ -47,6 +45,10 @@ public class CameraFollow : MonoBehaviour
                 );
             }
         }
+    }
+
+    public void StartCamera(){
+        gameStarted = true;
     }
 
     public void MoveForward()

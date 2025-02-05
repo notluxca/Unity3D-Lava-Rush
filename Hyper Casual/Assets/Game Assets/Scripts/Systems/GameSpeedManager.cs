@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Rendering.Universal;
 
 public class GameSpeedManager : MonoBehaviour
 {
@@ -15,19 +16,20 @@ public class GameSpeedManager : MonoBehaviour
     private float cameraInitialSpeed;
     private bool gameStarted = false;
 
-    private void Start()
+    private void Awake()
     {
-        // MovementHandler.OnPlayerFirstMove += OnPlayerFirstMove;
+        PlayerEvents.OnPlayerFirstMove += PlayerFirstMove;
         playerInitialSpeed = playerMovementHandler.moveDuration;
         cameraInitialSpeed = cameraFollow.currentVelocity.z;
-        StartCoroutine(IncrementalSpeed());
     }
 
-    private void OnPlayerFirstMove(){
-        Debug.Log("asd");
+
+    private void PlayerFirstMove(Vector3 position){
         if(!gameStarted) gameStarted = true;
+        cameraFollow.StartCamera();
+        PlayerEvents.OnPlayerFirstMove -= PlayerFirstMove;
+        
         StartCoroutine(IncrementalSpeed()); // Start camera incremental speed
-        // MovementHandler.OnPlayerMove -= OnPlayerFirstMove;
     }
 
     private IEnumerator IncrementalSpeed()
@@ -41,6 +43,7 @@ public class GameSpeedManager : MonoBehaviour
 
             playerMovementHandler.moveDuration = Mathf.Min(newPlayerSpeed, maxPlayerSpeed);
             cameraFollow.currentVelocity.z = Mathf.Min(newCameraSpeed, maxCameraSpeed);
+            Debug.Log($"Velocity changed {playerMovementHandler.moveDuration} {cameraFollow.currentVelocity.z}");
         }
     }
 }

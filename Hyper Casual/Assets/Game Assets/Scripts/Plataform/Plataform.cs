@@ -17,7 +17,7 @@ public class Plataform : MonoBehaviour
     void Update()
     {
         if(transform.position.z + distanceToFall < mainCamera.transform.position.z){
-            Fall();
+            // Fall();
         }
     }
 
@@ -29,7 +29,7 @@ public class Plataform : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Player")){
             Debug.Log($"Player hit the platform {gameObject.name}");
-            GetComponent<Animator>().SetTrigger("Fall");
+            // GetComponent<Animator>().SetTrigger("Fall");
             OnPlataformJump?.Invoke();
         }
     }
