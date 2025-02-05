@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable() {
         Application.targetFrameRate = 60;
         GemCollectable.gemCollected += OnGemCollected;
+        PlayerEvents.onPlayerDied += onPlayerDied;
     }
 
     private void OnGemCollected()
@@ -32,5 +33,9 @@ public class GameManager : MonoBehaviour
         // start camera movement
         // turn off initial UI
         // enable player movement
+    }
+
+    public void onPlayerDied(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

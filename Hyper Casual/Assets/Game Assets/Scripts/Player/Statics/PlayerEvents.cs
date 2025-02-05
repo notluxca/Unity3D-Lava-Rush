@@ -5,18 +5,24 @@ public static class PlayerEvents
 {
     public static event Action<Vector3> OnPlayerMove;
     public static event Action<Vector3> OnPlayerFirstMove;
+    public static event Action onPlayerDied;
     public static event Action OnPlayerSwipeLeft;
     public static event Action OnPlayerSwipeRight;
     public static event Action OnPlayerTap;
 
     public static void PlayerFirstMove(Vector3 newPosition)
     {
-        OnPlayerMove?.Invoke(newPosition);
+        OnPlayerFirstMove?.Invoke(newPosition);
     }
 
     public static void PlayerMoved(Vector3 newPosition)
     {
         OnPlayerMove?.Invoke(newPosition);
+    }
+
+    public static void PlayerDied()
+    {
+        onPlayerDied?.Invoke();
     }
 
     public static void PlayerSwipe(Vector2 swipeDirection)

@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     private void Start() {
         uiGroups = new List<UIGroup>();
         FindAllUIGroups();
-        // MovementHandler.OnPlayerFirstMove += StartGameplayUi;
+        PlayerEvents.OnPlayerFirstMove -= StartGameplayUi;
         for(int i = 0; i < uiGroups.Count; i++){
             if(!uiGroups[i].IsOpen) uiGroups[i].Close();
         }

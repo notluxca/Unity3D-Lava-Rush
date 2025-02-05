@@ -64,7 +64,7 @@ public class MovementHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Pulou no vazio");
+            PlayerEvents.PlayerDied();
             canMove = false;
         }
     }
@@ -76,6 +76,7 @@ public class MovementHandler : MonoBehaviour
         {
             moved = true;
             PlayerEvents.PlayerFirstMove(newPosition);
+            Debug.Log("Player First Move");
         } else {
             PlayerEvents.PlayerMoved(newPosition);    
         }
@@ -120,7 +121,7 @@ public class MovementHandler : MonoBehaviour
     private void MoveLeft(){
         if (!canMove || isMoving) 
         {
-            if (isMoving) moveQueue.Enqueue(MoveRight);
+            if (isMoving) moveQueue.Enqueue(MoveLeft);
             return;
         }
         Vector3 newPosition = currentPosition + Vector3.left * horizontalGridSize + Vector3.forward * verticalGridSize;

@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System;
-using UnityEngine.Rendering.Universal;
 
 public class GameSpeedManager : MonoBehaviour
 {
@@ -16,7 +14,8 @@ public class GameSpeedManager : MonoBehaviour
     private float cameraInitialSpeed;
     private bool gameStarted = false;
 
-    private void Awake()
+
+    private void Start()
     {
         PlayerEvents.OnPlayerFirstMove += PlayerFirstMove;
         playerInitialSpeed = playerMovementHandler.moveDuration;
@@ -25,11 +24,12 @@ public class GameSpeedManager : MonoBehaviour
 
 
     private void PlayerFirstMove(Vector3 position){
+        Debug.Log("Function called");
         if(!gameStarted) gameStarted = true;
         cameraFollow.StartCamera();
-        PlayerEvents.OnPlayerFirstMove -= PlayerFirstMove;
         
         StartCoroutine(IncrementalSpeed()); // Start camera incremental speed
+        PlayerEvents.OnPlayerFirstMove -= PlayerFirstMove;
     }
 
     private IEnumerator IncrementalSpeed()
