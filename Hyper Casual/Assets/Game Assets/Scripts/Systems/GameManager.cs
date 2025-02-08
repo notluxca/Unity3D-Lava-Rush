@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         // enable player movement
     }
 
+    //! Chama DERROTA depois de 2 segundos
     public void onPlayerDied(){
         Invoke("timedLose", 2);
     }

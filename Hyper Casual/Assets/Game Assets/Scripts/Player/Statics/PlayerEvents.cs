@@ -6,9 +6,11 @@ public static class PlayerEvents
     public static event Action<Vector3> OnPlayerMove;
     public static event Action<Vector3> OnPlayerFirstMove;
     public static event Action onPlayerDied;
+    public static event Action onPlayerDiedByPlataformFall;
     public static event Action OnPlayerSwipeLeft;
     public static event Action OnPlayerSwipeRight;
     public static event Action OnPlayerTap;
+
 
     public static void PlayerFirstMove(Vector3 newPosition)
     {
@@ -25,6 +27,11 @@ public static class PlayerEvents
         onPlayerDied?.Invoke();
     }
 
+    public static void PlayerDiedOnPlataformFall()
+    {
+        onPlayerDiedByPlataformFall?.Invoke();
+    }
+
     public static void PlayerSwipe(Vector2 swipeDirection)
     {
         Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;   
@@ -37,8 +44,6 @@ public static class PlayerEvents
             OnPlayerSwipeLeft?.Invoke();
         }
     }
-
-    
     
     public static void PlayerTap()
     {

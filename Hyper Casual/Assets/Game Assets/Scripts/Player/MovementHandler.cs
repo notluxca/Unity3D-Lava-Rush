@@ -60,7 +60,7 @@ public class MovementHandler : MonoBehaviour
         }
         else
         {
-            PlayerEvents.PlayerDied();
+            PlayerEvents.PlayerDied(); // avisa o gamemanager pra chamar o fast lost depois de 2 segundos
             canMove = false;
             return false;
         }
@@ -116,8 +116,11 @@ public class MovementHandler : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
         animationHandler.Play("Idle");
+
         transform.position = newPosition;
         isMoving = false;
+        // yield return new WaitForSeconds(1.5f);
+        // animationHandler.PlayDeathAnimation(); //! Removido, responsabilidade externa
 
         if (moveQueue.Count > 0)
             moveQueue.Dequeue().Invoke();

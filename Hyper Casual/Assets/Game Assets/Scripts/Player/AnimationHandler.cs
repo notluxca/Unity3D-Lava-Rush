@@ -6,6 +6,7 @@ public class AnimationHandler : MonoBehaviour
 
     private void Start() {
         animator = GetComponentInChildren<Animator>();
+        PlayerEvents.onPlayerDiedByPlataformFall += PlayDeathAnimation;
     }
 
     public void Play(string animationName){
@@ -16,7 +17,8 @@ public class AnimationHandler : MonoBehaviour
         // Debug.Log(normalizedTime);
         animator.Play(stateName, layer, normalizedTime);
     }
-    public void PlayDeathJump(){
-        animator.SetTrigger("Jump");
+    
+    public void PlayDeathAnimation(){
+        // animator.Play("DeathAnimation", 0, 1);
     }
 }

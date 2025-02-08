@@ -1,12 +1,15 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using System.Linq;
 
 public class Plataform : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
     [SerializeField] float distanceToFall;
     [SerializeField] Rigidbody rb;
+    [SerializeField] float timeToFall = 0.5f;
+    [SerializeField] float timeToKill;
 
     [Header("Shake Settings")]
     public Transform modelTransform;
@@ -46,10 +49,29 @@ public class Plataform : MonoBehaviour
     }
 
     public IEnumerator Fall(){
-        yield return new WaitForSeconds(1);
-        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+        Vector3 startPosition = transform.position;
+        yield return new WaitForSeconds(timeToFall);
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionY; //* Aplica velocidade para baixo
         rb.linearVelocity = new Vector3(0, -0.002f, 0);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);        
+        CheckPlayerOnPlataform(startPosition); 
         Destroy(gameObject);
-    }
-}   
+        }
+
+
+        // Overlap a box collider to check if player was still on the plataform on the moment of Plataform Fall
+        public void CheckPlayerOnPlataform(Vector3 position){
+            Collider[] hit = Physics.OverlapBox(position, new Vector2(3,3), Quaternion.identity, LayerMask.GetMask("Player"));
+
+            if (hit != null)
+            {
+                Debug.Log("Player Detected on plataform");
+                PlayerEvents.PlayerDiedOnPlataformFall();
+            } else {
+                Debug.Log("Player not detected on plataform");
+            }
+        }
+
+
+}
+
