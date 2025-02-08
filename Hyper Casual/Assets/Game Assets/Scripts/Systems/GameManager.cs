@@ -18,14 +18,18 @@ public class GameManager : MonoBehaviour
     
     private void OnEnable() {
         Application.targetFrameRate = 60;
-        GemCollectable.gemCollected += OnGemCollected;
+        // GemCollectable.gemCollected += OnGemCollected;
         PlayerEvents.onPlayerDied += onPlayerDied;
+    }
+
+    private void OnDisable() {
+        PlayerEvents.onPlayerDied -= onPlayerDied;
     }
 
     private void OnGemCollected()
     {
         currentGems += 1;
-        gemsText.text = currentGems.ToString();
+        // gemsText.text = currentGems.ToString();
     }
 
     void OnGameStart(){
@@ -36,6 +40,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void onPlayerDied(){
+        Invoke("timedLose", 2);
+    }
+
+    public void timedLose(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

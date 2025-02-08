@@ -1,11 +1,18 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class Plataform : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
     [SerializeField] float distanceToFall;
     [SerializeField] Rigidbody rb;
-    
+
+    [Header("Shake Settings")]
+    public Transform modelTransform;
+    public float duration = 0.5f;
+    public float strength = 0.3f;
+    public int vibrato = 10;
+    public float randomness = 90f;
 
     public static event System.Action OnPlataformJump;
     void Start()
@@ -31,6 +38,8 @@ public class Plataform : MonoBehaviour
             Debug.Log($"Player hit the platform {gameObject.name}");
             // GetComponent<Animator>().SetTrigger("Fall");
             OnPlataformJump?.Invoke();
+            modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
+
         }
     }
 

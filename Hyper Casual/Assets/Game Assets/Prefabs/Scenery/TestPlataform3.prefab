@@ -63,7 +63,11 @@ PrefabInstance:
     - target: {fileID: -7635826562936255635, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3b554bcb3f342244d814dcda5c767061, type: 2}
+      objectReference: {fileID: 2100000, guid: 031ffc60100bf6d43a034510dbf608db, type: 2}
+    - target: {fileID: -6400281290468069383, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -2432090755550338912, guid: 47e26899a775706418169d176854f8c8, type: 3}
     - target: {fileID: 919132149155446097, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: m_Name
       value: TestPlataform3
@@ -71,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: m_TagString
       value: Plataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -103,6 +111,11 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   distanceToFall: 60
   rb: {fileID: 0}
+  modelTransform: {fileID: 6807745811407529279}
+  duration: 4
+  strength: 0.2
+  vibrato: 2
+  randomness: 10
 --- !u!65 &3882654170581947145
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -124,3 +137,8 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.242841, y: 1.0853409, z: 4.3111076}
   m_Center: {x: -0.017068546, y: 2.1249127, z: -0.085337006}
+--- !u!4 &6807745811407529279 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1151388028547126963, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
+  m_PrefabInstance: {fileID: 5873668016199775116}
+  m_PrefabAsset: {fileID: 0}

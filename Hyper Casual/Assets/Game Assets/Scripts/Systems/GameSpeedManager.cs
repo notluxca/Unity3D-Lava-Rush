@@ -14,7 +14,6 @@ public class GameSpeedManager : MonoBehaviour
     private float cameraInitialSpeed;
     private bool gameStarted = false;
 
-
     private void Start()
     {
         PlayerEvents.OnPlayerFirstMove += PlayerFirstMove;
@@ -41,9 +40,9 @@ public class GameSpeedManager : MonoBehaviour
             float newPlayerSpeed = playerMovementHandler.moveDuration * speedUpRate;
             float newCameraSpeed = cameraFollow.currentVelocity.z * speedUpRate;
 
-            playerMovementHandler.moveDuration = Mathf.Min(newPlayerSpeed, maxPlayerSpeed);
-            cameraFollow.currentVelocity.z = Mathf.Min(newCameraSpeed, maxCameraSpeed);
-            Debug.Log($"Velocity changed {playerMovementHandler.moveDuration} {cameraFollow.currentVelocity.z}");
+            // playerMovementHandler.moveDuration = Mathf.Min(newPlayerSpeed, maxPlayerSpeed);
+            // cameraFollow.currentVelocity.z = Mathf.Min(newCameraSpeed, maxCameraSpeed);
+            // Debug.Log($"Velocity changed {playerMovementHandler.moveDuration} {cameraFollow.currentVelocity.z}");
         }
     }
 }

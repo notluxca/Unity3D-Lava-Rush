@@ -8,25 +8,26 @@ public class CoinManager : MonoBehaviour
     [SerializeField] TMP_Text gemsText;
 
     private void Start() {
-        CurrentGems = PlayerPrefs.GetInt("Gemstest", 0);
-        UpdateUi();
+        CurrentGems = PlayerPrefs.GetInt("Gems", 0);
+        GameEvents.GemCountChanged(CurrentGems);
+        
     }
 
     private void OnEnable() {
-        GemCollectable.gemCollected += AddCoin;
+        GameEvents.OnGemCollected += AddCoin;
+        //GemCollectable.gemCollected += AddCoin;
     }
 
     private void OnDisable() {
-        GemCollectable.gemCollected -= AddCoin;
+        GameEvents.OnGemCollected -= AddCoin;
+        // GemCollectable.gemCollected -= AddCoin;
     }
 
-    void AddCoin(){
-        CurrentGems += 1;
-        UpdateUi();
+    void AddCoin(int value){
+        CurrentGems += value;
         PlayerPrefs.SetInt("Gems", CurrentGems);
+        GameEvents.GemCountChanged(CurrentGems);
     }
 
-    void UpdateUi(){
-        // gemsText.text = CurrentGems.ToString(); //! update this 
-    }
+    
 }

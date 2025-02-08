@@ -39,7 +39,7 @@ public class MovementHandler : MonoBehaviour
 
     public void Initialize()
     {
-        horizontalGridSize = GameInfo.horizontalGridSize; // Depender de um singleton não é uma boa prática
+        horizontalGridSize = GameInfo.horizontalGridSize; 
         verticalGridSize = GameInfo.verticalGridSize;
         
 
@@ -51,27 +51,33 @@ public class MovementHandler : MonoBehaviour
         PlayerEvents.OnPlayerTap += MoveFront;
     }
 
-    private void CheckJumpPosition(Vector3 position)
+    private bool IsValidJump(Vector3 position)
     {
         if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, 20f))
         {
-            Debug.DrawRay(position, Vector3.down * hit.distance, Color.green, 10);
-            if (!hit.collider.CompareTag("Plataform"))
-                Debug.Log("Movimento ilegal");
-                // canMove = false;
-                // StartCoroutine(FastLost());
-                
+            if (!hit.collider.CompareTag("Plataform")) {}
+            return true;
         }
         else
         {
             PlayerEvents.PlayerDied();
             canMove = false;
+            return false;
         }
     }
 
-
-    private IEnumerator MoveToPosition(Vector3 newPosition)
+    public void Move(Vector3 newPosition)
     {
+        if(IsValidJump(newPosition)){
+            StartCoroutine(MoveToPosition(newPosition, "Jump"));
+        } else {
+            StartCoroutine(MoveToPosition(newPosition, "Jump"));
+        }
+    }
+
+    private IEnumerator MoveToPosition(Vector3 newPosition, string animationName)
+    {
+        newPosition.y = -8.214834f;
         if (!moved)
         {
             moved = true;
@@ -102,7 +108,7 @@ public class MovementHandler : MonoBehaviour
             Vector3 position = Vector3.Lerp(startPosition, newPosition, t);
             position.y = Mathf.Sin(t * Mathf.PI) * jumpHeight + Mathf.Min(startPosition.y, position.y);
             transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
-            animationHandler.PlayRandomJump("Jump", 0, t);
+            animationHandler.PlayRandomJump(animationName, 0, t);
 
             transform.position = position;
             yield return null;
@@ -117,6 +123,8 @@ public class MovementHandler : MonoBehaviour
             moveQueue.Dequeue().Invoke();
     }
 
+    
+
     // Responsavel por dar comando de movimentação ao character enquanto o input é resolvido externamente
     private void MoveLeft(){
         if (!canMove || isMoving) 
@@ -125,8 +133,9 @@ public class MovementHandler : MonoBehaviour
             return;
         }
         Vector3 newPosition = currentPosition + Vector3.left * horizontalGridSize + Vector3.forward * verticalGridSize;
-        CheckJumpPosition(newPosition);
-        StartCoroutine(MoveToPosition(newPosition));
+        // CheckJumpPosition(newPosition); 
+        // StartCoroutine(MoveToPosition(newPosition));
+        Move(newPosition);
     }
 
     private void MoveRight(){
@@ -136,8 +145,9 @@ public class MovementHandler : MonoBehaviour
             return;
         }
         Vector3 newPosition = currentPosition + Vector3.right * horizontalGridSize + Vector3.forward * verticalGridSize;
-        CheckJumpPosition(newPosition);
-        StartCoroutine(MoveToPosition(newPosition));
+        // CheckJumpPosition(newPosition);
+        // StartCoroutine(MoveToPosition(newPosition));
+        Move(newPosition);
     }
 
         public void MoveFront()
@@ -148,8 +158,9 @@ public class MovementHandler : MonoBehaviour
             return;
         }
         Vector3 newPosition = currentPosition + Vector3.forward * verticalGridSize;
-        CheckJumpPosition(newPosition);
-        StartCoroutine(MoveToPosition(newPosition));
+        // CheckJumpPosition(newPosition);
+        // StartCoroutine(MoveToPosition(newPosition));
+        Move(newPosition);
     }
 
     public void VerifyQueueMove(Action function){
