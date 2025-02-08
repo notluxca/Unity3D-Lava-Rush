@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
 
 public class Plataform : MonoBehaviour
 {
@@ -39,12 +40,16 @@ public class Plataform : MonoBehaviour
             // GetComponent<Animator>().SetTrigger("Fall");
             OnPlataformJump?.Invoke();
             modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
+            StartCoroutine(Fall());
 
         }
     }
 
-    public void Fall(){
-        rb.constraints = RigidbodyConstraints.None;
-        rb.linearVelocity = new Vector3(0, -0.8f, 0);
+    public IEnumerator Fall(){
+        yield return new WaitForSeconds(1);
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+        rb.linearVelocity = new Vector3(0, -0.002f, 0);
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }   
