@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        playerInput.HandleInput();
+        // playerInput.HandleInput();
         // speedManager.UpdateSpeed(); //! Player shouldn't be responsabile for managing game speed, create a centralizedClass for that
     }
 }
