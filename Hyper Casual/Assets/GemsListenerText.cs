@@ -15,7 +15,7 @@ public class GemsListenerText : MonoBehaviour
     }
 
     public void UpdateGemsText(int currentGems){
-        Debug.Log("Atualizando gemas");
+        // Debug.Log("Atualizando gemas");
         gemsText.text = currentGems.ToString();
     }
 }

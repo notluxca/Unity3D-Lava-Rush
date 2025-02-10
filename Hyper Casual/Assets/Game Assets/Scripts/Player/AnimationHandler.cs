@@ -9,6 +9,10 @@ public class AnimationHandler : MonoBehaviour
         PlayerEvents.onPlayerDiedByPlataformFall += PlayDeathAnimation;
     }
 
+    private void OnDisable() {
+        PlayerEvents.onPlayerDiedByPlataformFall -= PlayDeathAnimation;
+    }
+
     public void Play(string animationName){
         animator.Play(animationName,0);
     }
@@ -19,6 +23,6 @@ public class AnimationHandler : MonoBehaviour
     }
     
     public void PlayDeathAnimation(){
-        // animator.Play("DeathAnimation", 0, 1);
+        animator.Play("DeathAnimation", 0);
     }
 }

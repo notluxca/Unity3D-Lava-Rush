@@ -11,6 +11,8 @@ public class Plataform : MonoBehaviour
     [SerializeField] float timeToFall = 0.5f;
     [SerializeField] float timeToKill;
 
+    [SerializeField] private bool PlayerOnPlataform = false;
+
     [Header("Shake Settings")]
     public Transform modelTransform;
     public float duration = 0.5f;
@@ -19,6 +21,7 @@ public class Plataform : MonoBehaviour
     public float randomness = 90f;
 
     public static event System.Action OnPlataformJump;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -39,8 +42,9 @@ public class Plataform : MonoBehaviour
         /// <param name="other">The collision object</param>
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Player")){
-            Debug.Log($"Player hit the platform {gameObject.name}");
+            // Debug.Log($"Player hit the platform {gameObject.name}");
             // GetComponent<Animator>().SetTrigger("Fall");
+            PlayerOnPlataform = true;
             OnPlataformJump?.Invoke();
             modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
             StartCoroutine(Fall());
@@ -48,29 +52,49 @@ public class Plataform : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit(Collision other) {
+        if(other.gameObject.CompareTag("Player")){
+            PlayerOnPlataform = true;
+        }
+    }
+
     public IEnumerator Fall(){
         Vector3 startPosition = transform.position;
+        
         yield return new WaitForSeconds(timeToFall);
+        CheckPlayerOnPlataform(startPosition);
         rb.constraints &= ~RigidbodyConstraints.FreezePositionY; //* Aplica velocidade para baixo
         rb.linearVelocity = new Vector3(0, -0.002f, 0);
+        
+        // if(PlayerOnPlataform){
+        //         // Debug.Log(message: "PLAYER HIT");
+        //         // PlayerEvents.PlayerDiedOnPlataformFall();
+        //         // PlayerEvents.PlayerDied();
+        // }
         yield return new WaitForSeconds(1);        
-        CheckPlayerOnPlataform(startPosition); 
         Destroy(gameObject);
-        }
+    }
 
 
-        // Overlap a box collider to check if player was still on the plataform on the moment of Plataform Fall
-        public void CheckPlayerOnPlataform(Vector3 position){
-            Collider[] hit = Physics.OverlapBox(position, new Vector2(3,3), Quaternion.identity, LayerMask.GetMask("Player"));
-
+    // Overlap a box collider to check if player was still on the plataform on the moment of Plataform Fall
+    public void CheckPlayerOnPlataform(Vector3 position){
+            // DebugExtension.DrawBounds(new Bounds(position, new Vector3(0.5f,0.5f,0.5f)), Color.red);
+            Collider[] hit = Physics.OverlapBox(position, new Vector2(0.5f,0.5f), Quaternion.identity, LayerMask.GetMask("Player"));
             if (hit != null)
             {
-                Debug.Log("Player Detected on plataform");
-                PlayerEvents.PlayerDiedOnPlataformFall();
+                
+                Debug.Log("Player detectado durante a queda");
             } else {
-                Debug.Log("Player not detected on plataform");
+                
             }
-        }
+    }
+
+    void OnDrawGizmos()
+    {
+        DebugExtension.DrawBounds(new Bounds(transform.position, new Vector3(0.5f, 0.5f, 0.5f)), Color.red);
+    }
+
+        
 
 
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+
+    private bool canMove = true;
     public Transform player; // Referência ao jogador
     public float smoothSpeed = 0.125f; // Velocidade de suavização
     public float zOffset = -10f; // Deslocamento no eixo Z
@@ -19,7 +21,11 @@ public class CameraFollow : MonoBehaviour
     {
         currentVelocity = initialVelocity;
         // PlayerController.OnPlayerMove += OnPlayerFirstMove;
-        
+        PlayerEvents.onPlayerDied += StopCamera;
+    }
+
+    private void OnDisable() {
+        PlayerEvents.onPlayerDied -= StopCamera;
     }
 
     private void Update()
@@ -53,9 +59,9 @@ public class CameraFollow : MonoBehaviour
 
     public void MoveForward()
     {
-        // Move a câmera para frente com a velocidade atual
-        transform.position += currentVelocity * Time.deltaTime;
+        if(canMove) transform.position += currentVelocity * Time.deltaTime;        
     }
+    private void StopCamera()   {canMove = false;} 
 
    
 

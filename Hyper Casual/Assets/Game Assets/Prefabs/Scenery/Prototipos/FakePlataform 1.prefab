@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 779098882973581148}
   - component: {fileID: 9192860584235751348}
   m_Layer: 0
-  m_Name: FakePlataform
+  m_Name: FakePlataform 1
   m_TagString: Plataform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
