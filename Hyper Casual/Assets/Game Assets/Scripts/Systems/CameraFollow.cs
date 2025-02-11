@@ -4,23 +4,16 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 
+    public Vector3 currentVelocity; // Velocidade atual da câmera
     private bool canMove = true;
-    public Transform player; // Referência ao jogador
+    public bool gameStarted = false;
     public float smoothSpeed = 0.125f; // Velocidade de suavização
     public float zOffset = -10f; // Deslocamento no eixo Z
-
-    public Vector3 initialVelocity; // Velocidade inicial da câmera
-    
-
     public float playerCatchUpSpeedMultiplier = 2f; // Multiplicador de velocidade para alcançar o jogador
-
-    public Vector3 currentVelocity; // Velocidade atual da câmera
-    public bool gameStarted = false;
+    public Transform player; // Referência ao jogador
 
     private void Start()
     {
-        currentVelocity = initialVelocity;
-        // PlayerController.OnPlayerMove += OnPlayerFirstMove;
         PlayerEvents.onPlayerDied += StopCamera;
     }
 
@@ -30,10 +23,10 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        if(gameStarted == false) return; // idle the camera on game start
-        
-        
+        if(gameStarted == false) return; // idle the camera on game start   
         MoveForward(); // move the camera forward
+
+        
         if (player != null)
         {
             // Verifica se o jogador está à frente da câmera
@@ -61,6 +54,7 @@ public class CameraFollow : MonoBehaviour
     {
         if(canMove) transform.position += currentVelocity * Time.deltaTime;        
     }
+
     private void StopCamera()   {canMove = false;} 
 
    

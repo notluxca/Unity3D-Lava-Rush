@@ -60,42 +60,25 @@ public class Plataform : MonoBehaviour
 
     public IEnumerator Fall(){
         Vector3 startPosition = transform.position;
-        
+        StartCoroutine(CheckPlayerDeath(startPosition));
         yield return new WaitForSeconds(timeToFall);
-        CheckPlayerOnPlataform(startPosition);
         rb.constraints &= ~RigidbodyConstraints.FreezePositionY; //* Aplica velocidade para baixo
         rb.linearVelocity = new Vector3(0, -0.002f, 0);
-        
-        // if(PlayerOnPlataform){
-        //         // Debug.Log(message: "PLAYER HIT");
-        //         // PlayerEvents.PlayerDiedOnPlataformFall();
-        //         // PlayerEvents.PlayerDied();
-        // }
         yield return new WaitForSeconds(1);        
         Destroy(gameObject);
     }
 
 
-    // Overlap a box collider to check if player was still on the plataform on the moment of Plataform Fall
-    public void CheckPlayerOnPlataform(Vector3 position){
-            // DebugExtension.DrawBounds(new Bounds(position, new Vector3(0.5f,0.5f,0.5f)), Color.red);
-            Collider[] hit = Physics.OverlapBox(position, new Vector2(0.5f,0.5f), Quaternion.identity, LayerMask.GetMask("Player"));
-            if (hit != null)
-            {
-                
-                Debug.Log("Player detectado durante a queda");
-            } else {
-                
-            }
+
+    // Raycast upwards to check if player is still on the plataform
+    public IEnumerator CheckPlayerDeath(Vector3 position){
+        yield return new WaitForSeconds(timeToKill);
+        RaycastHit hit;
+        Debug.DrawRay(position, Vector3.up * 6.5f, Color.green, 1);
+        if(Physics.Raycast(position, Vector3.up, out hit, 6.5f, LayerMask.GetMask("Player"))){
+                PlayerEvents.PlayerDiedOnPlataformFall();
+                PlayerEvents.PlayerDied();
+        }
     }
-
-    void OnDrawGizmos()
-    {
-        DebugExtension.DrawBounds(new Bounds(transform.position, new Vector3(0.5f, 0.5f, 0.5f)), Color.red);
-    }
-
-        
-
-
 }
 

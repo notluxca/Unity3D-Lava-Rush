@@ -67,14 +67,14 @@ PrefabInstance:
     - target: {fileID: -7635826562936255635, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 031ffc60100bf6d43a034510dbf608db, type: 2}
+      objectReference: {fileID: 2100000, guid: c50b489d6711aad4b90a13b94eaf9372, type: 2}
     - target: {fileID: -6400281290468069383, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -2432090755550338912, guid: 47e26899a775706418169d176854f8c8, type: 3}
     - target: {fileID: 919132149155446097, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: m_Name
-      value: TemplatePlataform
+      value: TemplatePlataform 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: m_TagString
@@ -122,13 +122,13 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   distanceToFall: 60
   rb: {fileID: 0}
-  timeToFall: 0.7
-  timeToKill: 1
+  timeToFall: 0.01
+  timeToKill: 0.5
   PlayerOnPlataform: 0
   modelTransform: {fileID: 6807745811407529279}
-  duration: 4
+  duration: 2
   strength: 0.2
-  vibrato: 2
+  vibrato: 3
   randomness: 10
 --- !u!65 &3882654170581947145
 BoxCollider:
