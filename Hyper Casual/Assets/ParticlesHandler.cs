@@ -27,7 +27,6 @@ public class ParticlesHandler : MonoBehaviour
     public void PlayLavaBurnParticles()
     {
         if (LavaBurnParticles != null) {
-            Debug.Log("Pedindo lava burn particles");
             LavaBurnParticles.Play();
         } else {
             Debug.LogError("LavaBurnParticles não foi atribuído no inspetor!");

@@ -43,8 +43,8 @@ public class MovementHandler : MonoBehaviour
         {
             // Death();
             canMove = false;
-            // Invoke("Death", 0.4f);
-            PlayerEvents.PlayerDied();
+            Invoke("Death", 0.4f);
+            // PlayerEvents.PlayerDied();
             return false;
         }
     }
@@ -114,7 +114,7 @@ public class MovementHandler : MonoBehaviour
             moveQueue.Dequeue().Invoke();
     }
 
-    private IEnumerator MoveAndDie(Vector3 newPosition, string animationName)
+    private IEnumerator MoveAndDie(Vector3 newPosition, string animationName) //! classe duplicada, unificar com MoveToPosition
     {
         newPosition.y = -8.214834f;
         if (!moved)

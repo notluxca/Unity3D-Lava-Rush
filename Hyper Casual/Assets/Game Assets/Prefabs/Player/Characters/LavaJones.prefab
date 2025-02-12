@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 14443122bcacc744cbdd5f6ba4cf6dd1, type: 2}
     - target: {fileID: 643918674334621763, guid: 089702dac19c6bf4f8f3c39f42dcda81, type: 3}
       propertyPath: m_Name
-      value: Character Variant
+      value: LavaJones
       objectReference: {fileID: 0}
     - target: {fileID: 643918674334621763, guid: 089702dac19c6bf4f8f3c39f42dcda81, type: 3}
       propertyPath: m_IsActive

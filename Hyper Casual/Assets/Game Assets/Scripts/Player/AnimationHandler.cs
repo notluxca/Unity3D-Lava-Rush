@@ -7,10 +7,12 @@ public class AnimationHandler : MonoBehaviour
     private void Start() {
         animator = GetComponentInChildren<Animator>();
         PlayerEvents.onPlayerDiedByPlataformFall += PlayDeathAnimation;
+        PlayerEvents.OnCharacterModelChanged += RestartAnimator;
     }
 
     private void OnDisable() {
         PlayerEvents.onPlayerDiedByPlataformFall -= PlayDeathAnimation;
+        PlayerEvents.OnCharacterModelChanged -= RestartAnimator;
     }
 
     public void Play(string animationName){
@@ -24,5 +26,11 @@ public class AnimationHandler : MonoBehaviour
     
     public void PlayDeathAnimation(){
         animator.Play("DeathAnimation", 0);
+    }
+
+    public void RestartAnimator(){
+        animator.Rebind();
+        animator.Update(0f);
+        Play("Idle");
     }
 }
