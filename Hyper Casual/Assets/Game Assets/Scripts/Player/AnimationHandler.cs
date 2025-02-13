@@ -31,6 +31,10 @@ public class AnimationHandler : MonoBehaviour
     public void RestartAnimator(){
         animator.Rebind();
         animator.Update(0f);
-        Play("Idle");
+        
+        animator.enabled = false;
+        animator.enabled = true;
+        // animator.CrossFade("Idle", 0.1f);
+        Debug.Log("Pasei pelo rebind");
     }
 }

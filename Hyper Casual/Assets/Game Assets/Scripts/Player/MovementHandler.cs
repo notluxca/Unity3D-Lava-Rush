@@ -65,7 +65,7 @@ public class MovementHandler : MonoBehaviour
 
     private IEnumerator MoveToPosition(Vector3 newPosition, string animationName)
     {
-        newPosition.y = -8.214834f;
+        newPosition.y = -7.4f;
         if (!moved)
         {
             moved = true;

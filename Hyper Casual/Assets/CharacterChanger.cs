@@ -15,19 +15,19 @@ public class CharacterChanger : MonoBehaviour
     {
         
         Initialize();
-        if (characters.Length > 0)
-        {
-            SetCharacter(0);
-        }
+        // if (characters.Length > 0)
+        // {
+        //     SetCharacter(0);
+        // }
         
-        Destroy(modelFather.transform.GetChild(0).gameObject);
+        // Destroy(modelFather.transform.GetChild(0).gameObject);
     }
 
     public void Initialize(){
         originalScale = modelFather.transform.GetChild(0).transform.localScale;
         originalposition = modelFather.transform.GetChild(0).transform.localPosition;
 
-        Debug.Log($"{originalScale} {originalposition}");        
+        // Debug.Log($"{originalScale} {originalposition}");        
     }
 
     [ContextMenu("Change Character")]
@@ -58,6 +58,8 @@ public class CharacterChanger : MonoBehaviour
         newCharacter.transform.localPosition = Vector3.zero;
         newCharacter.gameObject.name = "Rig";
         PlayerEvents.CharacterModelChanged();
+        an.Rebind();
+        an.Update(0f);
         // newCharacter.transform = baseTransform;
 
     }

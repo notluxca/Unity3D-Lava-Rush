@@ -20,7 +20,7 @@ public class ParticlesHandler : MonoBehaviour
         if (FootStepParticles != null) {
             FootStepParticles.Play();     
         } else {
-            Debug.LogError("FootStepParticles não foi atribuído no inspetor!");
+            // Debug.LogError("FootStepParticles não foi atribuído no inspetor!");
         }
     }
 
@@ -29,7 +29,7 @@ public class ParticlesHandler : MonoBehaviour
         if (LavaBurnParticles != null) {
             LavaBurnParticles.Play();
         } else {
-            Debug.LogError("LavaBurnParticles não foi atribuído no inspetor!");
+            // Debug.LogError("LavaBurnParticles não foi atribuído no inspetor!");
         }
     }
 

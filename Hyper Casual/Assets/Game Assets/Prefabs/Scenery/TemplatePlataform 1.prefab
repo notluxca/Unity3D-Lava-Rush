@@ -122,7 +122,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   distanceToFall: 60
   rb: {fileID: 0}
-  timeToFall: 0.01
+  timeToFall: 0
   timeToKill: 0.5
   PlayerOnPlataform: 0
   modelTransform: {fileID: 6807745811407529279}
