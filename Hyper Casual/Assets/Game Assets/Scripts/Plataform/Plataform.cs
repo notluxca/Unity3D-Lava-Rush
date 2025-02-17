@@ -3,7 +3,8 @@ using DG.Tweening;
 using System.Collections;
 using System.Linq;
 
-public class Plataform : MonoBehaviour
+
+public class Platform : MonoBehaviour, IPlatform
 {
     [SerializeField] Camera mainCamera;
     [SerializeField] float distanceToFall;
@@ -11,7 +12,7 @@ public class Plataform : MonoBehaviour
     [SerializeField] float timeToFall = 0.5f;
     [SerializeField] float timeToKill;
 
-    [SerializeField] private bool PlayerOnPlataform = false;
+    [SerializeField] private bool PlayerOnPlatform = false;
 
     [Header("Shake Settings")]
     public Transform modelTransform;
@@ -20,7 +21,7 @@ public class Plataform : MonoBehaviour
     public int vibrato = 10;
     public float randomness = 90f;
 
-    public static event System.Action OnPlataformJump;
+    public static event System.Action OnPlatformJump;
 
     void Start()
     {
@@ -30,54 +31,46 @@ public class Plataform : MonoBehaviour
     
     void Update()
     {
-        if(transform.position.z + distanceToFall < mainCamera.transform.position.z){
+        if(transform.position.z + distanceToFall < mainCamera.transform.position.z)
+        {
             // Fall();
         }
     }
 
-    public void Jumped(){
-        PlayerOnPlataform = true;
-        OnPlataformJump?.Invoke();
+    public void Jumped()
+    {
+        PlayerOnPlatform = true;
+        OnPlatformJump?.Invoke();
         modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
         StartCoroutine(Fall());
     }
 
-    private void OnCollisionEnter(Collision other) {
-        // if(other.gameObject.CompareTag("Player")){
-        //     // Debug.Log($"Player hit the platform {gameObject.name}");
-        //     PlayerOnPlataform = true;
-        //     OnPlataformJump?.Invoke();
-        //     modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
-        //     StartCoroutine(Fall());
-        // }
-    }
-
-    private void OnCollisionExit(Collision other) {
-        if(other.gameObject.CompareTag("Player")){
-            PlayerOnPlataform = true;
+    private void OnCollisionExit(Collision other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            PlayerOnPlatform = false;
         }
     }
 
-    public IEnumerator Fall(){
+    private IEnumerator Fall()
+    {
         Vector3 startPosition = transform.position;
         StartCoroutine(CheckPlayerDeath(startPosition));
         yield return new WaitForSeconds(timeToFall);
-        rb.constraints &= ~RigidbodyConstraints.FreezePositionY; //* Aplica velocidade para baixo
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
         rb.linearVelocity = new Vector3(0, -0.002f, 0);
-        yield return new WaitForSeconds(1);        
+        yield return new WaitForSeconds(1);
         Destroy(gameObject);
     }
 
-
-
-    // Raycast upwards to check if player is still on the plataform
-    public IEnumerator CheckPlayerDeath(Vector3 position){
+    private IEnumerator CheckPlayerDeath(Vector3 position)
+    {
         yield return new WaitForSeconds(timeToKill);
-        RaycastHit hit;
-        Debug.DrawRay(position, Vector3.up * 6.5f, Color.green, 1);
-        if(Physics.Raycast(position, Vector3.up, out hit, 6.5f, LayerMask.GetMask("Player"))){
-                PlayerEvents.PlayerDiedOnPlataformFall();
-                PlayerEvents.PlayerDied();
+        if (Physics.Raycast(position, Vector3.up, out RaycastHit hit, 6.5f, LayerMask.GetMask("Player")))
+        {
+            PlayerEvents.PlayerDiedOnPlataformFall();
+            PlayerEvents.PlayerDied();
         }
     }
 
@@ -85,5 +78,4 @@ public class Plataform : MonoBehaviour
     {
         modelTransform?.DOKill();
     }
-}
-
+} 

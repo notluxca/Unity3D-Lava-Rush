@@ -22,12 +22,12 @@ public class ScoreManager : MonoBehaviour
         // Atualiza o texto da UI (se houver)
         UpdateUI();
 
-        Plataform.OnPlataformJump += AddScoreNoArgument;
+        Platform.OnPlatformJump += AddScoreNoArgument;
         
     }
 
     private void OnDisable() {
-        Plataform.OnPlataformJump -= AddScoreNoArgument;
+        Platform.OnPlatformJump -= AddScoreNoArgument;
     }
 
   

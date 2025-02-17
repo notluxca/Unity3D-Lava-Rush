@@ -15,7 +15,7 @@ public class MovementHandler : MonoBehaviour
     private Queue<System.Action> moveQueue = new Queue<System.Action>();
     private Vector3 currentPosition;
     private bool isMoving = false;
-    Plataform currentPlataform;
+    IPlatform currentPlataform;
        
     //! Responsabilidades externas
     AnimationHandler animationHandler; // ! Deveria ser removido
@@ -38,7 +38,7 @@ public class MovementHandler : MonoBehaviour
         if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, 20f))
         {
             if (!hit.collider.CompareTag("Plataform")) {}
-            currentPlataform = hit.collider.GetComponent<Plataform>();
+            currentPlataform = hit.collider.GetComponent<IPlatform>();
             return true;
         }
         else

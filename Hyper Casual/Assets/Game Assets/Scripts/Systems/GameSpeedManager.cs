@@ -2,6 +2,15 @@ using UnityEngine;
 using System.Collections;
 using System;
 
+
+[Serializable]
+public class GameSpeedData
+{
+    public float playerSpeed;
+    public float cameraSpeed;
+    public int requiredTiles;
+}
+
 public class GameSpeedManager : MonoBehaviour
 {
     [SerializeField] private MovementHandler _player;
@@ -17,7 +26,7 @@ public class GameSpeedManager : MonoBehaviour
     private void Start()
     {
         PlayerEvents.OnPlayerFirstMove += PlayerFirstMove;
-        Plataform.OnPlataformJump += CheckDificulty;
+        Platform.OnPlatformJump += CheckDificulty;
         _player.moveDuration = playerInitialSpeed;
         _camera.currentVelocity.z = cameraInitialSpeed;
     }
@@ -30,45 +39,14 @@ public class GameSpeedManager : MonoBehaviour
             _camera.currentVelocity.z = gameSpeedDatas[difficultIndex].cameraSpeed;
             Debug.Log("Difficulty changed");
         }
-        // dado um numero de plataformas puladas, aumentar velocidade
-
     }   
-
 
     private void PlayerFirstMove(Vector3 position){
         if(!gameStarted) gameStarted = true;
         _camera.StartCamera();
-        // StartCoroutine(IncrementalSpeed()); 
         PlayerEvents.OnPlayerFirstMove -= PlayerFirstMove; 
         
     }
-
-    // private IEnumerator IncrementalSpeed()
-    // {
-    //     // while (true)
-    //     // {
-            
-
-            
-    //     // }
-    // }
-
     
-    // Smoothly transition between speeds until reaching the desired speed
-    public IEnumerator TransitionBetweenSpeeds(){
-            while (true)
-            {
-                
-
-                
-            }
-    }
 }
 
-[Serializable]
-public class GameSpeedData
-{
-    public float playerSpeed;
-    public float cameraSpeed;
-    public int requiredTiles;
-}
