@@ -35,21 +35,21 @@ public class Plataform : MonoBehaviour
         }
     }
 
-        /// <summary>
-        /// Triggered when the player hits the platform.
-        /// If the player hits the platform, it starts falling.
-        /// </summary>
-        /// <param name="other">The collision object</param>
-    private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.CompareTag("Player")){
-            // Debug.Log($"Player hit the platform {gameObject.name}");
-            // GetComponent<Animator>().SetTrigger("Fall");
-            PlayerOnPlataform = true;
-            OnPlataformJump?.Invoke();
-            modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
-            StartCoroutine(Fall());
+    public void Jumped(){
+        PlayerOnPlataform = true;
+        OnPlataformJump?.Invoke();
+        modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
+        StartCoroutine(Fall());
+    }
 
-        }
+    private void OnCollisionEnter(Collision other) {
+        // if(other.gameObject.CompareTag("Player")){
+        //     // Debug.Log($"Player hit the platform {gameObject.name}");
+        //     PlayerOnPlataform = true;
+        //     OnPlataformJump?.Invoke();
+        //     modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
+        //     StartCoroutine(Fall());
+        // }
     }
 
     private void OnCollisionExit(Collision other) {
@@ -79,6 +79,11 @@ public class Plataform : MonoBehaviour
                 PlayerEvents.PlayerDiedOnPlataformFall();
                 PlayerEvents.PlayerDied();
         }
+    }
+
+    private void OnDestroy()
+    {
+        modelTransform?.DOKill();
     }
 }
 
