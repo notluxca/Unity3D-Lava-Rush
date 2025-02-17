@@ -37,11 +37,11 @@ public static class PlayerEvents
     {
         Vector3 horizontal = swipeDirection.x > 0 ? Vector3.right : Vector3.left;   
         if(horizontal == Vector3.right){
-            Debug.Log("Swipe Right");
+            // Debug.Log("Swipe Right");
             OnPlayerSwipeRight?.Invoke();
         }
         else {
-            Debug.Log("Swipe Left");
+            // Debug.Log("Swipe Left");
             OnPlayerSwipeLeft?.Invoke();
         }
     }

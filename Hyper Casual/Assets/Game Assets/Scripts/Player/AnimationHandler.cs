@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class AnimationHandler : MonoBehaviour
 {
     private Animator animator;
+    public GameObject animationGameobject;
 
     private void Start() {
         animator = GetComponentInChildren<Animator>();
@@ -29,12 +31,18 @@ public class AnimationHandler : MonoBehaviour
     }
 
     public void RestartAnimator(){
+        Debug.Log("Pasei pelo rebind");
         animator.Rebind();
         animator.Update(0f);
-        
-        animator.enabled = false;
-        animator.enabled = true;
         // animator.CrossFade("Idle", 0.1f);
-        Debug.Log("Pasei pelo rebind");
+        Invoke("RestartCharacter", 0.1f);
     }
+    
+    //TODO: we could use a coroutine to wait for the animation to finish while mainting its reference on a object and stopping the restart if another change happens
+    private void RestartCharacter(){
+        animationGameobject.SetActive(false);
+        animationGameobject.SetActive(true);
+    }
+
+    
 }

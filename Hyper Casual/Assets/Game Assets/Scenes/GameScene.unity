@@ -11564,6 +11564,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4187768616007350345, guid: b3abaef8b77ba464db15412470110070, type: 3}
+      propertyPath: animationGameobject
+      value: 
+      objectReference: {fileID: 1929108974}
     - target: {fileID: 7583630042659428437, guid: b3abaef8b77ba464db15412470110070, type: 3}
       propertyPath: m_Name
       value: Player
