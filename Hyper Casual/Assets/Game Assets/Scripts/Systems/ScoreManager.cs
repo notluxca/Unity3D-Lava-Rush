@@ -20,8 +20,7 @@ public class ScoreManager : MonoBehaviour
         LoadHighScore();
 
         // Atualiza o texto da UI (se houver)
-        UpdateUI();
-
+        GameEvents.HighScoreChanged(highScore);
         Platform.OnPlatformJump += AddScoreNoArgument;
         
     }
@@ -29,7 +28,6 @@ public class ScoreManager : MonoBehaviour
     private void OnDisable() {
         Platform.OnPlatformJump -= AddScoreNoArgument;
     }
-
   
     public void AddScore(int points)
     {
@@ -43,10 +41,12 @@ public class ScoreManager : MonoBehaviour
         }
 
         // Atualiza o texto da UI (se houver)
-        UpdateUI();
+        
     }
 
-    public void AddScoreNoArgument()
+
+    // Add score up whenever a plataform jumped event is fired
+    private void AddScoreNoArgument()
     {
         currentScore += 1;
 
@@ -55,10 +55,11 @@ public class ScoreManager : MonoBehaviour
         {
             highScore = currentScore;
             SaveHighScore();
+            
         }
-
+        GameEvents.ScoreChanged(currentScore);
         // Atualiza o texto da UI (se houver)
-        UpdateUI();
+        
     }
 
     
@@ -71,26 +72,9 @@ public class ScoreManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(HIGH_SCORE_KEY, highScore);
         PlayerPrefs.Save();
+        GameEvents.HighScoreChanged(highScore); 
     }
 
-
-    private void UpdateUI()
-    {
-        if (scoreText != null)
-        {
-            scoreText.text = $"{currentScore}";
-        }
-
-        if (highScoreText != null)
-        {
-            highScoreText.text = $"HIGH SCORE: {highScore}";
-        }
-
-        if (MenuhighScoreText != null)
-        {
-            MenuhighScoreText.text = $"HIGH SCORE:\n{highScore}";
-        }
-    }
 
 
     public void ResetHighScore()
@@ -98,8 +82,7 @@ public class ScoreManager : MonoBehaviour
         highScore = 0;
         PlayerPrefs.DeleteKey(HIGH_SCORE_KEY);
 
-        // Atualiza a UI (se houver)
-        UpdateUI();
+
     }
 
     public int GetCurrentScore()
