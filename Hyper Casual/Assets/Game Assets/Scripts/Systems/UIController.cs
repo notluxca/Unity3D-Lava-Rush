@@ -22,6 +22,7 @@ public class UIController : MonoBehaviour
     }
 
 
+    // open ui by click
     public void Switch_UI_group_On(int groupIndex){
         Debug.Log("Switch called");
         for(int i = 0; i < uiGroups.Count; i++){
@@ -40,6 +41,10 @@ public class UIController : MonoBehaviour
 
     public void OpenUrl(string url){
         Application.OpenURL(url);
+    }
+
+    public void CloseUI(){
+        Switch_UI_group_On(0);
     }
 }
 
