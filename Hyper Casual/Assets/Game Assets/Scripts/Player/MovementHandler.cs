@@ -107,6 +107,7 @@ public class MovementHandler : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
         animationHandler.Play("Idle");
         currentPlataform.Jumped();
+        PlayerEvents.PlayerColidedWithPlatform();
 
         transform.position = newPosition;
         isMoving = false;

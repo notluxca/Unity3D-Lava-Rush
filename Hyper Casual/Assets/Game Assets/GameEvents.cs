@@ -7,7 +7,6 @@ public static class GameEvents
     public static event Action<int> OnGemCountChanged;
     public static event Action<int> OnHighScoreChanged;
     public static event Action<int> OnScoreChanged;
-
     public static void GemCollected(int currentGems)
     {
         OnGemCollected?.Invoke(currentGems);
@@ -24,6 +23,10 @@ public static class GameEvents
     
     public static void ScoreChanged(int score){
         OnScoreChanged?.Invoke(score);
+    }
+
+    public static void GameSaved(){
+        //Todo: implementar
     }
 
 

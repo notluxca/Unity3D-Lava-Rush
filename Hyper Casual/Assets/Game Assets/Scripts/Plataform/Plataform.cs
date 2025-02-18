@@ -12,7 +12,7 @@ public class Platform : MonoBehaviour, IPlatform
     [SerializeField] float timeToFall = 0.5f;
     [SerializeField] float timeToKill;
 
-    [SerializeField] private bool PlayerOnPlatform = false;
+    // private bool PlayerOnPlatform = false;
 
     [Header("Shake Settings")]
     public Transform modelTransform;
@@ -39,7 +39,7 @@ public class Platform : MonoBehaviour, IPlatform
 
     public void Jumped()
     {
-        PlayerOnPlatform = true;
+        // PlayerOnPlatform = true;
         OnPlatformJump?.Invoke();
         modelTransform.DOShakePosition(duration, strength, vibrato, randomness);
         StartCoroutine(Fall());
@@ -49,7 +49,7 @@ public class Platform : MonoBehaviour, IPlatform
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            PlayerOnPlatform = false;
+        // PlayerOnPlatform = false;
         }
     }
 

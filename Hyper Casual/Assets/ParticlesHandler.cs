@@ -6,12 +6,12 @@ public class ParticlesHandler : MonoBehaviour
     public ParticleSystem LavaBurnParticles;
 
     private void OnEnable() {
-        CollisionHandler.collidedWithPlataform += PlayFootstepParticles;
+        PlayerEvents.OnPlayerCollidedWithPlatform += PlayFootstepParticles;
         PlayerEvents.onPlayerDiedByPlataformFall += PlayLavaBurnParticles;
     }
 
     private void OnDisable() {
-        CollisionHandler.collidedWithPlataform -= PlayFootstepParticles;
+        PlayerEvents.OnPlayerCollidedWithPlatform -= PlayFootstepParticles;
         PlayerEvents.onPlayerDiedByPlataformFall -= PlayLavaBurnParticles;
     }
     

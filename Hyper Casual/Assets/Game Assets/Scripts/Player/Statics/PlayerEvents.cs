@@ -11,6 +11,7 @@ public static class PlayerEvents
     public static event Action OnPlayerSwipeRight;
     public static event Action OnPlayerTap;
     public static event Action OnCharacterModelChanged;
+    public static event Action OnPlayerCollidedWithPlatform;
 
 
     public static void PlayerFirstMove(Vector3 newPosition)
@@ -53,6 +54,10 @@ public static class PlayerEvents
 
     public static void CharacterModelChanged(){
         OnCharacterModelChanged?.Invoke();
+    }
+
+    public static void PlayerColidedWithPlatform(){
+        OnPlayerCollidedWithPlatform?.Invoke();
     }
 
     
