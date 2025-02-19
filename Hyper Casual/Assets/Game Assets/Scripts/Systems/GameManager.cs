@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,10 +42,11 @@ public class GameManager : MonoBehaviour
 
     //! Chama DERROTA depois de 2 segundos
     public void onPlayerDied(){
-        Invoke("timedLose", 4);
+        
     }
 
-    public void timedLose(){
+    IEnumerator StartDeathProceedure(){
+        yield return new WaitForSeconds(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

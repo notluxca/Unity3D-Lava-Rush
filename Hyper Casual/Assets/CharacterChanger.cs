@@ -48,10 +48,14 @@ public class CharacterChanger : MonoBehaviour
         SetCharacter(currentIndex);
     }
 
-    private void SetCharacter(int index)
+    public void SetCharacter(int index)
     {
         if (characters.Length == 0 || characters[index].model == null) return;
-
+        // Remover o modelo atual se existir
+        if (modelFather.transform.GetChild(0) != null)
+        {
+            Destroy(modelFather.transform.GetChild(0).gameObject);
+        }
         // Criar novo modelo como filho deste GameObject
         GameObject newCharacter = Instantiate(characters[index].model, modelFather.transform);
         newCharacter.transform.localScale = Vector3.one;
