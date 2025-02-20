@@ -11,8 +11,6 @@ public class InputHandler : MonoBehaviour
         playerMovement = GetComponent<MovementHandler>();
     }
 
-
-
     public void HandleTapInput(){
         PlayerEvents.PlayerTap();
     }
@@ -21,29 +19,4 @@ public class InputHandler : MonoBehaviour
         PlayerEvents.PlayerSwipe(swipeDirection);
     }
 
-
-    // public void HandleInput()
-    // {
-    //     if (handleKeyboardInput) HandleKeyboardInput();
-    // }
-
-
-
-    // public void HandleUpInput(){}
-    
-    // public void HandleTapInput(){}
-
-    // public void HandleKeyboardInput(){
-    //     if (Input.GetKeyDown(KeyCode.UpArrow))
-    //         playerMovement.MoveFront();
-    //     else if (Input.GetKeyDown(KeyCode.RightArrow))
-    //         playerMovement.MoveDiagonalWithSwipe(Vector2.one);
-    //     else if (Input.GetKeyDown(KeyCode.LeftArrow))
-    //         playerMovement.MoveDiagonalWithSwipe(new Vector2(-1, 1));
-    // }
-
-
-    // public void HandleTouchInput(){
-    //     // Managing externally using LeanTouch
-    // }
 }
