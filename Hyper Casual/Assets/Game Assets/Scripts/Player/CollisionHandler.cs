@@ -13,7 +13,7 @@ public class CollisionHandler : MonoBehaviour
                 // collidedWithPlataform?.Invoke();
                 break;
             case "Lava":
-                collidedWithLava?.Invoke();
+                collidedWithLava?.Invoke(); //! ninguém esta usando e provavelmente não é muito confiavel 
                 break;
         }
     }

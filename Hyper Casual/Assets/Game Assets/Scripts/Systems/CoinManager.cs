@@ -9,18 +9,15 @@ public class CoinManager : MonoBehaviour
 
     private void Start() {
         CurrentGems = PlayerPrefs.GetInt("Gems", 0);
-        GameEvents.GemCountChanged(CurrentGems);
-        
+        GameEvents.GemCountChanged(CurrentGems);        
     }
 
     private void OnEnable() {
         GameEvents.OnGemCollected += AddCoin;
-        //GemCollectable.gemCollected += AddCoin;
     }
 
     private void OnDisable() {
         GameEvents.OnGemCollected -= AddCoin;
-        // GemCollectable.gemCollected -= AddCoin;
     }
 
     void AddCoin(int value){
@@ -29,5 +26,14 @@ public class CoinManager : MonoBehaviour
         GameEvents.GemCountChanged(CurrentGems);
     }
 
+    public bool HasEnoughGems(int value) => CurrentGems >= value;
+    public int getCurrentGems() => CurrentGems;
+    public void SpendGems(int value){
+        if(HasEnoughGems(value)){
+            CurrentGems -= value;
+            PlayerPrefs.SetInt("Gems", CurrentGems);
+            GameEvents.GemCountChanged(CurrentGems);
+        }
+    }
     
 }

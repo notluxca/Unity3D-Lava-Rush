@@ -8,6 +8,14 @@ public class UIManager : MonoBehaviour
     private UIGroup currentOpenedUi;
     private UIGroup lastOpenedUi;
     private UIController uiController;
+    public CoinManager coinManager;
+    public GameManager gameManager;
+    public TransitionScreen transitionScreen;
+
+    [SerializeField] private GameObject deathRevivePopUp;
+    [SerializeField] private GameObject deathPopUp;
+    [SerializeField] private GameObject buyPopUp;
+    [SerializeField] private GameObject pausePopUp;
 
     private void Awake() {
         uiController = GetComponent<UIController>();
@@ -33,6 +41,37 @@ public class UIManager : MonoBehaviour
     }
     public void OpenPause(){
         uiController.Switch_UI_group_On(6);
+    }
+
+    public void OpenDeathPopUp(){
+        if(coinManager.HasEnoughGems(100)){
+            deathRevivePopUp.SetActive(true);
+        } else OpenDeathScreen();
+    }
+    public void OpenDeathScreen(){
+        deathRevivePopUp.SetActive(false);
+        deathPopUp.SetActive(true);
+    }
+
+
+    public void ReviveButton(){
+        if(coinManager.HasEnoughGems(100)) {
+            coinManager.SpendGems(100);
+            gameManager.RevivePlayer();
+        } else {
+            Debug.Log("Not enough gems");
+            OpenDeathScreen();
+        }
+    }
+
+    public void RestartGameButton(){
+        // call gamemanager
+        transitionScreen.FadeIn();
+        Invoke("RestartGame", 1.5f);
+    }
+
+    public void RestartGame(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 

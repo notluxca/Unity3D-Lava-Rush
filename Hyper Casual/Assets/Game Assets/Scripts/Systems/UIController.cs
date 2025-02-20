@@ -46,5 +46,9 @@ public class UIController : MonoBehaviour
     public void CloseUI(){
         Switch_UI_group_On(0);
     }
+
+    public void OpenPopUp(){
+        
+    }
 }
 

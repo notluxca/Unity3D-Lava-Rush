@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     
-    UIManager uIManager; // will know uiController
+    [SerializeField] UIManager uIManager; // will know uiController
 
     [SerializeField] TMP_Text gemsText; //! outside responsability
     int currentGems;
@@ -42,11 +42,24 @@ public class GameManager : MonoBehaviour
 
     //! Chama DERROTA depois de 2 segundos
     public void onPlayerDied(){
-        
+        StartCoroutine(StartDeathProceedure());    
     }
 
+    public void RevivePlayer(){
+        // takes current position
+        // find a safe landing spot in plataforms in front
+        // move player to that position
+        // enable player movement
+        Debug.Log("Revive called on gamemanager, warn player");
+    }   
+
+    // transform in controllable coroutine
     IEnumerator StartDeathProceedure(){
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //todo: call death ui
+        //todo: wait for choice 
+        //todo: if revive call revive procedure
+        uIManager.OpenDeathPopUp();
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
