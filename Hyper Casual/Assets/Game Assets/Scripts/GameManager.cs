@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     
-    [SerializeField] UIManager uIManager; // will know uiController
+    // [SerializeField] UIManager uIManager; // will know uiController
 
     [SerializeField] TMP_Text gemsText; //! outside responsability
     int currentGems;
@@ -21,10 +21,12 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         // GemCollectable.gemCollected += OnGemCollected;
         PlayerEvents.onPlayerDied += onPlayerDied;
+        PlayerEvents.OnPlayerFirstMove += OnGameStart;
     }
 
     private void OnDisable() {
         PlayerEvents.onPlayerDied -= onPlayerDied;
+        PlayerEvents.OnPlayerFirstMove += OnGameStart;
     }
 
     private void OnGemCollected()
@@ -33,11 +35,8 @@ public class GameManager : MonoBehaviour
         // gemsText.text = currentGems.ToString();
     }
 
-    void OnGameStart(){
-        
-        // start camera movement
-        // turn off initial UI
-        // enable player movement
+    void OnGameStart(Vector3 playerStartMovePosition){
+        UIManager.Instance.OpenUI(GameUIs.GameplayUI);
     }
 
     //! Chama DERROTA depois de 2 segundos
@@ -59,7 +58,8 @@ public class GameManager : MonoBehaviour
         //todo: call death ui
         //todo: wait for choice 
         //todo: if revive call revive procedure
-        uIManager.OpenDeathPopUp();
+        UIManager.Instance.OpenPopUp(UIPopUps.DeathRevive);
+        // uIManager.OpenDeathPopUp();
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
