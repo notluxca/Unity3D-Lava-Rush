@@ -31,6 +31,7 @@ public class MovementHandler : MonoBehaviour
         PlayerEvents.OnPlayerSwipeLeft += MoveLeft;
         PlayerEvents.OnPlayerSwipeRight += MoveRight;
         PlayerEvents.OnPlayerTap += MoveFront;
+        PlayerEvents.onPlayerDiedByPlataformFall += TurnOffMove;
     }
 
     private bool IsValidJump(Vector3 position)
@@ -49,6 +50,11 @@ public class MovementHandler : MonoBehaviour
             // PlayerEvents.PlayerDied();
             return false;
         }
+    }
+
+    private void TurnOffMove(){
+        canMove = false;
+        PlayerEvents.PlayerDied();
     }
 
     public void Death(){
