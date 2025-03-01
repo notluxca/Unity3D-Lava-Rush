@@ -3,52 +3,29 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    public List<UIGroup> uiGroups;
+    public void OpenInitialUI() { UIManager.Instance.OpenUI(GameUIs.InitialUI); }  
 
-    private void Start() {
-        uiGroups = new List<UIGroup>();
-        FindAllUIGroups();
-        PlayerEvents.OnPlayerFirstMove += StartGameplayUi;
-        for(int i = 0; i < uiGroups.Count; i++){
-            if(!uiGroups[i].IsOpen) uiGroups[i].Close();
-        }
-    }
+    public void OpenInventoryUI() { UIManager.Instance.OpenUI(GameUIs.Inventory); }
 
-    private void FindAllUIGroups() {
-        foreach (UIGroup uiGroup in GetComponentsInChildren<UIGroup>())
-        {
-            uiGroups.Add(uiGroup);
-        }
-    }
+    public void OpenShopUI() { UIManager.Instance.OpenUI(GameUIs.ShopUI); }
+
+    public void OpenSettingsUI() { UIManager.Instance.OpenUI(GameUIs.SettingsUI); }
+
+    public void OpenCreditsPopUp() { UIManager.Instance.OpenPopUp(UIPopUps.Credits); }
+
+    public void OpenDeathRevivePopUp() { UIManager.Instance.OpenPopUp(UIPopUps.DeathRevive); }
+
+    public void OpenScorePopUp() { UIManager.Instance.OpenPopUp(UIPopUps.Score); }
+
+    public void OpenUrl(string url) { Application.OpenURL(url); }
+
+    
+    
 
 
-    // open ui by click
-    public void Switch_UI_group_On(int groupIndex){
-        Debug.Log("Switch called");
-        for(int i = 0; i < uiGroups.Count; i++){
-            if(i == groupIndex){
-                uiGroups[i].Open();
-            }else{
-                uiGroups[i].Close();
-            }
-        }
-    }
 
-    public void StartGameplayUi(Vector3 newPosition){
-        Switch_UI_group_On(1);
-        PlayerEvents.OnPlayerFirstMove -= StartGameplayUi;
-    }
 
-    public void OpenUrl(string url){
-        Application.OpenURL(url);
-    }
 
-    public void CloseUI(){
-        Switch_UI_group_On(0);
-    }
 
-    public void OpenPopUp(){
-        
-    }
 }
 

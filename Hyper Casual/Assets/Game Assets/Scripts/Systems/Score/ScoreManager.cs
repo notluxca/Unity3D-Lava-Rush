@@ -9,8 +9,8 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text highScoreText;
     public TMP_Text MenuhighScoreText;
 
-    private int currentScore = 0;  // Pontuação atual
-    private int highScore = 0;    // Melhor pontuação salva
+    private static int currentScore = 0;  // Pontuação atual
+    private static int highScore = 0;    // Melhor pontuação salva
 
     private const string HIGH_SCORE_KEY = "HighScore"; // Chave para o PlayerPrefs
 
@@ -85,13 +85,13 @@ public class ScoreManager : MonoBehaviour
 
     }
 
-    public int GetCurrentScore()
+    public static int GetCurrentScore()
     {
         return currentScore;
     }
 
 
-    public int GetHighScore()
+    public static int GetHighScore()
     {
         return highScore;
     }

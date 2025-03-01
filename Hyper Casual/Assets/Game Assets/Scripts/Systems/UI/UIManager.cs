@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private UIRegistry uiRegistry;
     // [SerializeField] private GameUIs interactableMode = GameUIs.InitialUI;
+    public TransitionScreen transitionScreen;
     
 
     private GameUIs currentUI;
@@ -36,11 +39,16 @@ public class UIManager : MonoBehaviour
             popUps.Add(popup.type, popup.gameObject);
     }
 
+
     public void OpenUI(GameUIs uiType)
     {
         // Desativar UI atual
         if (uiScreens.ContainsKey(currentUI))
             uiScreens[currentUI].SetActive(false);
+
+        // Desativar todos os popups
+        foreach (var popup in popUps.Values)
+            popup.SetActive(false);
 
         // Ativar nova UI
         if (uiScreens.ContainsKey(uiType))
@@ -52,6 +60,10 @@ public class UIManager : MonoBehaviour
 
     public void OpenPopUp(UIPopUps popUpType)
     {
+        // Desativar todos os popups
+        foreach (var popup in popUps.Values)
+            popup.SetActive(false);
+
         if (popUps.ContainsKey(popUpType))
             popUps[popUpType].SetActive(true);
     }
@@ -61,4 +73,22 @@ public class UIManager : MonoBehaviour
         if (popUps.ContainsKey(popUpType))
             popUps[popUpType].SetActive(false);
     }
+
+    public void RestartGame(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
+
+        public void RestartGameButton(){
+        // call gamemanager
+        transitionScreen.FadeIn();
+        Invoke("RestartGame", 1.5f);
+        StartCoroutine(WaitToFadeOut());
+    }
+
+    public IEnumerator WaitToFadeOut(){
+        yield return new WaitForSeconds(1.5f);
+        transitionScreen.FadeOut();
+    }
+
+
 }
+

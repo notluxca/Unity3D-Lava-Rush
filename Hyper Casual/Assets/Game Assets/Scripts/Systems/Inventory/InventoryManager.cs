@@ -16,6 +16,11 @@ public class InventoryManager : MonoBehaviour
     private GameObject currentModelInstance;
 
     public void Start()
+    {   
+        PlayerEvents.OnCharacterLoaded += Initialize;
+    }
+
+    public void Initialize()
     {
         if (ownedCharacters.Count > 0)
         {

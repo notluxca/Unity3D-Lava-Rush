@@ -8,6 +8,7 @@ public class GemsListenerText : MonoBehaviour
     {
         gemsText = GetComponent<TMP_Text>();    
         GameEvents.OnGemCountChanged += UpdateGemsText;
+        gemsText.text = CoinManager.GetCurrentGems().ToString();
     }
 
     private void OnDisable() {

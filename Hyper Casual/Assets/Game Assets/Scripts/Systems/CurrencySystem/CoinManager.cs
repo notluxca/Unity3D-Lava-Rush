@@ -3,13 +3,12 @@ using TMPro;
 
 public class CoinManager : MonoBehaviour
 {
-
-    public int CurrentGems;
+    public static int CurrentGems { get; private set; }
     [SerializeField] TMP_Text gemsText;
 
     private void Start() {
         CurrentGems = PlayerPrefs.GetInt("Gems", 0);
-        GameEvents.GemCountChanged(CurrentGems);        
+        GameEvents.GemCountChanged(CurrentGems);
     }
 
     private void OnEnable() {
@@ -27,7 +26,9 @@ public class CoinManager : MonoBehaviour
     }
 
     public bool HasEnoughGems(int value) => CurrentGems >= value;
-    public int getCurrentGems() => CurrentGems;
+    
+    public static int GetCurrentGems() => CurrentGems;
+    
     public void SpendGems(int value){
         if(HasEnoughGems(value)){
             CurrentGems -= value;
@@ -35,5 +36,4 @@ public class CoinManager : MonoBehaviour
             GameEvents.GemCountChanged(CurrentGems);
         }
     }
-    
 }

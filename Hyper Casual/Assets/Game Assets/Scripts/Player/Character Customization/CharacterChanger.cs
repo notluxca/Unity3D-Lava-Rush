@@ -21,6 +21,7 @@ public class CharacterChanger : MonoBehaviour
         // }
         
         // Destroy(modelFather.transform.GetChild(0).gameObject);
+
     }
 
     public void Initialize(){
@@ -28,6 +29,10 @@ public class CharacterChanger : MonoBehaviour
         originalposition = modelFather.transform.GetChild(0).transform.localPosition;
 
         // Debug.Log($"{originalScale} {originalposition}");        
+    }
+
+    private void OnEnable() {
+        PlayerEvents.CharacterLoaded();
     }
 
     [ContextMenu("Change Character")]

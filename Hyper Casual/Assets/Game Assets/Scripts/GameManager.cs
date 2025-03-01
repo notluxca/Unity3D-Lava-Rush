@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable() {
         PlayerEvents.onPlayerDied -= onPlayerDied;
-        PlayerEvents.OnPlayerFirstMove += OnGameStart;
+        PlayerEvents.OnPlayerFirstMove -= OnGameStart;
     }
 
     private void OnGemCollected()
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     void OnGameStart(Vector3 playerStartMovePosition){
         UIManager.Instance.OpenUI(GameUIs.GameplayUI);
+        Debug.Log("Tried starting game by event");
     }
 
     //! Chama DERROTA depois de 2 segundos

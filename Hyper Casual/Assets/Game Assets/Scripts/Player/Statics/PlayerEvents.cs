@@ -12,6 +12,7 @@ public static class PlayerEvents
     public static event Action OnPlayerTap;
     public static event Action OnCharacterModelChanged;
     public static event Action OnPlayerCollidedWithPlatform;
+    public static event Action OnCharacterLoaded;
 
 
     public static void PlayerFirstMove(Vector3 newPosition)
@@ -60,5 +61,6 @@ public static class PlayerEvents
         OnPlayerCollidedWithPlatform?.Invoke();
     }
 
+    public static void CharacterLoaded() { OnCharacterLoaded?.Invoke(); }
     
 }

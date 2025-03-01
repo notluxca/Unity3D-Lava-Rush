@@ -19,7 +19,6 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayPlataformSound(){
-        Debug.Log("Som solicitado");
         audioSource.Play();
     }
 }
