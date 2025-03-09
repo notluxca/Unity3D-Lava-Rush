@@ -73,12 +73,12 @@ public class MovementHandler : MonoBehaviour
 
     private IEnumerator MoveToPosition(Vector3 newPosition, string animationName)
     {
+        // Debug.Log("MoveToPosition");
         newPosition.y = -7.4f;
         if (!moved)
         {
             moved = true;
             PlayerEvents.PlayerFirstMove(newPosition);
-            Debug.Log("Player First Move");
         } else {
             PlayerEvents.PlayerMoved(newPosition);    
         }
@@ -126,6 +126,7 @@ public class MovementHandler : MonoBehaviour
 
     private IEnumerator MoveAndDie(Vector3 newPosition, string animationName) //! classe duplicada, unificar com MoveToPosition
     {
+        // Debug.Log("MoveAndDie");
         newPosition.y = -8.214834f;
         if (!moved)
         {

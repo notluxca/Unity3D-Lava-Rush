@@ -9,7 +9,7 @@ public class HighscoreTextListener : MonoBehaviour
     {
         _text = GetComponent<TMP_Text>();    
         GameEvents.OnHighScoreChanged += UpdateHighscoreText;
-        _text.text = ScoreManager.GetHighScore().ToString();
+        _text.text = ScoreManager.GetHighScore().ToString();        
     }
 
     private void OnDisable() {

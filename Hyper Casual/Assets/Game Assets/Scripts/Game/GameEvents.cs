@@ -1,12 +1,15 @@
 using System;
 using UnityEngine;
 
+
 public static class GameEvents
 {
+    public static event Action OnSceneLoaded;
     public static event Action<int> OnGemCollected;
     public static event Action<int> OnGemCountChanged;
     public static event Action<int> OnHighScoreChanged;
     public static event Action<int> OnScoreChanged;
+
     public static void GemCollected(int currentGems)
     {
         OnGemCollected?.Invoke(currentGems);
@@ -29,6 +32,9 @@ public static class GameEvents
         //Todo: implementar
     }
 
+    public static void SceneLoaded(){
+        OnSceneLoaded?.Invoke();
+    }
 
 
 }

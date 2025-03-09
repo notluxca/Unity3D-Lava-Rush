@@ -12,32 +12,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text gemsText; //! outside responsability
     int currentGems;
 
-    private void Update() {
-        
-    }
-
-    
     private void OnEnable() {
         Application.targetFrameRate = 60;
-        // GemCollectable.gemCollected += OnGemCollected;
         PlayerEvents.onPlayerDied += onPlayerDied;
         PlayerEvents.OnPlayerFirstMove += OnGameStart;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable() {
         PlayerEvents.onPlayerDied -= onPlayerDied;
         PlayerEvents.OnPlayerFirstMove -= OnGameStart;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnGemCollected()
     {
         currentGems += 1;
-        // gemsText.text = currentGems.ToString();
     }
 
     void OnGameStart(Vector3 playerStartMovePosition){
         UIManager.Instance.OpenUI(GameUIs.GameplayUI);
-        Debug.Log("Tried starting game by event");
+        // Debug.Log("Tried starting game by event");
     }
 
     //! Chama DERROTA depois de 2 segundos
@@ -52,6 +47,11 @@ public class GameManager : MonoBehaviour
         // enable player movement
         Debug.Log("Revive called on gamemanager, warn player");
     }   
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        GameEvents.SceneLoaded();
+    }
 
     // transform in controllable coroutine
     IEnumerator StartDeathProceedure(){

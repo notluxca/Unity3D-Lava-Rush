@@ -14,6 +14,11 @@ public class ScoreManager : MonoBehaviour
 
     private const string HIGH_SCORE_KEY = "HighScore"; // Chave para o PlayerPrefs
 
+    
+    private void Awake() {
+        GameEvents.OnSceneLoaded += ResetCurrentScore;
+    }
+    
     private void OnEnable()
     {
         // Carrega o highscore salvo
@@ -23,10 +28,12 @@ public class ScoreManager : MonoBehaviour
         GameEvents.HighScoreChanged(highScore);
         Platform.OnPlatformJump += AddScoreNoArgument;
         
+        
     }
 
     private void OnDisable() {
         Platform.OnPlatformJump -= AddScoreNoArgument;
+        GameEvents.OnSceneLoaded -= ResetCurrentScore;
     }
   
     public void AddScore(int points)
@@ -42,6 +49,11 @@ public class ScoreManager : MonoBehaviour
 
         // Atualiza o texto da UI (se houver)
         
+    }
+
+    public void ResetCurrentScore(){
+        currentScore = 0;
+        // Debug.Log("Reseting score");
     }
 
 

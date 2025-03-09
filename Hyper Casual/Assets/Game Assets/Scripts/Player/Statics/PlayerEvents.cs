@@ -18,6 +18,7 @@ public static class PlayerEvents
     public static void PlayerFirstMove(Vector3 newPosition)
     {
         OnPlayerFirstMove?.Invoke(newPosition);
+        // Debug.Log("Player First Move");
     }
 
     public static void PlayerMoved(Vector3 newPosition)
