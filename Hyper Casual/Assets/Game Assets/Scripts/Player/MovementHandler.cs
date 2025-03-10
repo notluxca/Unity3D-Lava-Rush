@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MovementHandler : MonoBehaviour
 {
-    // Essential variables
     [SerializeField] private bool canMove = true;
     [SerializeField] public float moveDuration = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -16,9 +15,9 @@ public class MovementHandler : MonoBehaviour
     private Vector3 currentPosition;
     private bool isMoving = false;
     IPlatform currentPlataform;
-       
+    
     //! Responsabilidades externas
-    AnimationHandler animationHandler; // ! Deveria ser removido
+    AnimationHandler animationHandler;
     private bool moved = false;
 
     public void Initialize()
@@ -26,7 +25,7 @@ public class MovementHandler : MonoBehaviour
         horizontalGridSize = GameInfo.horizontalGridSize; 
         verticalGridSize = GameInfo.verticalGridSize;
         currentPosition = transform.position;
-        animationHandler = GetComponent<AnimationHandler>(); //! Responsabilidade externa
+        animationHandler = GetComponent<AnimationHandler>();
 
         PlayerEvents.OnPlayerSwipeLeft += MoveLeft;
         PlayerEvents.OnPlayerSwipeRight += MoveRight;
@@ -42,47 +41,47 @@ public class MovementHandler : MonoBehaviour
             currentPlataform = hit.collider.GetComponent<IPlatform>();
             return true;
         }
-        else
-        {
-            // Death();
-            canMove = false;
-            Invoke("Death", 0.4f);
-            // PlayerEvents.PlayerDied();
-            return false;
-        }
+        return false;
     }
 
-    private void TurnOffMove(){
+    private void TurnOffMove()
+    {
         canMove = false;
         PlayerEvents.PlayerDied();
     }
 
-    public void Death(){
-        PlayerEvents.PlayerDiedOnPlataformFall();
+    public void Death()
+    {
         PlayerEvents.PlayerDied();
     }
 
     public void Move(Vector3 newPosition)
     {
-        if(IsValidJump(newPosition)){
-            StartCoroutine(MoveToPosition(newPosition, "Jump"));
-        } else {
-            StartCoroutine(MoveAndDie(newPosition, "Jump"));
+        if (IsValidJump(newPosition))
+        {
+            StartCoroutine(HandleMovement(newPosition, "Jump", false));
+        }
+        else
+        {
+            canMove = false;
+            Invoke("Death", 0.4f);
+            StartCoroutine(HandleMovement(newPosition, "Jump", true));
         }
     }
 
-    private IEnumerator MoveToPosition(Vector3 newPosition, string animationName)
+    private IEnumerator HandleMovement(Vector3 newPosition, string animationName, bool isDeath)
     {
-        // Debug.Log("MoveToPosition");
-        newPosition.y = -7.4f;
+        newPosition.y = isDeath ? -8.214834f : -7.4f;
+
         if (!moved)
         {
             moved = true;
             PlayerEvents.PlayerFirstMove(newPosition);
-        } else {
-            PlayerEvents.PlayerMoved(newPosition);    
         }
-        
+        else
+        {
+            PlayerEvents.PlayerMoved(newPosition);
+        }
 
         isMoving = true;
         Vector3 startPosition = transform.position;
@@ -111,124 +110,70 @@ public class MovementHandler : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        animationHandler.Play("Idle");
-        currentPlataform.Jumped();
-        PlayerEvents.PlayerColidedWithPlatform();
+        animationHandler.Play(isDeath ? "DeathAnimation" : "Idle");
+
+        if (!isDeath)
+        {
+            currentPlataform.Jumped();
+            PlayerEvents.PlayerColidedWithPlatform();
+        }
 
         transform.position = newPosition;
         isMoving = false;
-        // yield return new WaitForSeconds(1.5f);
-        // animationHandler.PlayDeathAnimation(); //! Removido, responsabilidade externa
 
-        if (moveQueue.Count > 0)
+        if (moveQueue.Count > 0 && canMove) // Só processa a fila se ainda puder se mover
             moveQueue.Dequeue().Invoke();
+        else
+            moveQueue.Clear(); // Limpa a fila caso o movimento anterior tenha sido de morte
+
     }
 
-    private IEnumerator MoveAndDie(Vector3 newPosition, string animationName) //! classe duplicada, unificar com MoveToPosition
+    private void MoveLeft()
     {
-        // Debug.Log("MoveAndDie");
-        newPosition.y = -8.214834f;
-        if (!moved)
-        {
-            moved = true;
-            PlayerEvents.PlayerFirstMove(newPosition);
-            Debug.Log("Player First Move");
-        } else {
-            PlayerEvents.PlayerMoved(newPosition);    
-        }
-        
-
-        isMoving = true;
-        Vector3 startPosition = transform.position;
-        currentPosition = newPosition;
-        float elapsedTime = 0;
-        Quaternion startRotation = Quaternion.Euler(0, 0, 0);
-        transform.rotation = startRotation;
-
-        Vector3 direction = (newPosition - startPosition).normalized;
-        float tiltAngle = direction.x > 0.5f ? 15f : direction.x < -0.5f ? -15f : 0f;
-
-        Quaternion targetRotation = Quaternion.Euler(0, tiltAngle * 3, tiltAngle * 2);
-
-        while (elapsedTime < moveDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / moveDuration;
-
-            Vector3 position = Vector3.Lerp(startPosition, newPosition, t);
-            position.y = Mathf.Sin(t * Mathf.PI) * jumpHeight + Mathf.Min(startPosition.y, position.y);
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
-            animationHandler.PlayRandomJump(animationName, 0, t);
-
-            transform.position = position;
-            yield return null;
-        }
-
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-        animationHandler.Play("DeathAnimation");
-
-        transform.position = newPosition;
-        isMoving = false;
-        // yield return new WaitForSeconds(1.5f);
-        // animationHandler.PlayDeathAnimation(); //! Removido, responsabilidade externa
-
-        if (moveQueue.Count > 0)
-            moveQueue.Dequeue().Invoke();
-    }
-
-    
-
-    // Responsavel por dar comando de movimentação ao character enquanto o input é resolvido externamente
-    private void MoveLeft(){
-        if (!canMove || isMoving) 
+        if (!canMove || isMoving)
         {
             if (isMoving) moveQueue.Enqueue(MoveLeft);
             return;
         }
         Vector3 newPosition = currentPosition + Vector3.left * horizontalGridSize + Vector3.forward * verticalGridSize;
-        // CheckJumpPosition(newPosition); 
-        // StartCoroutine(MoveToPosition(newPosition));
         Move(newPosition);
     }
 
-    private void MoveRight(){
-        if (!canMove || isMoving) 
+    private void MoveRight()
+    {
+        if (!canMove || isMoving)
         {
             if (isMoving) moveQueue.Enqueue(MoveRight);
             return;
         }
         Vector3 newPosition = currentPosition + Vector3.right * horizontalGridSize + Vector3.forward * verticalGridSize;
-        // CheckJumpPosition(newPosition);
-        // StartCoroutine(MoveToPosition(newPosition));
         Move(newPosition);
     }
 
-        public void MoveFront()
+    public void MoveFront()
     {
-        if (!canMove || isMoving) 
+        if (!canMove || isMoving)
         {
             if (isMoving) moveQueue.Enqueue(MoveFront);
             return;
         }
         Vector3 newPosition = currentPosition + Vector3.forward * verticalGridSize;
-        // CheckJumpPosition(newPosition);
-        // StartCoroutine(MoveToPosition(newPosition));
         Move(newPosition);
     }
 
-    public void VerifyQueueMove(Action function){
-        if (!canMove || isMoving) 
+    public void VerifyQueueMove(Action function)
+    {
+        if (!canMove || isMoving)
         {
-            if (isMoving) moveQueue.Enqueue(item: function);
+            if (isMoving) moveQueue.Enqueue(function);
             return;
         }
     }
-    private void OnDisable() {
+
+    private void OnDisable()
+    {
         PlayerEvents.OnPlayerSwipeLeft -= MoveLeft;
         PlayerEvents.OnPlayerSwipeRight -= MoveRight;
         PlayerEvents.OnPlayerTap -= MoveFront;
     }
-
-
 }
-
