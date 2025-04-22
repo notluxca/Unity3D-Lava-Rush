@@ -3,7 +3,13 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    public void OpenInitialUI() { UIManager.Instance.OpenUI(GameUIs.InitialUI); }  
+
+    private void Start()
+    {
+        OpenInitialUI();
+    }
+
+    public void OpenInitialUI() { UIManager.Instance.OpenUI(GameUIs.InitialUI); }
 
     public void OpenInventoryUI() { UIManager.Instance.OpenUI(GameUIs.Inventory); }
 
@@ -19,8 +25,8 @@ public class UIController : MonoBehaviour
 
     public void OpenUrl(string url) { Application.OpenURL(url); }
 
-    
-    
+
+
 
 
 

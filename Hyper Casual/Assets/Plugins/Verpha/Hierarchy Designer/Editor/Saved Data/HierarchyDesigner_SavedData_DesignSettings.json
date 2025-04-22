@@ -13,29 +13,29 @@
     "TreeBranchImageType_T": 0,
     "TreeBranchImageType_TerminalBud": 0,
     "TagColor": {
-        "r": 0.5,
-        "g": 0.5,
-        "b": 0.5,
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
         "a": 1.0
     },
     "TagTextAnchor": 5,
-    "TagFontStyle": 3,
+    "TagFontStyle": 1,
     "TagFontSize": 10,
     "LayerColor": {
-        "r": 0.5,
-        "g": 0.5,
-        "b": 0.5,
+        "r": 0.8392156958580017,
+        "g": 0.18039216101169587,
+        "b": 0.23529411852359773,
         "a": 1.0
     },
     "LayerTextAnchor": 3,
-    "LayerFontStyle": 3,
+    "LayerFontStyle": 1,
     "LayerFontSize": 10,
     "TagLayerOffset": 5,
     "TagLayerSpacing": 5,
     "HierarchyLineColor": {
-        "r": 0.0,
-        "g": 0.0,
-        "b": 0.0,
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
         "a": 0.501960813999176
     },
     "HierarchyLineThickness": 1,
@@ -45,12 +45,12 @@
         "b": 1.0,
         "a": 1.0
     },
-    "FolderDefaultFontSize": 12,
-    "FolderDefaultFontStyle": 0,
+    "FolderDefaultFontSize": 11,
+    "FolderDefaultFontStyle": 1,
     "FolderDefaultImageColor": {
-        "r": 1.0,
-        "g": 1.0,
-        "b": 1.0,
+        "r": 0.8784313797950745,
+        "g": 0.1764705926179886,
+        "b": 0.23529411852359773,
         "a": 1.0
     },
     "FolderDefaultImageType": 0,
@@ -62,10 +62,10 @@
     },
     "SeparatorDefaultIsGradientBackground": false,
     "SeparatorDefaultBackgroundColor": {
-        "r": 0.5,
-        "g": 0.5,
-        "b": 0.5,
-        "a": 1.0
+        "r": 0.8784313797950745,
+        "g": 0.1764705926179886,
+        "b": 0.23529411852359773,
+        "a": 0.9411764740943909
     },
     "SeparatorDefaultBackgroundGradient": {
         "serializedVersion": "2",
@@ -138,10 +138,10 @@
         "m_NumColorKeys": 2,
         "m_NumAlphaKeys": 2
     },
-    "SeparatorDefaultFontSize": 12,
-    "SeparatorDefaultFontStyle": 0,
-    "SeparatorDefaultTextAnchor": 4,
-    "SeparatorDefaultImageType": 0,
+    "SeparatorDefaultFontSize": 11,
+    "SeparatorDefaultFontStyle": 1,
+    "SeparatorDefaultTextAnchor": 3,
+    "SeparatorDefaultImageType": 3,
     "SeparatorLeftSideTextAnchorOffset": 3,
     "SeparatorRightSideTextAnchorOffset": 36,
     "LockColor": {
@@ -151,6 +151,6 @@
         "a": 1.0
     },
     "LockTextAnchor": 4,
-    "LockFontStyle": 3,
+    "LockFontStyle": 1,
     "LockFontSize": 11
 }

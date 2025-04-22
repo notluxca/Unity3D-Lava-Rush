@@ -8,21 +8,21 @@ public class MovementHandler : MonoBehaviour
     [SerializeField] private bool canMove = true;
     [SerializeField] public float moveDuration = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
-    
-    private float horizontalGridSize;
-    private float verticalGridSize;
+
+    public float horizontalGridSize { get; private set; }
+    public float verticalGridSize { get; private set; }
     private Queue<System.Action> moveQueue = new Queue<System.Action>();
     private Vector3 currentPosition;
     private bool isMoving = false;
     IPlatform currentPlataform;
-    
+
     //! Responsabilidades externas
     AnimationHandler animationHandler;
     private bool moved = false;
 
     public void Initialize()
     {
-        horizontalGridSize = GameInfo.horizontalGridSize; 
+        horizontalGridSize = GameInfo.horizontalGridSize;
         verticalGridSize = GameInfo.verticalGridSize;
         currentPosition = transform.position;
         animationHandler = GetComponent<AnimationHandler>();
@@ -37,7 +37,7 @@ public class MovementHandler : MonoBehaviour
     {
         if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, 20f))
         {
-            if (!hit.collider.CompareTag("Plataform")) {}
+            if (!hit.collider.CompareTag("Plataform")) { }
             currentPlataform = hit.collider.GetComponent<IPlatform>();
             return true;
         }
@@ -48,6 +48,11 @@ public class MovementHandler : MonoBehaviour
     {
         canMove = false;
         PlayerEvents.PlayerDied();
+    }
+
+    private void TurnOnMove()
+    {
+        canMove = true;
     }
 
     public void Death()
@@ -64,7 +69,7 @@ public class MovementHandler : MonoBehaviour
         else
         {
             canMove = false;
-            Invoke("Death", 0.4f);
+            Invoke("Death", 0.4f); // delay event call to give time to player fall on lava
             StartCoroutine(HandleMovement(newPosition, "Jump", true));
         }
     }
@@ -175,5 +180,34 @@ public class MovementHandler : MonoBehaviour
         PlayerEvents.OnPlayerSwipeLeft -= MoveLeft;
         PlayerEvents.OnPlayerSwipeRight -= MoveRight;
         PlayerEvents.OnPlayerTap -= MoveFront;
+    }
+
+    public void RevivePlayer()
+    {
+        Vector3 playerDeathPosition = transform.position;
+        playerDeathPosition.z += GameInfo.verticalGridSize; // move up on grid position
+        Vector3 firstRayPos = new Vector3(-GameInfo.verticalGridSize, 0, playerDeathPosition.z);
+        // partindo 
+
+        // find a safe landing spot
+        for (int i = 0; i <= 2; i++)
+        {
+
+            if (Physics.Raycast(firstRayPos, Vector3.down, out RaycastHit hit, 20f))
+            {
+                if (hit.collider.CompareTag("Plataform"))
+                {
+                    hit.collider.gameObject.GetComponent<Platform>().SetFallTime(10);
+                    Vector3 landingPosition = hit.point + Vector3.up * 0.5f; // levar em consideração altura do character
+                    //todo: investigar hitpoint descentralizado
+                    Move(hit.point + new Vector3(1.5f, 0, 0)); //! Esse offset serve para alinhar o player com a plataforma, por algum motivo o hit point é desalinhado
+                    PlayerEvents.PlayerRevived();
+                    canMove = true;
+                    return;
+                }
+            }
+            firstRayPos.x += GameInfo.horizontalGridSize;
+        }
+
     }
 }

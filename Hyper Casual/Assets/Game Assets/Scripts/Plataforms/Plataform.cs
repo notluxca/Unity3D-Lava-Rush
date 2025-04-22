@@ -28,10 +28,10 @@ public class Platform : MonoBehaviour, IPlatform
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
     }
-    
+
     void Update()
     {
-        if(transform.position.z + distanceToFall < mainCamera.transform.position.z)
+        if (transform.position.z + distanceToFall < mainCamera.transform.position.z)
         {
             // Fall();
         }
@@ -47,9 +47,9 @@ public class Platform : MonoBehaviour, IPlatform
 
     private void OnCollisionExit(Collision other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-        // PlayerOnPlatform = false;
+            // PlayerOnPlatform = false;
         }
     }
 
@@ -78,4 +78,6 @@ public class Platform : MonoBehaviour, IPlatform
     {
         modelTransform?.DOKill();
     }
-} 
+
+    public void SetFallTime(float fallTime) => timeToFall = fallTime;
+}

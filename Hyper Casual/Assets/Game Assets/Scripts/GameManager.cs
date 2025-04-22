@@ -6,20 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    
-    // [SerializeField] UIManager uIManager; // will know uiController
 
+    // [SerializeField] UIManager uIManager; // will know uiController
+    [SerializeField] PlayerController playerController;
     [SerializeField] TMP_Text gemsText; //! outside responsability
     int currentGems;
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         Application.targetFrameRate = 60;
         PlayerEvents.onPlayerDied += onPlayerDied;
         PlayerEvents.OnPlayerFirstMove += OnGameStart;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         PlayerEvents.onPlayerDied -= onPlayerDied;
         PlayerEvents.OnPlayerFirstMove -= OnGameStart;
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -30,23 +32,25 @@ public class GameManager : MonoBehaviour
         currentGems += 1;
     }
 
-    void OnGameStart(Vector3 playerStartMovePosition){
+    void OnGameStart(Vector3 playerStartMovePosition)
+    {
         UIManager.Instance.OpenUI(GameUIs.GameplayUI);
         // Debug.Log("Tried starting game by event");
     }
 
     //! Chama DERROTA depois de 2 segundos
-    public void onPlayerDied(){
-        StartCoroutine(StartDeathProceedure());    
+    public void onPlayerDied()
+    {
+        StartCoroutine(StartDeathProceedure());
     }
 
-    public void RevivePlayer(){
-        // takes current position
-        // find a safe landing spot in plataforms in front
-        // move player to that position
-        // enable player movement
-        Debug.Log("Revive called on gamemanager, warn player");
-    }   
+
+    public void RevivePlayer()
+    {
+        UIManager.Instance.ClosePopUp(UIPopUps.DeathRevive);
+
+        playerController.playerMovement.RevivePlayer();
+    }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
@@ -54,13 +58,15 @@ public class GameManager : MonoBehaviour
     }
 
     // transform in controllable coroutine
-    IEnumerator StartDeathProceedure(){
-        yield return new WaitForSeconds(2);
+    IEnumerator StartDeathProceedure()
+    {
         //todo: call death ui
         //todo: wait for choice 
         //todo: if revive call revive procedure
+
+        yield return new WaitForSeconds(2);
         UIManager.Instance.OpenPopUp(UIPopUps.DeathRevive);
-        // uIManager.OpenDeathPopUp();
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+
 }

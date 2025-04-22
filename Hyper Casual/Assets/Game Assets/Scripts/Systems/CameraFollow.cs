@@ -15,18 +15,21 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         PlayerEvents.onPlayerDied += StopCamera;
+        PlayerEvents.onPlayerRevived += ResumeCamera;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         PlayerEvents.onPlayerDied -= StopCamera;
+        PlayerEvents.onPlayerRevived -= ResumeCamera;
     }
 
     private void Update()
     {
-        if(gameStarted == false) return; // idle the camera on game start   
+        if (gameStarted == false) return; // idle the camera on game start   
         MoveForward(); // move the camera forward
 
-        
+
         if (player != null)
         {
             // Verifica se o jogador está à frente da câmera
@@ -46,21 +49,23 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    public void StartCamera(){
+    public void StartCamera()
+    {
         gameStarted = true;
     }
 
     public void MoveForward()
     {
-        if(canMove) transform.position += currentVelocity * Time.deltaTime;        
+        if (canMove) transform.position += currentVelocity * Time.deltaTime;
     }
 
-    private void StopCamera()   {canMove = false;} 
-
-   
-
+    private void StopCamera() { canMove = false; }
+    private void ResumeCamera() { canMove = true; }
 
 
-    
+
+
+
+
 
 }

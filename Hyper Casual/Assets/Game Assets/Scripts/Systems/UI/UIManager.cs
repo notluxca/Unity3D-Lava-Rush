@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIRegistry uiRegistry;
     // [SerializeField] private GameUIs interactableMode = GameUIs.InitialUI;
     public TransitionScreen transitionScreen;
-    
+    GameManager gameManager;
+
 
     private GameUIs currentUI;
     private Dictionary<GameUIs, GameObject> uiScreens;
@@ -18,9 +19,11 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        gameManager = FindAnyObjectByType<GameManager>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
         if (Instance == null)
             Instance = this;
-            
+
         else
         {
             Destroy(gameObject);
@@ -37,6 +40,16 @@ public class UIManager : MonoBehaviour
 
         foreach (var popup in uiRegistry.popUps)
             popUps.Add(popup.type, popup.gameObject);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
+
+    public void RevivePlayerButton()
+    {
+        gameManager.RevivePlayer();
     }
 
 
@@ -74,17 +87,22 @@ public class UIManager : MonoBehaviour
             popUps[popUpType].SetActive(false);
     }
 
-    public void RestartGame(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-        public void RestartGameButton(){
+    public void RestartGameButton()
+    {
         // call gamemanager
+        Debug.Log("blablala");
         transitionScreen.FadeIn();
         Invoke("RestartGame", 1.5f);
         StartCoroutine(WaitToFadeOut());
     }
 
-    public IEnumerator WaitToFadeOut(){
+    public IEnumerator WaitToFadeOut()
+    {
         yield return new WaitForSeconds(1.5f);
         transitionScreen.FadeOut();
     }

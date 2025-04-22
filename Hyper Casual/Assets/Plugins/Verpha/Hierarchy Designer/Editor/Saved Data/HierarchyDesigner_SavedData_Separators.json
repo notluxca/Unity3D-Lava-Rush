@@ -4,29 +4,29 @@
             "Name": "Managers",
             "TextColor": {
                 "r": 1.0,
-                "g": 0.0,
-                "b": 0.0,
+                "g": 1.0,
+                "b": 1.0,
                 "a": 1.0
             },
-            "IsGradientBackground": true,
+            "IsGradientBackground": false,
             "BackgroundColor": {
-                "r": 0.5,
-                "g": 0.5,
-                "b": 0.5,
-                "a": 1.0
+                "r": 0.8784313797950745,
+                "g": 0.1764705926179886,
+                "b": 0.23529411852359773,
+                "a": 0.9411764740943909
             },
             "BackgroundGradient": {
                 "serializedVersion": "2",
                 "key0": {
                     "r": 1.0,
-                    "g": 0.0,
-                    "b": 0.0,
+                    "g": 1.0,
+                    "b": 1.0,
                     "a": 1.0
                 },
                 "key1": {
-                    "r": 0.8962264060974121,
-                    "g": 0.6560239195823669,
-                    "b": 0.0,
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
                     "a": 1.0
                 },
                 "key2": {
@@ -86,10 +86,10 @@
                 "m_NumColorKeys": 2,
                 "m_NumAlphaKeys": 2
             },
-            "FontSize": 13,
-            "FontStyle": 0,
-            "TextAnchor": 4,
-            "ImageType": 10
+            "FontSize": 11,
+            "FontStyle": 1,
+            "TextAnchor": 3,
+            "ImageType": 3
         },
         {
             "Name": "UI Interface",
@@ -101,10 +101,10 @@
             },
             "IsGradientBackground": false,
             "BackgroundColor": {
-                "r": 0.5,
-                "g": 0.5,
-                "b": 0.5,
-                "a": 1.0
+                "r": 0.8784313797950745,
+                "g": 0.1764705926179886,
+                "b": 0.23529411852359773,
+                "a": 0.9411764740943909
             },
             "BackgroundGradient": {
                 "serializedVersion": "2",
@@ -177,10 +177,10 @@
                 "m_NumColorKeys": 2,
                 "m_NumAlphaKeys": 2
             },
-            "FontSize": 12,
-            "FontStyle": 0,
-            "TextAnchor": 4,
-            "ImageType": 0
+            "FontSize": 11,
+            "FontStyle": 1,
+            "TextAnchor": 3,
+            "ImageType": 3
         },
         {
             "Name": "Entities",
@@ -192,10 +192,10 @@
             },
             "IsGradientBackground": false,
             "BackgroundColor": {
-                "r": 0.5,
-                "g": 0.5,
-                "b": 0.5,
-                "a": 1.0
+                "r": 0.8784313797950745,
+                "g": 0.1764705926179886,
+                "b": 0.23529411852359773,
+                "a": 0.9411764740943909
             },
             "BackgroundGradient": {
                 "serializedVersion": "2",
@@ -268,10 +268,10 @@
                 "m_NumColorKeys": 2,
                 "m_NumAlphaKeys": 2
             },
-            "FontSize": 12,
-            "FontStyle": 0,
-            "TextAnchor": 4,
-            "ImageType": 0
+            "FontSize": 11,
+            "FontStyle": 1,
+            "TextAnchor": 3,
+            "ImageType": 3
         },
         {
             "Name": "Scenery 3D",
@@ -283,10 +283,10 @@
             },
             "IsGradientBackground": false,
             "BackgroundColor": {
-                "r": 0.5,
-                "g": 0.5,
-                "b": 0.5,
-                "a": 1.0
+                "r": 0.8784313797950745,
+                "g": 0.1764705926179886,
+                "b": 0.23529411852359773,
+                "a": 0.9411764740943909
             },
             "BackgroundGradient": {
                 "serializedVersion": "2",
@@ -359,10 +359,10 @@
                 "m_NumColorKeys": 2,
                 "m_NumAlphaKeys": 2
             },
-            "FontSize": 12,
-            "FontStyle": 0,
-            "TextAnchor": 4,
-            "ImageType": 0
+            "FontSize": 11,
+            "FontStyle": 1,
+            "TextAnchor": 3,
+            "ImageType": 3
         }
     ]
 }
