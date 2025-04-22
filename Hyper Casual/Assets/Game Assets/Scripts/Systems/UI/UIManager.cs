@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
 
     public void RevivePlayerButton()
     {
-        gameManager.RevivePlayer();
+        if (CoinManager.TrySpendGems(100)) gameManager.RevivePlayer();
     }
 
 

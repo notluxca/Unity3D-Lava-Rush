@@ -6,16 +6,18 @@ public class GemsListenerText : MonoBehaviour
     private TMP_Text gemsText;
     void OnEnable()
     {
-        gemsText = GetComponent<TMP_Text>();    
+        gemsText = GetComponent<TMP_Text>();
         GameEvents.OnGemCountChanged += UpdateGemsText;
-        gemsText.text = CoinManager.GetCurrentGems().ToString();
+        gemsText.text = CoinManager.CurrentGems.ToString();
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         GameEvents.OnGemCountChanged -= UpdateGemsText;
     }
 
-    public void UpdateGemsText(int currentGems){
+    public void UpdateGemsText(int currentGems)
+    {
         // Debug.Log("Atualizando gemas");
         gemsText.text = currentGems.ToString();
     }
