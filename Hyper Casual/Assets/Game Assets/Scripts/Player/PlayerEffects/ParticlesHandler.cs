@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ParticlesHandler : MonoBehaviour
@@ -5,33 +6,41 @@ public class ParticlesHandler : MonoBehaviour
     public ParticleSystem FootStepParticles;
     public ParticleSystem LavaBurnParticles;
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         PlayerEvents.OnPlayerCollidedWithPlatform += PlayFootstepParticles;
         PlayerEvents.onPlayerDiedByPlataformFall += PlayLavaBurnParticles;
+        PlayerEvents.onPlayerDied += PlayLavaBurnParticles;
+        PlayerEvents.onPlayerRevived += TurnOffParticles;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         PlayerEvents.OnPlayerCollidedWithPlatform -= PlayFootstepParticles;
         PlayerEvents.onPlayerDiedByPlataformFall -= PlayLavaBurnParticles;
+        PlayerEvents.onPlayerDied -= PlayLavaBurnParticles;
+        PlayerEvents.onPlayerRevived -= TurnOffParticles;
     }
-    
+
+    private void TurnOffParticles()
+    {
+        Debug.Log("Turn off particles");
+        LavaBurnParticles.Stop();
+    }
+
     public void PlayFootstepParticles()
     {
-        if (FootStepParticles != null) {
-            FootStepParticles.Play();     
-        } else {
-            // Debug.LogError("FootStepParticles não foi atribuído no inspetor!");
+        if (FootStepParticles != null)
+        {
+            FootStepParticles.Play();
         }
     }
 
     public void PlayLavaBurnParticles()
     {
-        if (LavaBurnParticles != null) {
-            LavaBurnParticles.Play();
-        } else {
-            // Debug.LogError("LavaBurnParticles não foi atribuído no inspetor!");
-        }
+        Debug.Log("Paying particles");
+        if (LavaBurnParticles != null) LavaBurnParticles.Play();
     }
 
-    
+
 }

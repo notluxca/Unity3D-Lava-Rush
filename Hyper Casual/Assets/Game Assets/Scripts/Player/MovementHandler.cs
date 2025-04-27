@@ -8,6 +8,7 @@ public class MovementHandler : MonoBehaviour
     [SerializeField] private bool canMove = true;
     [SerializeField] public float moveDuration = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
+    [SerializeField] LayerMask plataformLayerMask;
 
     public float horizontalGridSize { get; private set; }
     public float verticalGridSize { get; private set; }
@@ -15,6 +16,8 @@ public class MovementHandler : MonoBehaviour
     private Vector3 currentPosition;
     private bool isMoving = false;
     IPlatform currentPlataform;
+
+    private bool alreadyDied = false;
 
     //! Responsabilidades externas
     AnimationHandler animationHandler;
@@ -35,9 +38,12 @@ public class MovementHandler : MonoBehaviour
 
     private bool IsValidJump(Vector3 position)
     {
-        if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, 20f))
+
+        Debug.DrawRay(position, Vector3.down * 20f, Color.red, 10f);
+        position.y = 5;
+        if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, 20f, plataformLayerMask))
         {
-            if (!hit.collider.CompareTag("Plataform")) { }
+
             currentPlataform = hit.collider.GetComponent<IPlatform>();
             return true;
         }
@@ -47,7 +53,7 @@ public class MovementHandler : MonoBehaviour
     private void TurnOffMove()
     {
         canMove = false;
-        PlayerEvents.PlayerDied();
+        // PlayerEvents.PlayerDied();
     }
 
     private void TurnOnMove()
@@ -57,6 +63,14 @@ public class MovementHandler : MonoBehaviour
 
     public void Death()
     {
+        CallDeathOnce();
+    }
+
+    // --- centraliza chamada segura de morte ---
+    private void CallDeathOnce()
+    {
+        if (alreadyDied) return;
+        alreadyDied = true;
         PlayerEvents.PlayerDied();
     }
 
@@ -68,6 +82,7 @@ public class MovementHandler : MonoBehaviour
         }
         else
         {
+            Debug.Log("Invalid jump to position: " + newPosition);
             canMove = false;
             Invoke("Death", 0.4f); // delay event call to give time to player fall on lava
             StartCoroutine(HandleMovement(newPosition, "Jump", true));
@@ -184,6 +199,8 @@ public class MovementHandler : MonoBehaviour
 
     public void RevivePlayer()
     {
+        CancelInvoke("Death"); // cancela a morte agendada
+
         Vector3 playerDeathPosition = transform.position;
         playerDeathPosition.z += GameInfo.verticalGridSize; // move up on grid position
         Vector3 firstRayPos = new Vector3(-GameInfo.verticalGridSize, 0, playerDeathPosition.z);
@@ -202,6 +219,7 @@ public class MovementHandler : MonoBehaviour
                     //todo: investigar hitpoint descentralizado
                     Move(hit.point + new Vector3(1.5f, 0, 0)); //! Esse offset serve para alinhar o player com a plataforma, por algum motivo o hit point é desalinhado
                     PlayerEvents.PlayerRevived();
+                    alreadyDied = false; // <-- RESET morte depois do revive
                     canMove = true;
                     return;
                 }

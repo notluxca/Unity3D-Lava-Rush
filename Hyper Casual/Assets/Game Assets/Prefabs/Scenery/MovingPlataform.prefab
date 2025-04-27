@@ -78,7 +78,11 @@ PrefabInstance:
       objectReference: {fileID: -2432090755550338912, guid: 47e26899a775706418169d176854f8c8, type: 3}
     - target: {fileID: 919132149155446097, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: m_Name
-      value: TemplatePlataform
+      value: MovingPlataform
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2e955f302e1dc9b409278036a4dfb445, type: 3}
       propertyPath: m_TagString
@@ -128,7 +132,6 @@ MonoBehaviour:
   rb: {fileID: 0}
   timeToFall: 0.7
   timeToKill: 1
-  PlayerOnPlataform: 0
   modelTransform: {fileID: 6807745811407529279}
   duration: 4
   strength: 0.2

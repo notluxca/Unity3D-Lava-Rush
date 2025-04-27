@@ -16,13 +16,16 @@ public class CoinManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject); // Opcional, se quiser manter entre cenas
+        // DontDestroyOnLoad(gameObject); // Opcional, se quiser manter entre cenas
     }
 
     private void Start()
     {
         CurrentGems = PlayerPrefs.GetInt("Gems", 0);
         GameEvents.GemCountChanged(CurrentGems);
+
+        //! To Remove in Final Version
+        AddCoin(300);
     }
 
     private void OnEnable()
@@ -56,6 +59,7 @@ public class CoinManager : MonoBehaviour
 
     public static bool TrySpendGems(int value)
     {
+        Debug.Log("Trying to spend gems");
         if (!Instance.HasEnoughGems(value)) return false;
 
         Instance.SpendGems(value); // subtrai as gemas aqui

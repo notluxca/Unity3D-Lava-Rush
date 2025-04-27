@@ -6,11 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
-    // [SerializeField] UIManager uIManager; // will know uiController
     [SerializeField] PlayerController playerController;
-    [SerializeField] TMP_Text gemsText; //! outside responsability
+    [SerializeField] TMP_Text gemsText; //! outside responsibility
+    private UIManager uiManager;
     int currentGems;
+
+    private Coroutine deathCoroutine; // <-- guarda a corrotina
+
+    private void Awake()
+    {
+        uiManager = FindAnyObjectByType<UIManager>();
+    }
 
     private void OnEnable()
     {
@@ -34,21 +40,29 @@ public class GameManager : MonoBehaviour
 
     void OnGameStart(Vector3 playerStartMovePosition)
     {
-        UIManager.Instance.OpenUI(GameUIs.GameplayUI);
-        // Debug.Log("Tried starting game by event");
+        uiManager.OpenUI(GameUIs.GameplayUI);
     }
 
     //! Chama DERROTA depois de 2 segundos
     public void onPlayerDied()
     {
-        StartCoroutine(StartDeathProceedure());
-    }
+        Debug.Log("Player Died");
 
+        if (deathCoroutine != null)
+            StopCoroutine(deathCoroutine); // Se já estiver rodando, para ela antes de começar outra.
+
+        deathCoroutine = StartCoroutine(StartDeathProcedure());
+    }
 
     public void RevivePlayer()
     {
-        UIManager.Instance.ClosePopUp(UIPopUps.DeathRevive);
+        if (deathCoroutine != null)
+        {
+            StopCoroutine(deathCoroutine); // Para a coroutine se o player reviver
+            deathCoroutine = null;
+        }
 
+        uiManager.ClosePopUp(UIPopUps.DeathRevive);
         playerController.playerMovement.RevivePlayer();
     }
 
@@ -57,16 +71,10 @@ public class GameManager : MonoBehaviour
         GameEvents.SceneLoaded();
     }
 
-    // transform in controllable coroutine
-    IEnumerator StartDeathProceedure()
+    private IEnumerator StartDeathProcedure()
     {
-        //todo: call death ui
-        //todo: wait for choice 
-        //todo: if revive call revive procedure
-
         yield return new WaitForSeconds(2);
-        UIManager.Instance.OpenPopUp(UIPopUps.DeathRevive);
+        uiManager.OpenPopUp(UIPopUps.DeathRevive);
+        deathCoroutine = null; // Limpa a referência depois que terminar
     }
-
-
 }

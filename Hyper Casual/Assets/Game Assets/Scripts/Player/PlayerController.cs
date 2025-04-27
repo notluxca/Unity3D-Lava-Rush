@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<MovementHandler>();
         playerCollision = GetComponent<CollisionHandler>();
         playerMovement.Initialize();
-        UIManager.Instance.OpenUI(GameUIs.InitialUI);
+        // UIManager.Instance.OpenUI(GameUIs.InitialUI);
     }
 
     private void Update()

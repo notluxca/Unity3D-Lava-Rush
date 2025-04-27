@@ -69,6 +69,7 @@ public class Platform : MonoBehaviour, IPlatform
         yield return new WaitForSeconds(timeToKill);
         if (Physics.Raycast(position, Vector3.up, out RaycastHit hit, 6.5f, LayerMask.GetMask("Player")))
         {
+            Debug.Log("Plataforma matou");
             PlayerEvents.PlayerDiedOnPlataformFall();
             PlayerEvents.PlayerDied();
         }
