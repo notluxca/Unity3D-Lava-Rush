@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Lava
   - Plataform
+  - SafePlataform
   layers:
   - Default
   - TransparentFX

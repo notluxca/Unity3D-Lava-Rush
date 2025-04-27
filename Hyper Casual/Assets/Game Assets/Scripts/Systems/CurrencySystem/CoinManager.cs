@@ -25,7 +25,7 @@ public class CoinManager : MonoBehaviour
         GameEvents.GemCountChanged(CurrentGems);
 
         //! To Remove in Final Version
-        AddCoin(300);
+        SETcoins(600);
     }
 
     private void OnEnable()
@@ -64,5 +64,10 @@ public class CoinManager : MonoBehaviour
 
         Instance.SpendGems(value); // subtrai as gemas aqui
         return true;
+    }
+
+    private void SETcoins(int value)
+    {
+        CurrentGems = value;
     }
 }

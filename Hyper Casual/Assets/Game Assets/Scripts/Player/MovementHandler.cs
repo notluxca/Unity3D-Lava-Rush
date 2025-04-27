@@ -212,13 +212,14 @@ public class MovementHandler : MonoBehaviour
 
             if (Physics.Raycast(firstRayPos, Vector3.down, out RaycastHit hit, 20f))
             {
-                if (hit.collider.CompareTag("Plataform"))
+                if (hit.collider.CompareTag("SafePlataform"))
                 {
                     hit.collider.gameObject.GetComponent<Platform>().SetFallTime(10);
                     Vector3 landingPosition = hit.point + Vector3.up * 0.5f; // levar em consideração altura do character
                     //todo: investigar hitpoint descentralizado
                     Move(hit.point + new Vector3(1.5f, 0, 0)); //! Esse offset serve para alinhar o player com a plataforma, por algum motivo o hit point é desalinhado
                     PlayerEvents.PlayerRevived();
+                    Debug.Log("Reviving player");
                     alreadyDied = false; // <-- RESET morte depois do revive
                     canMove = true;
                     return;

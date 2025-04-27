@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
         uiManager.ClosePopUp(UIPopUps.DeathRevive);
         playerController.playerMovement.RevivePlayer();
+
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
