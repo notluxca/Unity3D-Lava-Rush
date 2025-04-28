@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private UIRegistry uiRegistry;
+    [SerializeField] private GameObject popUpsBackground;
     public TransitionScreen transitionScreen;
     private GameManager gameManager;
 
@@ -42,6 +43,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenUI(GameUIs uiType)
     {
+        popUpsBackground.SetActive(false);
         // Desativar UI atual
         if (uiScreens.ContainsKey(currentUI))
             uiScreens[currentUI].SetActive(false);
@@ -60,6 +62,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenPopUp(UIPopUps popUpType)
     {
+        popUpsBackground.SetActive(true);
         // Desativar todos os popups
         foreach (var popup in popUps.Values)
             popup.SetActive(false);
@@ -70,6 +73,7 @@ public class UIManager : MonoBehaviour
 
     public void ClosePopUp(UIPopUps popUpType)
     {
+        popUpsBackground.SetActive(false);
         if (popUps.ContainsKey(popUpType))
             popUps[popUpType].SetActive(false);
     }

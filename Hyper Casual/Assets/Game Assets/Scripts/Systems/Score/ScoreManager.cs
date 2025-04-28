@@ -14,11 +14,12 @@ public class ScoreManager : MonoBehaviour
 
     private const string HIGH_SCORE_KEY = "HighScore"; // Chave para o PlayerPrefs
 
-    
-    private void Awake() {
+
+    private void Awake()
+    {
         GameEvents.OnSceneLoaded += ResetCurrentScore;
     }
-    
+
     private void OnEnable()
     {
         // Carrega o highscore salvo
@@ -27,18 +28,20 @@ public class ScoreManager : MonoBehaviour
         // Atualiza o texto da UI (se houver)
         GameEvents.HighScoreChanged(highScore);
         Platform.OnPlatformJump += AddScoreNoArgument;
-        
-        
+
+
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         Platform.OnPlatformJump -= AddScoreNoArgument;
         GameEvents.OnSceneLoaded -= ResetCurrentScore;
     }
-  
+
     public void AddScore(int points)
     {
         currentScore += points;
+        GameInfo.Instance.currentSessionScore += points;
 
         // Verifica se a pontuação atual supera o highscore
         if (currentScore > highScore)
@@ -48,10 +51,11 @@ public class ScoreManager : MonoBehaviour
         }
 
         // Atualiza o texto da UI (se houver)
-        
+
     }
 
-    public void ResetCurrentScore(){
+    public void ResetCurrentScore()
+    {
         currentScore = 0;
         // Debug.Log("Reseting score");
     }
@@ -67,14 +71,14 @@ public class ScoreManager : MonoBehaviour
         {
             highScore = currentScore;
             SaveHighScore();
-            
+
         }
         GameEvents.ScoreChanged(currentScore);
         // Atualiza o texto da UI (se houver)
-        
+
     }
 
-    
+
     private void LoadHighScore()
     {
         highScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
@@ -84,7 +88,7 @@ public class ScoreManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(HIGH_SCORE_KEY, highScore);
         PlayerPrefs.Save();
-        GameEvents.HighScoreChanged(highScore); 
+        GameEvents.HighScoreChanged(highScore);
     }
 
 

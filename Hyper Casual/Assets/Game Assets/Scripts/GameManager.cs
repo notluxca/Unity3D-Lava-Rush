@@ -9,9 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] TMP_Text gemsText; //! outside responsibility
     private UIManager uiManager;
-    int currentGems;
 
     private Coroutine deathCoroutine; // <-- guarda a corrotina
+    public int currentSessionGems;
+    public int currentSessionScore;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
         PlayerEvents.onPlayerDied += onPlayerDied;
         PlayerEvents.OnPlayerFirstMove += OnGameStart;
         SceneManager.sceneLoaded += OnSceneLoaded;
+        ClearCurrentSessionStats();
     }
 
     private void OnDisable()
@@ -33,9 +35,11 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnGemCollected()
+    private void ClearCurrentSessionStats()
     {
-        currentGems += 1;
+        Debug.Log("Limpando dados da current session");
+        currentSessionGems = 0;
+        currentSessionScore = 0;
     }
 
     void OnGameStart(Vector3 playerStartMovePosition)

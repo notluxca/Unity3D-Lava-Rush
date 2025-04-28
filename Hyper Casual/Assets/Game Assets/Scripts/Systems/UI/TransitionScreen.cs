@@ -6,14 +6,16 @@ public class TransitionScreen : MonoBehaviour
 
     void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
-    public void FadeIn(){
-        animator.Play("BlackscreenTransition", 0 );
+    public void FadeIn()
+    {
+        animator.Play("BlackscreenTransition", 0);
     }
 
-    public void FadeOut(){
-        animator.Play("FadeOut", 0 );
+    public void FadeOut()
+    {
+        animator.Play("FadeOut", 0);
     }
 }
