@@ -4,34 +4,39 @@ using UnityEngine;
 
 public class CharacterChanger : MonoBehaviour
 {
-    public Character[] characters;
+    private Character[] characters; // lista deve ser alimentada pelo inventory 
     private int currentIndex = 0;
     public GameObject modelFather;
     public Vector3 originalScale;
     public Vector3 originalposition;
     [SerializeField] Animator an;
 
+    private InventoryManager inventoryManager;
+
     private void Start()
     {
-        
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
+        characters = inventoryManager.ownedCharacters.ToArray();
         Initialize();
         // if (characters.Length > 0)
         // {
         //     SetCharacter(0);
         // }
-        
+
         // Destroy(modelFather.transform.GetChild(0).gameObject);
 
     }
 
-    public void Initialize(){
+    public void Initialize()
+    {
         originalScale = modelFather.transform.GetChild(0).transform.localScale;
         originalposition = modelFather.transform.GetChild(0).transform.localPosition;
 
         // Debug.Log($"{originalScale} {originalposition}");        
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         PlayerEvents.CharacterLoaded();
     }
 
@@ -55,6 +60,7 @@ public class CharacterChanger : MonoBehaviour
 
     public void SetCharacter(int index)
     {
+        Debug.Log("Setando e instanciando new character de index: " + index);
         if (characters.Length == 0 || characters[index].model == null) return;
         // Remover o modelo atual se existir
         if (modelFather.transform.GetChild(0) != null)

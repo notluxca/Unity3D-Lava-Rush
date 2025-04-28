@@ -364,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: dab1598a4ce57ad43a603d4e5e30f11f, type: 2}
     - target: {fileID: 919132149155446097, guid: fbf29878c4dcaac46a112b1d3e75047b, type: 3}
       propertyPath: m_Name
-      value: default
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fbf29878c4dcaac46a112b1d3e75047b, type: 3}
       propertyPath: m_Layer
@@ -5836,6 +5836,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHighScore: 0
   currentGems: 0
+  currentSessionGems: 0
+  currentSessionScore: 0
 --- !u!114 &765514939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11454,9 +11456,12 @@ MonoBehaviour:
   - name: Lava Croft
     model: {fileID: 6385624642585181604, guid: f9cd1138b3ddecd40a9c9f102ca80713, type: 3}
     modelImage: {fileID: 21300000, guid: 5237160530dc5ce47b7939b2dfd8ac3f, type: 3}
+  - name: Skeleton
+    model: {fileID: 9158957855507532443, guid: 876d97a050ae96b40ae055d9caf9ceef, type: 3}
+    modelImage: {fileID: 21300000, guid: d4f3fad43899f7a488fcd7e787bbb115, type: 3}
   itemHolderName: {fileID: 8656575787210185248}
   image: {fileID: 4031321853426860908}
-  characterChanger: {fileID: 0}
+  characterChanger: {fileID: 1959369118}
 --- !u!114 &1412906531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16699,6 +16704,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2dc5101442e894b825141a3c7dbdb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1959369118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 621825516941375606, guid: b3abaef8b77ba464db15412470110070, type: 3}
+  m_PrefabInstance: {fileID: 1959369100}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdeb8ea445439c94fbe3efece71e22ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1962516005
 GameObject:
   m_ObjectHideFlags: 0
@@ -18607,9 +18623,9 @@ SceneRoots:
   - {fileID: 2134869800}
   - {fileID: 1959369100}
   - {fileID: 582050825}
+  - {fileID: 63966373}
   - {fileID: 1155776221}
   - {fileID: 293311505}
   - {fileID: 534199758}
   - {fileID: 1380080330}
   - {fileID: 1404862593}
-  - {fileID: 63966373}

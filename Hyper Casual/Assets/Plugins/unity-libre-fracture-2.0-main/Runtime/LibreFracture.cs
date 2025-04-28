@@ -1,5 +1,5 @@
 using UnityEngine;
-using Unity.VisualScripting;
+// using Unity.VisualScripting;
 using NvBlast;
 
 
@@ -21,7 +21,7 @@ namespace LibreFracture
             get
             {
                 var value = LayerMask.NameToLayer(k_FractureLayerName);
-                if(value == -1)
+                if (value == -1)
                 {
                     Debug.LogError($"{k_LogPrefix} No FractureChunk layer has been found. Please add it to the Layers panel.");
                 }
@@ -35,11 +35,11 @@ namespace LibreFracture
         {
             get
             {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
                 return (int)EditorApplication.timeSinceStartup;
-            #else
+#else
                 return (int)Time.realtimeSinceStartup;
-            #endif
+#endif
             }
         }
 
@@ -76,12 +76,12 @@ namespace LibreFracture
             // Fracture mesh in chunks
             var fractureTool = CreateChunks(mesh, parameters);
             NvLogger.Log($"{k_LogPrefix} {gameObject.name} fractured with Chunks count: " + fractureTool.getChunkCount());
-            
+
             // For each mesh chunk
             for (int i = 1; i < fractureTool.getChunkCount(); i++)
             {
                 // Instantiate chunk GameObject
-                GameObject chunk = new GameObject($"{gameObject.name}_Chunk{i-1}");
+                GameObject chunk = new GameObject($"{gameObject.name}_Chunk{i - 1}");
                 chunk.transform.parent = gameObject.transform;
 
                 MeshFilter chunkMeshFilter = chunk.AddComponent<MeshFilter>();
@@ -115,7 +115,7 @@ namespace LibreFracture
                     chunk.AddComponent<ChunkNode>();
                 }
             }
-            
+
             gameObject.transform.SetPositionAndRotation(originalPosition, originalRotation);
             gameObject.transform.localScale = originalScale;
 
@@ -126,7 +126,7 @@ namespace LibreFracture
 
         public static bool IsFracturable(GameObject gameObject)
         {
-            return gameObject.hideFlags != HideFlags.NotEditable && 
+            return gameObject.hideFlags != HideFlags.NotEditable &&
                 gameObject.layer != FractureLayer &&
                 !gameObject.TryGetComponent<ChunkGraphManager>(out _) &&
                 !gameObject.TryGetComponent<ChunkDistancePreview>(out _) &&
@@ -162,7 +162,7 @@ namespace LibreFracture
                     chunkDistancePreview.UpdatePreview(0);
                     GameObject.DestroyImmediate(chunkDistancePreview);
                 }
-                chunk.GetOrAddComponent<ChunkNode>();
+                // chunk.GetOrAddComponent<ChunkNode>();
 
                 CreateColliderForChunk(chunk.gameObject);
             }
@@ -170,12 +170,12 @@ namespace LibreFracture
             //TODO: Consider SkinnedMeshRenderer case
             fracturedObject.GetComponent<MeshRenderer>().enabled = true;
 
-            if(!fracturedObject.TryGetComponent<Collider>(out _))
+            if (!fracturedObject.TryGetComponent<Collider>(out _))
                 fracturedObject.AddComponent<MeshCollider>();
 
-            var fracture = fracturedObject.GetOrAddComponent<ChunkGraphManager>();
-            fracture.jointBreakForce = parameters.jointBreakForce;
-            fracture.totalMass = parameters.totalObjectMass;
+            // var fracture = fracturedObject.GetOrAddComponent<ChunkGraphManager>();
+            // fracture.jointBreakForce = parameters.jointBreakForce;
+            // fracture.totalMass = parameters.totalObjectMass;
 
             fracturedObject.name = fracturedObject.name.Replace("Preview", "");
             fracturedObject.SetActive(true);
@@ -198,15 +198,15 @@ namespace LibreFracture
             NvBlastExtUnity.setSeed(m_Seed);
 
             NvMesh nvMesh = new NvMesh(mesh.vertices,
-                mesh.normals, 
-                mesh.uv, 
-                mesh.vertexCount, 
-                mesh.GetIndices(0), 
+                mesh.normals,
+                mesh.uv,
+                mesh.vertexCount,
+                mesh.GetIndices(0),
                 (int)mesh.GetIndexCount(0));
 
             var sites = parameters.GetFractureSitesGenerator(nvMesh).getSites();
 
-            for(int i = 0; i < sites.Length; i++)
+            for (int i = 0; i < sites.Length; i++)
             {
                 GameObject point = GameObject.Instantiate(pointPrefab, sites[i], Quaternion.identity, pointsRoot.transform);
                 point.hideFlags = HideFlags.NotEditable;

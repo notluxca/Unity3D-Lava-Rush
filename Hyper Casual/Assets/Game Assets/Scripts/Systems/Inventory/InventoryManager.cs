@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    public List<Character> ownedCharacters;
+    public List<Character> ownedCharacters; // lista não é alimentada 
     public TMP_Text itemHolderName;
     public Image image;
     public CharacterChanger characterChanger;
@@ -16,7 +16,7 @@ public class InventoryManager : MonoBehaviour
     private GameObject currentModelInstance;
 
     public void Start()
-    {   
+    {
         PlayerEvents.OnCharacterLoaded += Initialize;
     }
 
@@ -54,11 +54,12 @@ public class InventoryManager : MonoBehaviour
         image.sprite = currentCharacter.modelImage;
 
         // Instancia o modelo associado (caso necessário, ajuste a posição e rotação)
-        currentModelInstance = Instantiate(currentCharacter.model);
-        currentModelInstance.transform.SetParent(image.transform, false);
+        // currentModelInstance = Instantiate(currentCharacter.model);
+        // currentModelInstance.transform.SetParent(image.transform, false);
     }
 
-    public void EquipCharacter(){
+    public void EquipCharacter()
+    {
         characterChanger.SetCharacter(currentCharacterIndex);
         Debug.Log("Trying to set char");
     }
