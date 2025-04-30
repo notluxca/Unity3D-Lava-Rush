@@ -5,11 +5,14 @@ public class PlatformGenerator : MonoBehaviour
     [SerializeField] private GameObject platform;
     [SerializeField] private GameObject fakePlatform;
     [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject SpeedCan;
     [SerializeField] private Transform player;
     [SerializeField] private float generationThreshold = 20f;
     [SerializeField] private float cleanupDistance = 30f;
-    [SerializeField] private float coinSpawnChance = 0.1f;
-    [SerializeField] private float fakePlatformSpawnChance = 0.3f;
+    [SerializeField] private float coinSpawnChance = 0.6f;
+    [SerializeField] private float speedCanSpawnChance = 0.8f;
+
+    [SerializeField] private float fakePlatformSpawnChance = 0.15f;
 
     private float lastSpawnZ;
     private float lastSpawnX;
@@ -48,6 +51,8 @@ public class PlatformGenerator : MonoBehaviour
 
             int randomIndex;
             float xLane = lastSpawnX;
+            bool coinSpawned = false;
+            float randomRangeNum;
 
             if (lastSpawnX == 0)
             {
@@ -92,10 +97,29 @@ public class PlatformGenerator : MonoBehaviour
 
             lastSpawnX = xLane;
 
-            if (Random.value < coinSpawnChance)
+
+            randomRangeNum = Random.Range(0, 100);
+            if (randomRangeNum > 74 && UpgradeController.UpgradeHapenning == false)
             {
+
+                coinSpawned = true;
                 Instantiate(coin, new Vector3(xLane, transform.position.y + 8, lastSpawnZ), Quaternion.identity, platformsParent);
             }
+
+
+            randomRangeNum = Random.Range(0, 100);
+            if (randomRangeNum > 95)
+            {
+                if (coinSpawned) break;
+                // spawn a plataform on the side of the already existing one
+                Instantiate(platformToSpawn, new Vector3(xLane + (Random.value < 0.5f ? -horizontalGridSize : horizontalGridSize),
+                transform.position.y, lastSpawnZ), Quaternion.Euler(0, Random.Range(0f, 360f), 0), platformsParent);
+
+                Instantiate(SpeedCan, new Vector3(xLane, transform.position.y + 8, lastSpawnZ), Quaternion.identity, platformsParent);
+            }
+
+            // Debug.Log(Random.value);
+            coinSpawned = false;
         }
     }
 

@@ -6,7 +6,9 @@ using UnityEngine;
 public class MovementHandler : MonoBehaviour
 {
     [SerializeField] private bool canMove = true;
-    [SerializeField] public float moveDuration = 0.2f;
+
+    [SerializeField] public float baseMoveDuration = 0.2f; // the one that is not interruped by upgrades
+    [SerializeField] public float currentMoveDuration = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] LayerMask plataformLayerMask;
 
@@ -115,10 +117,10 @@ public class MovementHandler : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(0, tiltAngle * 3, tiltAngle * 2);
 
-        while (elapsedTime < moveDuration)
+        while (elapsedTime < currentMoveDuration)
         {
             elapsedTime += Time.deltaTime;
-            float t = elapsedTime / moveDuration;
+            float t = elapsedTime / currentMoveDuration;
 
             Vector3 position = Vector3.Lerp(startPosition, newPosition, t);
             position.y = Mathf.Sin(t * Mathf.PI) * jumpHeight + Mathf.Min(startPosition.y, position.y);

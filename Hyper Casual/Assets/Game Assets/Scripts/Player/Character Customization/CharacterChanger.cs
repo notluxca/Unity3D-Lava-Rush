@@ -18,6 +18,7 @@ public class CharacterChanger : MonoBehaviour
         inventoryManager = FindAnyObjectByType<InventoryManager>();
         characters = inventoryManager.ownedCharacters.ToArray();
         Initialize();
+        // SetCharacter(1); // force character to be Lava Croft at first
         // if (characters.Length > 0)
         // {
         //     SetCharacter(0);

@@ -1,15 +1,15 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class CollectableItem : MonoBehaviour, ICollectable
 {
 
     public Vector3 rotVector;
-    
+
     public virtual void OnCollect()
     {
         // Comportamento padrão ao coletar
-        Debug.Log($"{gameObject.name} coletado!");
-        
+        // Debug.Log($"{gameObject.name} coletado!");
         // Exemplo: Desativar o objeto após a coleta ou colocar ele de volta em uma pool
         gameObject.SetActive(false);
     }
@@ -22,7 +22,8 @@ public class CollectableItem : MonoBehaviour, ICollectable
         }
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         transform.Rotate(rotVector * Time.deltaTime * 20f);
     }
 }
