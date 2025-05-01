@@ -37,6 +37,7 @@ public class GameSpeedManager : MonoBehaviour
     public void CheckDificulty()
     {
         tiles += 1;
+        if (difficultIndex >= gameSpeedDatas.Length) return;
         if (tiles >= gameSpeedDatas[difficultIndex].requiredTiles)
         {
             difficultIndex++;
@@ -66,8 +67,8 @@ public class GameSpeedManager : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Label(new Rect(10, 30, 1500, 300), "<size=50>Current Speed: " + _player.currentMoveDuration + "</size>");
-        GUI.Label(new Rect(10, 75, 1500, 300), "<size=50>Stage Player Speed: " + _player.baseMoveDuration + "</size> <size=25> - Controlled by game</size>");
+        // GUI.Label(new Rect(10, 30, 1500, 300), "<size=50>Current Speed: " + _player.currentMoveDuration + "</size>");
+        // GUI.Label(new Rect(10, 75, 1500, 300), "<size=50>Stage Player Speed: " + _player.baseMoveDuration + "</size> <size=25> - Controlled by game</size>");
     }
 
 }

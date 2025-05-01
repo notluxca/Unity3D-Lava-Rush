@@ -16,6 +16,11 @@ public class TouchIndicatorController : MonoBehaviour
         CheckPlataformPosition();
     }
 
+    private void OnEnable()
+    {
+        CheckPlataformPosition();
+    }
+
 
 
     private void CheckPlataformPosition()

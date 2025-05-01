@@ -5651,14 +5651,13 @@ MonoBehaviour:
   platform: {fileID: 6719964522958032605, guid: 55e713997908d9148b9e6be7c1979705, type: 3}
   fakePlatform: {fileID: 6719964522958032605, guid: 0ba81e0c35b8f98428afac8d981066fd, type: 3}
   coin: {fileID: 1466195819044254397, guid: 33230bcf33f29734498a6c33874b854b, type: 3}
-  speedCan: {fileID: 677543315559001867, guid: 9274ccfa7d80c1a4ca46ba4aef0b9883, type: 3}
+  SpeedCan: {fileID: 0}
   player: {fileID: 887710929}
+  generationThreshold: 181.4
+  cleanupDistance: 100
   coinSpawnChance: 0.512
   speedCanSpawnChance: 0.181
   fakePlatformSpawnChance: 0.3
-  generationThreshold: 181.4
-  cleanupDistance: 100
-  maxStraightSafePath: 3
 --- !u!96 &758329955
 TrailRenderer:
   serializedVersion: 3
@@ -5863,6 +5862,12 @@ MonoBehaviour:
   - playerSpeed: 0.2
     cameraSpeed: 35
     requiredTiles: 135
+  - playerSpeed: 0.17
+    cameraSpeed: 35
+    requiredTiles: 150
+  - playerSpeed: 0.17
+    cameraSpeed: 35
+    requiredTiles: 10000
   playerInitialSpeed: 0.35
   cameraInitialSpeed: 8
 --- !u!1001 &773050810
@@ -7756,12 +7761,12 @@ RectTransform:
   - {fileID: 1839430836}
   - {fileID: 2117313610}
   - {fileID: 676793814}
-  m_Father: {fileID: 1412906527}
+  m_Father: {fileID: 1464450783}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1080, y: 2280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &935070582
 MonoBehaviour:
@@ -11992,7 +11997,6 @@ RectTransform:
   - {fileID: 100822358}
   - {fileID: 97030151}
   - {fileID: 1464450783}
-  - {fileID: 935070581}
   m_Father: {fileID: 681853423}
   m_LocalEulerAnglesHint: {x: 0.177, y: 0.212, z: -0.021}
   m_AnchorMin: {x: 0, y: 0}
@@ -12675,6 +12679,7 @@ RectTransform:
   - {fileID: 1705771795}
   - {fileID: 194783176}
   - {fileID: 1009738676}
+  - {fileID: 935070581}
   m_Father: {fileID: 1412906527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
