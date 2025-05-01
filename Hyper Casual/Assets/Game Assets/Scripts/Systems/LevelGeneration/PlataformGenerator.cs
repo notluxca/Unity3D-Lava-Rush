@@ -107,16 +107,16 @@ public class PlatformGenerator : MonoBehaviour
             }
 
 
-            randomRangeNum = Random.Range(0, 100);
-            if (randomRangeNum > 95)
-            {
-                if (coinSpawned) break;
-                // spawn a plataform on the side of the already existing one
-                Instantiate(platformToSpawn, new Vector3(xLane + (Random.value < 0.5f ? -horizontalGridSize : horizontalGridSize),
-                transform.position.y, lastSpawnZ), Quaternion.Euler(0, Random.Range(0f, 360f), 0), platformsParent);
+            // randomRangeNum = Random.Range(0, 100);
+            // if (randomRangeNum > 95)
+            // {
+            //     if (coinSpawned) break;
+            //     // spawn a plataform on the side of the already existing one
+            //     Instantiate(platformToSpawn, new Vector3(xLane + (Random.value < 0.5f ? -horizontalGridSize : horizontalGridSize),
+            //     transform.position.y, lastSpawnZ), Quaternion.Euler(0, Random.Range(0f, 360f), 0), platformsParent);
 
-                Instantiate(SpeedCan, new Vector3(xLane, transform.position.y + 8, lastSpawnZ), Quaternion.identity, platformsParent);
-            }
+            //     Instantiate(SpeedCan, new Vector3(xLane, transform.position.y + 8, lastSpawnZ), Quaternion.identity, platformsParent);
+            // }
 
             // Debug.Log(Random.value);
             coinSpawned = false;

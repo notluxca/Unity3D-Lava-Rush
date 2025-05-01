@@ -231,4 +231,10 @@ public class MovementHandler : MonoBehaviour
         }
 
     }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(10, 450, 1500, 300), $"<size=50>CAN MOVE: {canMove}");
+
+    }
 }

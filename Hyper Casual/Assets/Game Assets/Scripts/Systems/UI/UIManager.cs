@@ -38,7 +38,10 @@ public class UIManager : MonoBehaviour
     public void RevivePlayerButton()
     {
         if (CoinManager.TrySpendGems(100))
+        {
             gameManager.RevivePlayer();
+            gameManager.hasRevived = true;
+        }
     }
 
     public void OpenUI(GameUIs uiType)

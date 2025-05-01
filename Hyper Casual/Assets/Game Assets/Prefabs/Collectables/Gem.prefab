@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotVector: {x: 0.1, y: 4, z: 0}
+  billboardPrefab: {fileID: 4022747880603823509, guid: 5769cfc757c8e094eafd617d7c544bf6, type: 3}
 --- !u!114 &580969901427870358
 MonoBehaviour:
   m_ObjectHideFlags: 0

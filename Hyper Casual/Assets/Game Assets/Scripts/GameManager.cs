@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private Coroutine deathCoroutine; // <-- guarda a corrotina
     public int currentSessionGems;
     public int currentSessionScore;
+    public bool hasRevived = false;
 
     private void Awake()
     {
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Limpando dados da current session");
         currentSessionGems = 0;
         currentSessionScore = 0;
+        hasRevived = false;
     }
 
     void OnGameStart(Vector3 playerStartMovePosition)
@@ -79,7 +81,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartDeathProcedure()
     {
         yield return new WaitForSeconds(2);
-        uiManager.OpenPopUp(UIPopUps.DeathRevive);
+
+        if (hasRevived) // Confirma se o player já reviveu nessa sessão
+            uiManager.OpenPopUp(UIPopUps.Score);
+        else
+            uiManager.OpenPopUp(UIPopUps.DeathRevive);
+
         deathCoroutine = null; // Limpa a referência depois que terminar
     }
 }

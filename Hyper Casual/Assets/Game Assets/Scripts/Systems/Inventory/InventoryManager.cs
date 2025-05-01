@@ -70,8 +70,8 @@ public class InventoryManager : MonoBehaviour
         itemHolderName.text = currentCharacter.name;
         image.sprite = currentCharacter.modelImage;
 
-        if (currentCharacterIndex == currentEquipedCharIndex) buttonText.SetText("Equipado");
-        else buttonText.SetText("Equipar");
+        if (currentCharacterIndex == currentEquipedCharIndex) buttonText.SetText("EQUIPADO");
+        else buttonText.SetText("EQUIPAR");
         // Instancia o modelo associado (caso necessário, ajuste a posição e rotação)
         // currentModelInstance = Instantiate(currentCharacter.model);
         // currentModelInstance.transform.SetParent(image.transform, false);
@@ -82,6 +82,6 @@ public class InventoryManager : MonoBehaviour
         characterChanger.SetCharacter(currentCharacterIndex);
         currentEquipedCharIndex = currentCharacterIndex;
 
-        buttonText.SetText("Equipado");
+        buttonText.SetText("EQUIPADO");
     }
 }
