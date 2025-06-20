@@ -4,7 +4,7 @@
 
 # Lava Rush 🔥🏃‍♂️
 
-**Lava Rush** é um jogo mobile casual onde você precisa correr pela sua vida… literalmente!
+**Lava Rush** é um jogo mobile casual onde você precisa correr pela sua vida… ou melhor, Pular!!!
 
 O objetivo é simples (mas sobreviver nem tanto): pule de tile em tile enquanto a lava sobe e a câmera acelera. Cada segundo conta, cada salto pode ser o último.
 
