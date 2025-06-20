@@ -42,7 +42,7 @@ O objetivo é simples (mas sobreviver nem tanto): pule de tile em tile enquanto 
 ## 🛠️ Tecnologias usadas:
 
 - **Unity 3D**  
-- **Visual Studio Code **
+- **Visual Studio Code**
 - **Git - Sourcetree - Github Desktop**  
 
 ---
