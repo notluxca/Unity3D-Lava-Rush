@@ -26,10 +26,10 @@ O objetivo é simples (mas sobreviver nem tanto): pule de tile em tile enquanto 
   Cada partida é única. Tiles surgem de forma dinâmica enquanto você corre.
 
 - **Sistema de personagens customizáveis**  
-  Colete moedas e desbloqueie novos personagens.
+  Teste diferentes personagens e escolha oque gostar mais.
 
 - **Moedas e Coletáveis (Currency & Collectables)**  
-  Colete gemas durante a corrida para desbloquear upgrades.
+  Colete gemas durante a corrida para desbloquear novos personagens.
 
 - **Sistema de perks e melhorias**  
   Velocidade extra quando o jogador encontra a latinha de energético
